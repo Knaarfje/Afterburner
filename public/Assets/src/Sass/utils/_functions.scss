@@ -1,0 +1,31 @@
+﻿@function opposite-direction($directions) {
+  $opposite-directions: ();
+  $direction-map: (
+    'top': 'bottom',
+    'right': 'left',
+    'bottom': 'top',
+    'left': 'right',
+    'ltr': 'rtl',
+    'rtl': 'ltr'
+  );
+ 
+  @each $direction in $directions {
+    $opposite-direction: map-get($direction-map, $direction);
+    @if $opposite-direction != null { 
+      $opposite-directions: append($opposite-directions, #{$opposite-direction});
+    }
+    @else {
+      @warn "No opposite direction can be found for `#{$direction}`.";
+    }
+  }
+ 
+  @return $opposite-directions;
+}
+
+@function bp-steps($begin, $end, $steps) {
+    @return ($end - $begin) / $steps;
+} 
+
+@function gray($value) {
+    @return mix(black, white, ($value * 100));
+}

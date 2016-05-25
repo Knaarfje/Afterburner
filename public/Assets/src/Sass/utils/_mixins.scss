@@ -1,0 +1,287 @@
+﻿// Breakpoints usage:
+// 
+// First argument: bp width
+// Second argument optional: min- or maxwidth (default min)
+//
+// example:
+//
+//  .bptest {
+//    @include bp($screen-md) {
+//      color: red;
+//    }
+//  }
+//
+// (c) christian wijnia
+@mixin bp($width, $minmax: min) {
+  @media screen and (#{$minmax}-width: $width) {
+      @content;
+  }
+}
+
+//The Chris Grid
+@mixin grid-row($col-gutter: 0) {
+	@include clearfix;
+	margin-left:-$col-gutter / 2;
+	margin-right:-$col-gutter / 2;
+}
+@mixin grid-col($col-span:6, $col-total:12, $col-gutter: 0){
+	width:percentage($col-span / $col-total);
+	float:left;
+	padding-left:$col-gutter / 2;
+	padding-right:$col-gutter / 2;
+}
+
+// Position
+@mixin abs($top: 0, $right: $top, $bottom: $top, $left: $top) {
+  position:absolute;
+  top:$top; right:$right; bottom:$bottom; left:$left;
+}
+
+@mixin fxd($top:0, $right: $top, $bottom: $top, $left: $top) {
+  position:fixed;
+  top:$top; right:$right; bottom:$bottom; left:$left;
+}
+
+@mixin hide-fake {
+    width: 0!important; height: 0!important;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: -5;
+
+}
+
+// Type
+@mixin text-truncate() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+@mixin h {
+	h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 { @content; }
+}
+
+@mixin reset-space {
+    margin:0;
+    padding:0;
+}
+
+@mixin reset-list {
+    @include reset-space;
+    &>li { 
+        @include reset-space; 
+        display: inline;
+    }
+
+    list-style: none;
+}
+
+// Dimensions
+@mixin square($size) {
+	line-height:$size;
+	height:$size;
+	width:$size;
+	display:block;
+	text-align:center;
+}
+
+
+@mixin size($width: 100%, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin states($self: false, $hoverClass: false) {
+    $extraClass: null;
+    @if $hoverClass == true {
+        $extraClass: ', &.hover';
+    }
+
+    @if $self == true {
+        &, &:focus, &:active, &:hover #{$extraClass} {
+            @content;
+        }
+    } 
+
+    @else {
+        &:focus, &:active, &:hover #{$extraClass} {
+            @content; 
+        }
+    }
+}
+
+@mixin color-hover($color) {
+    color: $color;
+
+    &:hover, &:active, &:focus {
+        color: darken($color, 15%);
+    }
+}
+
+@mixin container($size: $container, $align: true) {
+    max-width: $size;
+    margin: auto;
+
+    @if $align == left {
+        margin: 0;
+    }
+
+    @if $align == right {
+        margin: 0;
+        margin-left: auto;
+    }
+}
+
+@mixin container-spacing {
+    padding: $space-xs;
+
+    @include bp($screen-sm) {
+        padding: $space-md;
+    }
+
+    @include bp($screen-md) {
+        padding: $space-xl;
+    }
+
+    @include bp($screen-lg) {
+        padding: $space-xxl;
+    }
+}
+
+@mixin middle-align {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block;
+}
+
+// Create close icons
+
+@mixin close-icon(
+    $size: $space-sm, 
+    $color: $space,
+    $border: ($size / 10)
+) {
+    @include reset-space;
+    width: $size;
+    height: $size;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+
+    &:before, &:after {
+        height: $border;
+        display: block;
+        top: 50%;
+        position: absolute;
+        width: 100%;
+        content: '';
+        background: $color;
+        transition: all 0.15s ease-in-out;
+        margin-top: -($border/2)
+    }
+
+    @include states { &:before, &:after { background: darken($color, 15%); } }
+    &:active { &:before,&:after { transform: rotate(0); }  }
+
+    &:before { transform: rotate(45deg); }
+    &:after { transform: rotate(-45deg); }
+}
+
+// Borders
+@mixin border-top-radius($value: 5px) {
+    border-top-left-radius: $value;
+    border-top-right-radius: $value;
+}
+@mixin border-right-radius($value: 5px) {
+    border-top-right-radius: $value;
+    border-bottom-right-radius: $value;
+}
+@mixin border-bottom-radius($value: 5px) {
+    border-bottom-left-radius: $value;
+    border-bottom-right-radius: $value;
+}
+@mixin border-left-radius($value: 5px) {
+    border-top-left-radius: $value;
+    border-bottom-left-radius: $value;
+}
+
+// Bleed
+@mixin bleed($value: 0, $sides: both) {
+    @if $sides == both {
+        margin: -$value;
+    }
+    @else {
+        @if $sides == horizontal {
+            margin-left: -$value;
+            margin-right: -$value;        
+        }
+        @if $sides == vertical {
+            margin-top: -$value;
+            margin-bottom: -$value;
+        }
+        @else {
+            margin: 0;
+        }
+    }
+}
+
+@mixin create-thumnail($thumb-width: 70px, $border: true, $border-color: $border-transparent-lighter) {
+    figure {
+        float: none;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+
+        @if $border {
+            border-bottom: 2px solid $border-color;
+            &:last-of-type { border-bottom: 0; }
+        }
+
+        .svg-holder {
+            display: table-cell;
+            vertical-align: middle;    
+            width: $thumb-width;
+
+            svg {
+                max-width: 85%;
+                margin: auto;
+                display: block;
+            }
+        }
+
+        figcaption {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 5%;
+        }
+    }
+}
+
+@mixin text-stroke($size: 1px, $color: black) {
+    text-shadow: 
+        (-$size) (-$size) 0 $color,  
+        $size (-$size) 0 $color,
+        (-$size) $size 0 $color,
+        $size $size 0 $color;
+}
+
+@mixin fa($icon-unicode){
+    content: $icon-unicode;
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin centralize {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

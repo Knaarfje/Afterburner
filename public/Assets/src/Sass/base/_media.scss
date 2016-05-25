@@ -1,0 +1,150 @@
+﻿@import "../utils/utils";
+// This import statement makes mixins, functions, variables (project + bourbon + bootstrap) available in Visual Studio's Intellisense.
+// So, for example... When you hover over this mixin: 
+
+// @include abs 
+
+// You would see wich arguments could be passed in.
+
+$media-spacing: $space-md;
+
+img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+.img-left, .img-right, .img-full {
+    img {
+        width: 100%;
+        display: block;
+    }
+}
+
+.caption-graph-icon + .img-with-caption .fa.fa-camera:before,
+.caption-graph-icon + br + .img-with-caption .fa.fa-camera:before {
+    content: "\f080";
+}
+
+figure.img-with-caption {
+    color: rgba($gray, 0.6);
+    @include clearfix;
+
+
+    figcaption.img-caption {
+        font-size: 12px;
+        line-height: 1.5;
+        color: inherit;
+        padding:$space-xxxs 0;
+        border-bottom: 1px solid rgba(black, 0.075);
+
+        &.img-caption-dark {
+            background: rgba(51,51,51,0.90);
+            color: white;
+            font-family: $font-heading;
+            padding:$space-xxs;
+            text-align: center;
+            font-size: 16px;
+            transition: background .2s ease-in-out;
+        }
+
+        .fa {
+            margin-right: $space-xxxs;
+        }
+    }
+}
+
+figure.img-with-caption a:hover figcaption.img-caption.img-caption-dark {
+    background: rgba(51,51,51,1);
+} 
+.inline-map-container .img-caption-dark {
+    @include abs(null, 0, 0, 0);
+}
+
+a {
+    &> figure.img-with-caption figcaption.img-caption {
+        color: inherit;
+        text-decoration: none;
+    }
+    @include states() {
+        &> figure.img-with-caption figcaption.img-caption {
+            color: darken($brand-primary, 15%);
+            text-decoration: underline;
+        }
+    }
+}
+
+.img-left, .img-right {
+    display: inline-block;
+    max-width: 125px;
+    margin-bottom: $media-spacing;
+    margin-top: 7px;
+}
+
+.img-left {
+    float: left;
+    margin-right: $media-spacing;
+    clear: left;
+}
+
+.img-right {
+    float: right;
+    margin-left: $media-spacing;
+    clear: right;
+}
+
+.ui-content-body-inner {
+    .img-full, .embed-16-9, .table-full  {
+        @include clearfix;
+        width: 970px;
+        margin-left: -310px;
+        margin-right: -310px;
+        display: block;
+        margin-bottom: $space-xl;
+        max-width: none;
+
+        @include bp(1375px, max) {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+
+        @include bp(580px, max) {
+            width: 110%;
+            margin-left: -5%;
+            margin-right: -5%;            
+
+            figcaption.img-caption {
+                padding: $space-xxxs $space-xxs;
+            }
+        } 
+    }
+
+    .table-full  {
+        margin-bottom: $space-xxl;
+    }
+
+    .embed-16-9 {
+        @include bp(1375px) {
+            height: 540px;
+        }
+    }
+
+    
+}
+
+.embed-16-9 {
+    @include clearfix;
+    height: 0;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: percentage(9/16);
+    margin-bottom: $space-xl;
+
+    iframe {
+        border: 0;
+        @include size(100%);
+        @include abs;
+    }
+}
