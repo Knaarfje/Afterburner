@@ -3,3 +3,8 @@
     background: $purple-gradient;
     @include abs();
 } 
+
+.sign-in-form{
+    @include centralize();
+    z-index: 2;
+}

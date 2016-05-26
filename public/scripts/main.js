@@ -67,6 +67,13 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             
             alert(activePoints[1]._chart.config.data.labels[index]);
     }
+    
+      document.getElementById("graph").onclick = function(evt){
+            var activePoints = $scope.myBar.getElementsAtEvent(evt);
+            var index = ('test:', activePoints[1]._index);
+            
+            alert(activePoints[1]._chart.config.data.labels[index]);
+      };
 
     $scope.addBurndown = (points, sprint) => {
 
