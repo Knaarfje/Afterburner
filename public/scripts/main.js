@@ -24,9 +24,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             $scope.authData = data;
             $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order'));
             console.log($scope.sprints);
-            $scope.sprints.$loaded(function () {
+
+            $scope.sprints.$watch(function (e) {
                 $scope.updateChart();
-            })
+            });
         });
     }
 
@@ -59,6 +60,14 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         $scope.myBar.update();
     }
 
+    $scope.clickChart = (evt) => {
+        
+        var activePoints = $scope.myBar.getElementsAtEvent(evt);
+            var index = ('test:', activePoints[1]._index);
+            
+            alert(activePoints[1]._chart.config.data.labels[index]);
+    }
+
     $scope.addBurndown = (points, sprint) => {
 
         var sprintKey = $scope.sprints.$keyAt(sprint);        
@@ -69,12 +78,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     $scope.initChart = () => {
         $scope.chartCtx = document.getElementById("graph").getContext("2d");
         $scope.barChartData = {
-            labels: ["Sprint 01", "Sprint 02", "Sprint 03", "Sprint 04", "Sprint 05", "Sprint 06", "Sprint 07"],
+            labels: [],
             datasets: [
               {
                 label: "Gehaald",
                 type:'line',
-                data: [70, 75, 70, 55, 85, 50, 55],
+                data: [],
                 fill: false,
                 borderColor: '#EB51D8',
                 backgroundColor: '#EB51D8',
@@ -86,7 +95,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             },{
                 type: 'bar',
                 label: "Geschat",
-                data: [75, 80, 62, 70, 80, 50, 60],
+                data: [],
                 fill: false,
                 backgroundColor: '#5FFAFC',
                 borderColor: '#5FFAFC',
