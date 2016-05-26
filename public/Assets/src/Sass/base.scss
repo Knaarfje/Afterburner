@@ -5,9 +5,17 @@
 // Base
 @import 
     "base/type",
-    "base/media",
     "base/utils";
 
 // Reusable components
+@import
+    "components/buttons",
+    "components/nav-toggle",
+    "components/stats";
 
 // Layout specific styling
+@import
+    "layout/layout",
+    "layout/side",
+    "layout/footer",
+    "layout/graphs";

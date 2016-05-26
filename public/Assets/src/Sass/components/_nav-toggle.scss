@@ -1,0 +1,32 @@
+
+.header {
+    margin-top: 10vh;
+}
+
+.nav-toggle {
+    display: inline-block;
+    float: left;
+    margin-top: .3em;
+    margin-right: 20px;
+    
+    span {
+        display: block;
+        height: 0.4em;
+        background: $brand-primary-lighter;
+        width: 50px;
+        margin-top: .66em;
+    }
+}
+
+.page-title{
+    position: relative;
+    display: inline-block;
+    
+    &-back{
+        opacity: .1;
+        font-size: 170%;
+        position: absolute;
+        left: -17px;
+        top: 10px;
+    }
+}

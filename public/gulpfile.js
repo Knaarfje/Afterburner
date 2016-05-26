@@ -16,7 +16,7 @@ const config = {
 };
 
 const vendorJs = [
-    //config.src + '/-.js',
+    config.bower + '/Chart.js/dist/Chart.min.js'
 ];
 
 const baseJs = [
