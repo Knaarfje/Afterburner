@@ -1,46 +1,42 @@
-'use strict';
-
 var app = angular.module("afterburnerApp", ["firebase"]);
+app.config(function () {
+    var config = {
+        apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
+        authDomain: "project-7784811851232431954.firebaseapp.com",
+        databaseURL: "https://project-7784811851232431954.firebaseio.com",
+        storageBucket: "project-7784811851232431954.appspot.com",
+    };
+    firebase.initializeApp(config);
+});
 
-app.controller("afterburnerCtrl", function($scope, $firebaseAuth) {
-  var ref = new Firebase("https://project-7784811851232431954.firebaseio.com");
+app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray) {
+    var ref = firebase.database().ref();
 
-  // create an instance of the authentication service
-  var auth = $firebaseAuth(ref);
+    $scope.init = () => {
+        $scope.signin("thomas@boerdam.nl", "Batman01");
+    }
 
-  $scope.signin = (email, password) => {
-      auth.$authWithPassword({
-          email: email,
-          password: password
-      }).then(function (data) {
-          console.log("Logged in as: " + data.uid);
-      });
-  }  
-}); 
+    $scope.signin = (email, password) => {
+        $scope.authData = null;
 
-function Afterburner() {
-    this.initFirebase();
-};
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {
+            $scope.authData = data;
+            console.log(data);
+            $scope.sprints = $firebaseArray(ref.child("sprints"));
+        });
+    }
 
-// Sets up shortcuts to Firebase features and initiate firebase auth.
-Afterburner.prototype.initFirebase = function () {
-    // Shortcuts to Firebase SDK features.
-    this.auth = firebase.auth();
-    this.database = firebase.database();
-    this.storage = firebase.storage();
-    // Initiates Firebase auth and listen to auth state changes.
-    //this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
+    $scope.addSprint = (velocity) => {
+        $scope.sprints.$add({
+            duration: 9,
+            velocity: velocity
+        });
+    }
 
-    //window.afterburner.signIn();
-};
+    $scope.addBurndown = (points, sprint) => {
 
-// Signs-in Friendly Chat.
-Afterburner.prototype.signIn = function(email, password) {
-  // Sign in Firebase using popup auth and Google as the identity provider.
-    this.auth.signInWithEmailAndPassword(email, password);
-};
-
-window.onload = function() {
-    window.afterburner = new Afterburner();
-    window.afterburner.signIn('thomas@boerdam.nl', 'Batman01');
-};
+        var sprintKey = $scope.sprints.$keyAt(sprint);        
+        var burndowns = $scope.sprints.$getRecord(sprintKey).burndown;
+        burndowns.$add(points);
+    }
+});
