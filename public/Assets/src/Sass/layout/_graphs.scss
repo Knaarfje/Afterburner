@@ -1,0 +1,16 @@
+
+
+.graph{
+    padding: 70px 70px 20px 70px;
+    height: calc(80vh - 3.75em - 5vh);
+    max-width: 1300px;
+    
+    @include bp($bp-nav){
+        height: calc(80vh - 3.75em - 80px);
+    }
+
+    img{
+        max-width: 50%;
+        height: auto;
+    }
+}

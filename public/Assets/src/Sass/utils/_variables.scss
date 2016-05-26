@@ -2,56 +2,10 @@
 $base-font-size: 16px;
 
 // Colors
-$brand-primary-lighter: #AACF40;
-$brand-primary: #8AC249;
-$brand-secondary: #244B8A; //#064A8A old
-$brand-secondary-light: #8BB0EB;
-$brand-info: #639CE0;
-$brand-warning: #E4B337;
-$brand-error: #ea3b3b;
+$brand-primary: #5CE5E7;
+$brand-primary-lighter: #5FFAFC;
+$brand-secondary: #EB51D8; //#064A8A old
 
-$gray-lightest: #fcfcfc; 
-$gray-lighter: #eee;
-$gray-light: #EDEDED;
-$gray-dark: #909090;
-$gray-darker: #505050;
-$gray-darkest: #333;
-
-// Social
-$color-instagram: #5085A5;
-$color-facebook: #3B5998;
-$color-fb: $color-facebook;
-$color-twitter: #3ACAFF;
-$color-linkedin: #007BB6;
-
-// Border colors
-$brand-primary-border-light: rgba(#DEF5A6, 0.3);
-$border-light: #f3f3f3;
-$border-transparent: rgba(white, 0.3);
-$border-transparent-lighter: rgba(white, 0.12);
-
-$black: #1C1C1C;
-
-$space-lighter: #f7f9fa;
-$space-light: #EEF2F5;
-$space: #7A8F99;
-$space-dark: #737373;
-
-$trash-types: (
-    REST:                  rgb(159, 163, 169),  // Restafval  
-    GFT:                   $brand-primary,        // GFT  
-    PAPIER:                $brand-info,           // Papier  
-    PLASTIC:               $brand-warning,        // Plastic  
-    DHM:                   rgb(124, 106, 97),   // Droge herbruikbare materialen  
-    BTG:                   rgb(154, 81, 187),   // Blik, textiel en glas  
-    PPBTG:                 rgb(52, 109, 195),   // Papier, plastic, blik, textiel en glas
-    GROF:                  rgb(232, 76, 94),    // Gratis grof tuinafval brengdagen
-    PLASTICPLUS:           rgb(252, 240, 87),   // Plastic, Blik, Sap- en Zuivelpakken 
-    PTG:                   rgb(79, 147, 111),   // Papier Textiel Glas 
-    KRINGLOOP:             #7CBF6E,
-    KCA:                   #E64E61,
-    GLAS:                  #A3846A
-);
 
 // Shadows
 $shadow-xs: 0 2px 3px 0 rgba(black, .05);
@@ -60,7 +14,7 @@ $shadow-lg: 0px 6px 18px 0px rgba(black, .2);
 
 // Type
 $font-sans: 'Open Sans';
-$font-serif: 'Crete Round'; 
+$font-serif: 'Open Sans'; 
 $font-heading: $font-serif;
 $font-body: $font-sans;
 $font-btn: $font-body;
@@ -76,36 +30,7 @@ $space-xs: 15px;
 $space-xxs: 10px;
 $space-xxxs: 5px;
 
-// container-sizes
-$container: 970px;
-/*$container-md: 580px;*/
-$container-sm: 580px;
-
-// search
-$search-width: 220px;
-$search-width-xs: 180px;
-$search-button-bp: 1190px;
-
-// Nav
-$nav-width: 310px;
-$nav-width-xs: 250px;
-$nav-portals-height: 45px;
-$nav-height-lg: 85px;
-$nav-height-sm: 45px;
-
-
-// Panels
-$panel-width-sm: 300px;
-$panel-width: $panel-width-sm;
-
 // Breakpoints
 $bp-nav: 960px;
-$ig-bp-xs: $screen-xs;
-$ig-bp-sm: 785px;
-$ig-bp-lg: 1130px;
+$side-width: 340px;
 
-// Trash calendar
-$trash-calendar-bp-lg: 1350px; 
-$trash-calendar-bp-xs: 690px;
-$time-circle-size: 45px;
-$calendar-height: 350px;

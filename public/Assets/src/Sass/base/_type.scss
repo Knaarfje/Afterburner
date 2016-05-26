@@ -10,6 +10,8 @@ html, body {
     @include reset-space;
     height: 100%;
     -webkit-font-smoothing: antialiased;
+    color: white;
+    background: rgba(12,17,58,0.97);
 }
 
 a img, img, iframe {
@@ -17,20 +19,15 @@ a img, img, iframe {
 }
 
 a {
-    @include color-hover($brand-primary);
+    color: white;
 }
 
 body {
     font-size: $base-font-size;
     font-family: $font-body;
-    color: $gray-darker;
-    background: $space-light;
-    overflow-x: hidden;
-    //overflow-y: scroll;
 }
 @include h {
     font-family: $font-heading;
-    color: $gray-darkest;
     margin-top: 0;
     line-height: 1.35;
 }
@@ -85,6 +82,9 @@ body {
     }
 }
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, p {
+    text-transform: uppercase;
+    font-weight: 800;
+    
     &.type {
         margin: 0;
     }
@@ -137,9 +137,6 @@ h6,.h6{
 .type-white {
     color: white;
 }
-.type-washed{
-    color: $gray-dark;
-}
 .type-light {
     font-weight: 300;
 }
@@ -149,31 +146,13 @@ h6,.h6{
 .type-secondary{
     color:$brand-secondary;
 }
-.type-secondary-light {
-    color: $brand-secondary-light;
-}
 .type-transparent-lighter {
     opacity: 0.75;
-}
-
-.type-error {
-    color: $brand-error;
-}
-.type-normal {
-    font-weight: normal;
-}
-.type-semi {
-    font-weight: 600;
-}
-.type-jumbo {
-  font-size: 12em;
-  letter-spacing: -11px;
 }
 
 .type-xxs {
     font-size: em(11px);
 }
-
 .type-xs {
     font-size: em(12px);
 }
@@ -190,17 +169,6 @@ h6,.h6{
     font-size: em(16px);
 }
 
-.img-full {
-    width: 100%;
-    height: auto;
-}
-
-.clean{
-    background: none;
-    box-shadow: none;
-    border: none;
-}
-
 .strong, strong, b {
     font-weight: bold;
 }
@@ -209,91 +177,4 @@ p{
     font-size: 1em;
     line-height: 1.65;
     margin-bottom: $space-md;
-
-    &.lead {
-        line-height: 1.85;
-        font-size: em(17.5px);
-        font-weight: normal;
-        margin-bottom: $space-xl;
-        font-weight: 300;
-        color: $black;
-
-        &:first-of-type:first-letter {
-            font-size: em(75px);
-            line-height: 64px;
-            margin: $space-xxs $space-xs 0 0;
-            text-transform: uppercase;
-            font-family: $font-heading;
-            display: inline-block;
-            height: 60px;
-            float: left;
-            color: $gray-dark;
-        }
-    }
-}
-
-p, p.lead{
-    color: $gray-darker; // color fix. for css minifying
-}
-
-blockquote{
-    line-height: 1.65;
-    font-size: em(17px);
-    padding: 0;
-    padding-left: 40px;
-    position: relative;
-    font-weight: normal;
-    margin-bottom: $space-xl;
-    display: block;
-    border: 0;
-    font-style: italic;
-    color: $gray-dark;
-
-    &:before {
-        content: "“";
-        @include abs(-26px, null, null, -5px);
-        color: $brand-primary;
-        font-weight: normal;
-        font-family: $font-heading;
-        font-size: 84px;
-        font-style: normal;
-    }
-}
-
-
-// make default icon focus better
-.fa:focus {
-    outline: none;
-    text-decoration: none;
-
-    &:before {
-        outline: 2px dotted #ccc;
-    }
-}
-
-.pre-line {
-    white-space: pre-line;
-}
-
-.title-after-light {
-
-    @at-root abbr {
-            &.title-after-light {
-                text-decoration: none;
-                border-bottom: 0;
-                cursor: inherit;
-            }
-        }
-
-
-    @include bp($screen-sm) {
-
-        &:after {
-            content: attr(title);
-            display: inline-block;
-            font-weight: 300;
-            margin-left: 0.5em;
-            opacity: 0.85;
-        }
-    }
 }

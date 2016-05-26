@@ -13,6 +13,7 @@
   "devDependencies": {
     "bourbon": "~4.2.3",
     "fontawesome": "~4.5.0",
-    "bootstrap-sass": "^3.3.6"
+    "bootstrap-sass": "^3.3.6",
+    "Chart.js": "^2.1.3"
   }
 }

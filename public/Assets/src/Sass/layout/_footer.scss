@@ -1,0 +1,12 @@
+
+.footer{
+   background: rgba(12,17,58,0.68);
+   height: 80px;
+   overflow: hidden;
+   
+   @include bp($bp-nav){
+       background-color: transparent;
+       height: auto;
+   }
+}
+ 

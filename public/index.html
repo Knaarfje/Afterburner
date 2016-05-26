@@ -2,69 +2,80 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Welcome to Firebase Hosting</title>
-    <style media="screen">
-      body {
-        font-family: Roboto, Arial, sans-serif;
-        background: #ECEFF1;
-        color: rgba(0,0,0,0.87);
-      }
-
-      a {
-        color: rgb(3,155,229);
-      }
-
-      #message {
-        max-width: 400px;
-        margin: 40px auto;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
-        border-radius: 2px;
-        background: white;
-        padding: 16px 24px;
-      }
-
-      #message h1 {
-        font-size: 22px;
-        font-weight: 500;
-        text-align: center;
-        margin: 0 0 16px;
-      }
-
-      #message p {
-        font-weight: 300;
-        line-height: 150%;
-      }
-
-      #message ul {
-        list-style: none;
-        margin: 16px 0 0;
-        padding: 0;
-        text-align: center;
-      }
-
-      #message li a {
-        display: inline-block;
-        padding: 8px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 500;
-        background: rgb(3,155,229);
-        color: white;
-        border: 1px solid rgb(3,155,229);
-        border-radius: 3px;
-        font-size: 14px;
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-      }
-    </style>
+    <title>Afterburner</title>
+    
+    <link rel="stylesheet" href="Assets/dist/css/base.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
   </head>
+  
+
   <body>
-    <div id="message">
-      <h1>Welcome to Firebase Hosting</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <ul>
-        <li><a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a></li>
-      </ul>
-    </div>
+    
+<div class="page-container">
+    <section class="side">
+      <div class="user">
+        <span>Thomas Bosch</span>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="">Huidige sprint</a>
+          </li>
+           <li>
+            <a href="">Overzicht</a>
+          </li>
+        </ul>
+      </nav>
+      <a href="" class="btn btn-primary">sprint toevoegen</a>
+    </section>
+    <section class="main">
+      <div class="header">
+        <a href="" class="nav-toggle"> 
+        <span></span><span></span><span></span>
+        </a>
+        <h1 class="page-title type">
+          Sprint 01
+          <span class="page-title-back">
+            Burndown
+          </span>
+        </h1>
+      </div>
+      
+      <div class="graph">
+        <canvas id="graph"></canvas>
+      </div>
+      
+       <div class="footer">
+        <a href="" class="fab fab-add"></a>
+        
+        <div class="stats">
+          <div class="stat-small">
+            vandaag nog 8pt nodig
+          </div>
+          
+          <div class="stats-group">
+            <span class="stat">8<small>pt</small></span>
+            <span class="stat-label">Vandaag nodig</span>
+          </div>
+          <div class="stats-group">
+            <span class="stat">8<small>pt</small></span>
+            <span class="stat-label">Vandaag nodig</span>
+          </div>
+          <div class="stats-group">
+            <span class="stat">8<small>pt</small></span>
+            <span class="stat-label">Vandaag nodig</span>
+          </div>
+          <div class="stats-group">
+            <span class="stat">8<small>pt</small></span>
+            <span class="stat-label">Vandaag nodig</span>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+   
+</div>
+
     
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -80,5 +91,123 @@
         firebase.initializeApp(config);
     </script>
     <script src="/scripts/main.js"></script>
+    <script src="Assets/dist/js/vendor.min.js"></script>
+    
+    
+     <script>
+      var barChartData = {
+            labels: ["Sprint 01", "Sprint 02", "Sprint 03", "Sprint 04", "Sprint 05", "Sprint 06", "Sprint 07"],
+            datasets: [
+              {
+                label: "Gehaald",
+                type:'line',
+                data: [70, 75, 70, 55, 85, 50, 55],
+                fill: false,
+                borderColor: '#EB51D8',
+                backgroundColor: '#EB51D8',
+                pointBorderColor: '#EB51D8',
+                pointBackgroundColor: '#EB51D8',
+                pointHoverBackgroundColor: '#EB51D8',
+                pointHoverBorderColor: '#EB51D8',
+                yAxisID: 'y-axis-2',
+            },{
+                type: 'bar',
+                label: "Geschat",
+                data: [75, 80, 62, 70, 80, 50, 60],
+                fill: false,
+                backgroundColor: '#5FFAFC',
+                borderColor: '#5FFAFC',
+                hoverBackgroundColor: '#5CE5E7',
+                hoverBorderColor: '#5CE5E7',
+                yAxisID: 'y-axis-1',
+            }]
+        };
+        
+        window.onload = function() {
+            var ctx = document.getElementById("graph").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  tooltips: {
+                      mode: 'label',
+                      cornerRadius: 3,
+                  },
+                  elements: {
+                    line: {
+                        fill: false
+                    }
+                  },
+                  legend: {
+                    position: 'bottom',
+                    labels: {
+                      fontColor: '#fff'
+                    },
+                  },
+                  scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false,
+                            color : "rgba(255,255,255,.1)",
+                        },
+                        ticks: {
+                          fontColor: '#fff'
+                        }
+                    }],
+                    yAxes: [{
+                        type: "linear",
+                        display: true,
+                        position: "left",
+                        id: "y-axis-1",
+                        ticks: {
+                          stepSize: 10,
+                          beginAtZero: true,
+                          fontColor: '#fff',
+                          suggestedMax: 100,
+                        },
+                        gridLines:{
+                            display: true,
+                            color : "rgba(255,255,255,.1)",
+                            drawTicks: false,
+                        },
+                        labels: {
+                            show:true,
+                        }
+                    }, {
+                        type: "linear",
+                        display: false,
+                        position: "right",
+                        id: "y-axis-2",
+                        ticks: {
+                          stepSize: 10,
+                          beginAtZero: true,
+                          fontColor: '#fff',
+                          suggestedMax: 100,
+                        },
+                        gridLines:{
+                            display: false
+                        },
+                        labels: {
+                            show:false,
+                        }
+                    }]
+                }
+            }
+            });
+
+        };
+        
+        document.getElementById("graph").onclick = function(evt){
+            var activePoints = myBar.getElementsAtEvent(evt);
+            var index = ('test:', activePoints[1]._index);
+            
+            alert(activePoints[1]._chart.config.data.labels[index]);
+        };
+        
+        
+    </script>
   </body>
 </html>
