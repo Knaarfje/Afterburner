@@ -21,7 +21,7 @@ const vendorJs = [
 
 const baseJs = [
     config.src + '/Js/app.js',
-    config.src + '/Js/**/*.js',
+    config.src + '/Js/*.js',
 ];
 
 // Js
@@ -66,7 +66,6 @@ const stylesStream =(source, name, dist)=> {
         .pipe(gulp.dest(dist + '/Css/'))
         .pipe(browserSync.stream())
         .pipe($.sourcemaps.write('./Maps/'));
-
 };
 
 gulp.task('styles.vendor', ()=> stylesStream(config.src + '/Sass/vendor/vendor.scss', 'vendor'));

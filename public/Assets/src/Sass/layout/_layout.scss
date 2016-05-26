@@ -1,14 +1,18 @@
 
-$background-darkness: 0.5;
 
 .main{
     background: #000;
-    background-image: linear-gradient(-134deg,rgba(48,35,174,$background-darkness) 0%,rgba(200,109,215,$background-darkness) 100%);
+    background-image: $purple-gradient;
     
     @include abs();
     
     @include bp($bp-nav){
         left: $side-width;
+    }
+    
+    &-inner{
+        @include abs(); 
+        z-index: 2;
     }
     
     &.open{
@@ -21,4 +25,9 @@ $background-darkness: 0.5;
 
 .footer {
     @include abs(auto,0,0,0);
+}
+
+#particles-js{
+    @include abs(); 
+    z-index: 1;
 }
