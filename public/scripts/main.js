@@ -21,7 +21,9 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {        
             $scope.authData = data;
             $scope.initChart();
-            $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order'));
+
+            $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
+            $scope.lastSprint = $firebaseObject(ref.child("sprints").orderByChild('order').limitToLast(1))
             console.log($scope.sprints);
 
             $scope.sprints.$watch(function (e) {
@@ -37,9 +39,17 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
+    $scope.sprintCalc = () => {
+        if ($scope.lastSprint) {
+            return {
+                dailyNeeded: 1231
+            }
+        }
+    }
+
     $scope.updateChart = () => {
         var labels = $scope.sprints.map(function (d) {
-            return d.name;
+            return "Sprint " + pad(d.order);
         });
         var estimated = $scope.sprints.map(function (d) {
             return d.velocity;
@@ -186,3 +196,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 
         };
 });
+
+function pad(n) {
+    return (n < 10) ? ("0" + n) : n;
+}
