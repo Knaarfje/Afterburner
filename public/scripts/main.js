@@ -12,16 +12,17 @@ app.config(function () {
 app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray) {
     var ref = firebase.database().ref();
 
-    $scope.init = () => {
-        $scope.signin("thomas@boerdam.nl", "Batman01");
-        $scope.initChart();
+    $scope.init = () => {  
     }
 
     $scope.signin = (email, password) => {
         $scope.authData = null;
 
-        firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {        
             $scope.authData = data;
+
+            $scope.initChart();
+
             $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
 
             $scope.sprints.$watch(function (e) {                
@@ -78,6 +79,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             
             alert(activePoints[1]._chart.config.data.labels[index]);
       };
+
 
     $scope.addBurndown = (points, sprint) => {
 
