@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Afterburner</title>
     
-    <link rel="stylesheet" href="Assets/dist/css/base.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/Assets/dist/Css/base.min.css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
     
   </head>
   
@@ -53,7 +53,7 @@
         </h1>
       </div>
       
-      <div class="graph" ng-click="clickChart($event)">
+      <div class="graph">
         <canvas id="graph"></canvas>
       </div>
       
@@ -65,21 +65,22 @@
             vandaag nog 8pt nodig
           </div>
           
-          <div class="stats-group">
-            <span class="stat">8<small>pt</small></span>
-            <span class="stat-label">Vandaag nodig</span>
+          
+          <div class="stats-group" ng-cloak>
+            <span class="stat">{{lastSprint.velocity}}<small>pt</small></span>
+            <span class="stat-label">Current velocity</span>
           </div>
-          <div class="stats-group">
-            <span class="stat">8<small>pt</small></span>
-            <span class="stat-label">Vandaag nodig</span>
+          <div class="stats-group" ng-cloak>
+            <span class="stat">{{sum(lastSprint.burndown)}}<small>pt</small></span>
+            <span class="stat-label">Points burned</span>
           </div>
-          <div class="stats-group">
-            <span class="stat">8<small>pt</small></span>
-            <span class="stat-label">Vandaag nodig</span>
+          <div class="stats-group" ng-cloak>
+            <span class="stat">{{lastSprint.velocity - sum(lastSprint.burndown)}}<small>pt</small></span>
+            <span class="stat-label">Points remaining</span>
           </div>
-          <div class="stats-group">
-            <span class="stat">8<small>pt</small></span>
-            <span class="stat-label">Vandaag nodig</span>
+          <div class="stats-group" ng-cloak>
+            <span class="stat">{{lastSprint.velocity / lastSprint.duration | number : 1}}<small>pt</small></span>
+            <span class="stat-label">Daily needed</span>
           </div>
         </div>
         
@@ -89,13 +90,13 @@
    
 </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.0.2/firebase.js"></script>
-    <script src="scripts/angularfire.min.js"></script>   
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="//www.gstatic.com/firebasejs/3.0.2/firebase.js"></script>
+    <script src="/scripts/angularfire.min.js"></script>   
     
-    <script src="scripts/main.js"></script>
-    <script src="Assets/dist/js/vendor.min.js"></script>
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="assets/dist/js/base.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script src="/Assets/dist/Js/vendor.min.js"></script>
+    <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/assets/dist/Js/base.js"></script>
   </body>
 </html>

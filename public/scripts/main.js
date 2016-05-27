@@ -22,13 +22,15 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 
         firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {
             $scope.authData = data;
-            console.log(data);
             $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
-            $scope.lastSprint = $firebaseObject(ref.child("sprints").orderByChild('order').limitToLast(1))
-            console.log($scope.sprints);
 
-            $scope.sprints.$watch(function (e) {
+            $scope.sprints.$watch(function (e) {                
                 $scope.updateChart();
+            });
+
+            $scope.sprints.$loaded(function (e) {
+                var k = $scope.sprints.$keyAt($scope.sprints.length - 1);
+                $scope.lastSprint = $firebaseObject(ref.child("sprints/" + k));
             });
         });
     }
@@ -40,12 +42,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
-    $scope.sprintCalc = () => {
-        if ($scope.lastSprint) {
-            return {
-                dailyNeeded: 1231
-            }
+    $scope.sum = function (items) {
+        var i = 0;
+        for (var x in items) {
+            i = i + items[x];
         }
+        return i;
     }
 
     $scope.updateChart = () => {
@@ -68,14 +70,6 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         $scope.myBar.data.datasets[1].data = estimated;
 
         $scope.myBar.update();
-    }
-
-    $scope.clickChart = (evt) => {
-        
-        var activePoints = $scope.myBar.getElementsAtEvent(evt);
-            var index = ('test:', activePoints[1]._index);
-            
-            alert(activePoints[1]._chart.config.data.labels[index]);
     }
     
       document.getElementById("graph").onclick = function(evt){
