@@ -34,6 +34,14 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
+    $scope.signout = () => {
+        firebase.auth().signOut().then(function () {
+            $scope.currentUser = null;
+        }, function (error) {
+            // An error happened.
+        });
+}
+
     $scope.initApp = () => {
         $scope.initChart();
         
@@ -61,6 +69,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     }
 
     $scope.selectSprint = (index) => {
+        if (index < 0) {
+            return;
+        }
+
         if ($scope.selectedSprint) {
             $scope.selectedSprint.$destroy();
         }
@@ -79,9 +91,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     }
 
     document.getElementById("graph").onclick = function (evt) {
+        if ($scope.selectedSprint) {
+            return;
+        }
+        
         var activePoints = $scope.myBar.getElementsAtEvent(evt);
         var index = ('test:', activePoints[1]._index);
-
         $scope.selectSprint(index);
     };
 
@@ -326,6 +341,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                             beginAtZero: true,
                             fontColor: '#fff',
                             suggestedMax: 100,
+                            maxTicksLimit: 20
                         },
                         gridLines: {
                             display: true,
