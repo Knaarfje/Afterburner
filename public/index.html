@@ -29,10 +29,10 @@
       <nav>
         <ul>
           <li>
-            <a href="">Huidige sprint</a>
+            <a href="" ng-click="selectSprint(sprints.length -1)">Huidige sprint</a>
           </li>
            <li>
-            <a href="">Overzicht</a>
+            <a href="" ng-click="toOverview()">Overzicht</a>
           </li>
         </ul>
       </nav>
@@ -46,9 +46,9 @@
         <span></span><span></span><span></span>
         </a>
         <h1 class="page-title type">
-          Sprint 01
+          {{selectedSprint ? selectedSprint.name : "Overview"}}
           <span class="page-title-back">
-            Burndown
+            {{selectedSprint ? "Burndown" : "Velocity"}}
           </span>
         </h1>
       </div>
