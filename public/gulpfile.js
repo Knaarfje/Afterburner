@@ -8,11 +8,10 @@ const $ = require("gulp-load-plugins")({ lazy: true });
 
 // Config
 const config = {
-    iisPort:    5000,
     bower:      './bower_components',
     node:       './node_modules',
     src:        './Assets/src',
-    dist:       './Assets/dist',
+    dist:       './Assets/dist'
 };
 
 const vendorJs = [
@@ -21,8 +20,8 @@ const vendorJs = [
 ];
 
 const baseJs = [
-    config.src + '/Js/app.js',
-    config.src + '/Js/*.js',
+    config.src + '/Js/base.js',
+    config.src + '/Js/Particle.js',
 ];
 
 // Js
@@ -47,7 +46,7 @@ gulp.task('concatJs.base', () => {
 const processMinifyJS =(src, name)=> {
     return gulp.src(src)
         .pipe($.cached('jsmin' + name))
-        .pipe($.uglify({ mangle: false }))
+        .pipe($.uglify({ mangle: false, toplevel: true }))
         .pipe($.rename({ suffix: '.min' }))
         .pipe(gulp.dest(config.dist + '/Js/'));
 };
@@ -84,13 +83,9 @@ gulp.task('images', ()=> {
 
 // Sync
 const startBrowserSync =cb=> browserSync({
-    open: false,
-    proxy: {
-        target: "http://localhost:" + config.iisPort,
-        middleware: (req, res, next) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            next();
-        }
+    open: true,
+    server: {
+        baseDir: "./"
     }
 }, cb);
 
