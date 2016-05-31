@@ -51,35 +51,11 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
-    $scope.updateChart = () => {
-
-        var labels = $scope.sprints.map(function (d) {
-            return "Sprint " + pad(d.order);
-        });
-        var estimated = $scope.sprints.map(function (d) {
-            return d.velocity;
-        });
-        var burned = $scope.sprints.map(function (d) {
-            var i = 0;
-            for (var x in d.burndown) {
-                i = i + d.burndown[x];
-            }
-            return i;
-        });
-
-        $scope.myBar.data.labels = labels;
-        $scope.myBar.data.datasets[0].data = burned;
-        $scope.myBar.data.datasets[1].data = estimated;
-
-        $scope.myBar.update();
-    }
-
     $scope.toOverview = () => {
         if ($scope.selectedSprint) {
             $scope.initChart();
             $scope.updateChart();
             $scope.selectedSprint.$destroy();
-            console.log($scope.selectedSprint);
             $scope.selectedSprint = null;
         }
     }
@@ -123,7 +99,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             labels: [],
             datasets: [
                 {
-                    label: "Gehaald",
+                    label: "Achieved",
                     type: 'line',
                     data: [],
                     fill: false,
@@ -136,7 +112,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     yAxisID: 'y-axis-2',
                 }, {
                     type: 'bar',
-                    label: "Geschat",
+                    label: "Estimated",
                     data: [],
                     fill: false,
                     backgroundColor: '#5FFAFC',
@@ -223,7 +199,29 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                 }
             }
         });
+    };
 
+    $scope.updateChart = () => {
+
+        var labels = $scope.sprints.map(function (d) {
+            return "Sprint " + pad(d.order);
+        });
+        var estimated = $scope.sprints.map(function (d) {
+            return d.velocity;
+        });
+        var burned = $scope.sprints.map(function (d) {
+            var i = 0;
+            for (var x in d.burndown) {
+                i = i + d.burndown[x];
+            }
+            return i;
+        });
+
+        $scope.myBar.data.labels = labels;
+        $scope.myBar.data.datasets[0].data = burned;
+        $scope.myBar.data.datasets[1].data = estimated;
+
+        $scope.myBar.update();
     };
 
     /// BURNDOWN CHART
@@ -238,6 +236,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     data: [],
                     fill: false,
                     yAxisID: 'y-axis-2',
+                    borderColor: '#5FFAFC',
+                    backgroundColor: '#5FFAFC',
+                    pointBorderColor: '#5FFAFC',
+                    pointBackgroundColor: '#5FFAFC',
+                    pointHoverBackgroundColor: '#5FFAFC',
+                    pointHoverBorderColor: '#5FFAFC',
                     lineTension: 0
                 }, {
                     type: 'line',
@@ -245,9 +249,16 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     data: [],
                     fill: false,
                     yAxisID: 'y-axis-1',
+                    borderColor: '#EB51D8',
+                    backgroundColor: '#EB51D8',
+                    pointBorderColor: '#EB51D8',
+                    pointBackgroundColor: '#EB51D8',
+                    pointHoverBackgroundColor: '#EB51D8',
+                    pointHoverBorderColor: '#EB51D8',
                     lineTension: 0
                 }]
         };
+        
 
         var idealBurndown = burndownData.labels.map(function (d, i) {
             if (i == burndownData.labels.length - 1) {
