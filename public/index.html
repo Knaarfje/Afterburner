@@ -12,7 +12,7 @@
   
 <body ng-app="afterburnerApp" ng-controller="afterburnerCtrl" data-ng-class="{'open' : NavOpen}">
   <div id="particles-js"></div>
-  
+
   <div class="sign-in-container" data-ng-show="!currentUser" ng-cloak>
     
   
@@ -34,7 +34,8 @@
   <div class="page-container" data-ng-show="currentUser" ng-cloak ng-swipe-right="NavOpen = true" ng-swipe-left="NavOpen = false">
     <section class="side" data-ng-class="{'open' : NavOpen}">
       <div class="user">
-        <span>Thomas Bosch</span>
+        <span>{{currentUser.email}}</span>
+        <a href="#" ng-click="signout()">Sign out</a>
       </div>
       <nav>
         <ul>
