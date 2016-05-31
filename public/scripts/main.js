@@ -9,10 +9,18 @@ app.config(function () {
     firebase.initializeApp(config);
 });
 
-app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray) {
+app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray, $timeout) {
     var ref = firebase.database().ref();
+    $timeout(function () {
+        $scope.currentUser = firebase.auth().currentUser;
+        $scope.init();
+    }, 500);
 
+    
     $scope.init = () => {  
+        if ($scope.currentUser) {            
+            $scope.initApp();
+        }
     }
 
     $scope.signin = (email, password) => {
@@ -20,7 +28,13 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 
         firebase.auth().signInWithEmailAndPassword(email, password).then(function (data) {        
             $scope.authData = data;
+            $scope.currentUser = firebase.auth().currentUser;
+            
+            $scope.initApp();
+        });
+    }
 
+    $scope.initApp = () => {
             $scope.initChart();
 
             $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
@@ -33,7 +47,6 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                 var k = $scope.sprints.$keyAt($scope.sprints.length - 1);
                 $scope.lastSprint = $firebaseObject(ref.child("sprints/" + k));
             });
-        });
     }
 
     $scope.addSprint = (velocity) => {
