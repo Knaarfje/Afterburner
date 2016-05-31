@@ -8,7 +8,7 @@ const $ = require("gulp-load-plugins")({ lazy: true });
 
 // Config
 const config = {
-    iisPort:    39154,
+    iisPort:    5000,
     bower:      './bower_components',
     node:       './node_modules',
     src:        './Assets/src',
@@ -16,7 +16,8 @@ const config = {
 };
 
 const vendorJs = [
-    config.bower + '/Chart.js/dist/Chart.min.js'
+    config.bower + '/Chart.js/dist/Chart.min.js',
+    config.bower + '/angular-touch/angular-touch.min.js'
 ];
 
 const baseJs = [
@@ -98,7 +99,8 @@ gulp.task('sync', ['watch'], startBrowserSync);
 gulp.task('watch', ()=> {
     gulp.watch([config.src + '/Sass/**/*.scss', '!' + config.src + '/Sass/vendor/**/*.scss'], ['styles']);
     gulp.watch(baseJs, ['scripts']);
-    gulp.watch(['./Views/**/*.cshtml']).on('change', browserSync.reload);
+    gulp.watch('scripts/*.js', ['scripts']);
+    gulp.watch(['./*.html']).on('change', browserSync.reload);
 });
 
 // Clean

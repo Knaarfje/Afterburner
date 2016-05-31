@@ -6,13 +6,15 @@
     
     <link rel="stylesheet" href="/Assets/dist/Css/base.min.css">
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
   </head>
   
-<body ng-app="afterburnerApp" ng-controller="afterburnerCtrl">
+<body ng-app="afterburnerApp" ng-controller="afterburnerCtrl" data-ng-class="{'open' : NavOpen}">
+  <div id="particles-js"></div>
   
   <div class="sign-in-container" data-ng-show="!currentUser" ng-cloak>
-    <div id="particles-js"></div>
+    
   
     <div class="sign-in-form">
        <h1 class="page-title">
@@ -29,8 +31,8 @@
     </div>
   </div>
   
-  <div class="page-container" data-ng-show="currentUser" ng-cloak>
-    <section class="side">
+  <div class="page-container" data-ng-show="currentUser" ng-cloak ng-swipe-right="NavOpen = true" ng-swipe-left="NavOpen = false">
+    <section class="side" data-ng-class="{'open' : NavOpen}">
       <div class="user">
         <span>Thomas Bosch</span>
       </div>
@@ -42,15 +44,16 @@
            <li>
             <a href="" ng-click="toOverview()">Overview</a>
           </li>
-        </ul>
+        </ul> 
       </nav>
       <a href="" class="btn btn-primary">Add sprint...</a>
     </section>
+     
     <section class="main">
-      <div id="particles-js"></div>
-    <div class="main-inner">
+      
+      <div class="main-inner">
         <div class="header">
-        <a href="" class="nav-toggle"> 
+        <a href="" class="nav-toggle" data-ng-click="NavOpen = !NavOpen"> 
         <span></span><span></span><span></span>
         </a>
         <h1 class="page-title type">

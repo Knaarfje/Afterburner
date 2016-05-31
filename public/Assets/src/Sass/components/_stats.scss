@@ -1,21 +1,31 @@
 
-
+.footer{
+   background: rgba(12,17,58,0.68);
+   height: 50px;
+   overflow: hidden;
+   
+   @include bp($bp-nav){
+       background-color: transparent;
+       height: auto;
+   }
+}
 
 .stats{
-    padding: 20px;
     @include clearfix;
     max-width: 1200px;
     margin-bottom: 4vh;
+    padding: 20px;
     
     @include bp($bp-nav, max){
+        padding: 0 20px;
         margin-bottom: 0;
     }
 }
 
 
 .stat-small{
-    line-height: 40px;
-    height: 80px;
+    line-height: 50px;
+    height: 50px;
     display: inline-block;
     width: 100%;
     

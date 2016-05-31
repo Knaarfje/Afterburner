@@ -1,4 +1,4 @@
-var app = angular.module("afterburnerApp", ["firebase"]);
+var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -242,6 +242,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     pointBackgroundColor: '#5FFAFC',
                     pointHoverBackgroundColor: '#5FFAFC',
                     pointHoverBorderColor: '#5FFAFC',
+                    hitRadius: 15,
                     lineTension: 0
                 }, {
                     type: 'line',
@@ -255,6 +256,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     pointBackgroundColor: '#EB51D8',
                     pointHoverBackgroundColor: '#EB51D8',
                     pointHoverBorderColor: '#EB51D8',
+                    hitRadius: 15,
                     lineTension: 0
                 }]
         };
