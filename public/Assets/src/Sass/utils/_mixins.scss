@@ -285,3 +285,13 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+@mixin placeholder {
+  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+
+
+input[type="text"],input[type="password"] {
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.21);
+    width: 100%;
+    height: 40px;
+    font-size: 1.15em;
+    color: white;
+    margin-bottom: 25px;
+    display: inline-block;
+    font-weight: 600;
+    transition: border-color .2s;
+    
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid white;
+    }
+    
+    @include placeholder {
+        color: rgba( white, .13);
+        font-weight: 600;
+        letter-spacing: 3px;
+    }
+} 
+
+.form-block{
+    margin-bottom: 1em;
+}

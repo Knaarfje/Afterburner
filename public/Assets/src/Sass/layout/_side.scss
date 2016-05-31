@@ -9,6 +9,19 @@ $side-padding: 30px;
     
     padding: 30px;
     padding-right: 0;
+    
+    .btn{
+        @include abs(auto,auto,20px,60px);
+        text-align: center;
+        margin: auto;
+    }
+
+    .user {
+        text-align: center;
+        padding: 50px;
+        padding-left: 0;
+        font-weight: 700;
+    }
 }
 
 nav{
@@ -25,15 +38,3 @@ nav{
     }
 }
 
-.btn{
-    @include abs(auto,auto,20px,60px);
-    text-align: center;
-    margin: auto;
-}
-
-.user {
-    text-align: center;
-    padding: 50px;
-    padding-left: 0;
-    font-weight: 700;
-}
