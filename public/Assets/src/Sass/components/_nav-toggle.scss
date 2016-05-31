@@ -1,6 +1,11 @@
 
 .header {
     margin-top: 10vh;
+    font-size: .7em;
+    
+    @include bp(600px){
+        font-size: 1em;
+    }
 }
 
 .nav-toggle {
@@ -13,20 +18,9 @@
         display: block;
         height: 0.4em;
         background: $brand-primary-lighter;
-        width: 50px;
+        width: 3em;
         margin-top: .66em;
+        min-width: 44px;
     }
 }
 
-.page-title{
-    position: relative;
-    display: inline-block;
-    
-    &-back{
-        opacity: .1;
-        font-size: 170%;
-        position: absolute;
-        left: -17px;
-        top: 10px;
-    }
-}

@@ -1,6 +1,7 @@
 ﻿// Utility's (vars, mixins, bourbon, etc.)
 
 @import "utils/utils";
+@import "vendor/vendor";
 
 // Base
 @import 
@@ -11,7 +12,8 @@
 @import
     "components/buttons",
     "components/nav-toggle",
-    "components/stats";
+    "components/stats",
+    "components/form";
 
 // Layout specific styling
 @import

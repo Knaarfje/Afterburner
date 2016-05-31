@@ -8,11 +8,25 @@ $side-padding: 30px;
     width: $side-width;
     
     padding: 30px;
-    padding-right: 0;
+    
+    .btn{
+        @include abs(auto,$side-padding,$side-padding,$side-padding);
+        text-align: center;
+    }
+
+    .user {
+        text-align: center;
+        padding: 30px 40px;
+        font-weight: 700;
+        
+        @include bp($bp-nav){
+            padding: 50px;
+        }
+    }
 }
 
 nav{
-    ul{padding:0;}
+    ul{padding:0; margin-right: -$side-padding;}
     li{list-style: none;}
     a{
         text-decoration: none;
@@ -25,15 +39,3 @@ nav{
     }
 }
 
-.btn{
-    @include abs(auto,auto,20px,60px);
-    text-align: center;
-    margin: auto;
-}
-
-.user {
-    text-align: center;
-    padding: 50px;
-    padding-left: 0;
-    font-weight: 700;
-}

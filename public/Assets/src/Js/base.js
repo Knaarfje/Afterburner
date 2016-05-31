@@ -1,4 +1,4 @@
-var app = angular.module("afterburnerApp", ["firebase"]);
+var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -34,6 +34,14 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
+    $scope.signout = () => {
+        firebase.auth().signOut().then(function () {
+            $scope.currentUser = null;
+        }, function (error) {
+            // An error happened.
+        });
+}
+
     $scope.initApp = () => {
         $scope.initChart();
         
@@ -61,6 +69,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     }
 
     $scope.selectSprint = (index) => {
+        if (index < 0) {
+            return;
+        }
+
         if ($scope.selectedSprint) {
             $scope.selectedSprint.$destroy();
         }
@@ -79,9 +91,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     }
 
     document.getElementById("graph").onclick = function (evt) {
+        if ($scope.selectedSprint) {
+            return;
+        }
+        
         var activePoints = $scope.myBar.getElementsAtEvent(evt);
         var index = ('test:', activePoints[1]._index);
-
         $scope.selectSprint(index);
     };
 
@@ -242,6 +257,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     pointBackgroundColor: '#5FFAFC',
                     pointHoverBackgroundColor: '#5FFAFC',
                     pointHoverBorderColor: '#5FFAFC',
+                    hitRadius: 15,
                     lineTension: 0
                 }, {
                     type: 'line',
@@ -255,6 +271,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     pointBackgroundColor: '#EB51D8',
                     pointHoverBackgroundColor: '#EB51D8',
                     pointHoverBorderColor: '#EB51D8',
+                    hitRadius: 15,
                     lineTension: 0
                 }]
         };
@@ -326,6 +343,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                             beginAtZero: true,
                             fontColor: '#fff',
                             suggestedMax: 100,
+                            maxTicksLimit: 20
                         },
                         gridLines: {
                             display: true,
@@ -394,3 +412,8 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
+
+// box-shadow: 0px 2px 6px 0px rgba(95,250,252,0.37), 
+//             0px 2px 24px 0px rgba(95,250,252,0.48), 
+//             -5px 9px 14px 0px rgba(0,0,0,0.50), 
+//             0px 2px 4px 0px rgba(0,0,0,0.50);

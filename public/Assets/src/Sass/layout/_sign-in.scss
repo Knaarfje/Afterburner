@@ -7,4 +7,30 @@
 .sign-in-form{
     @include centralize();
     z-index: 2;
+    padding: 0 20px;
+    
+    text-align: center;
+    max-width: 100%;
+    width: 370px;
+    
+    input{
+        text-align: center;
+    }
+    
+    
+    .page-title {
+        margin-bottom: 1em;
+    
+        .page-title-back {
+            text-align: center;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            top: 55px;
+            font-size: 140%;
+        }
+    }
 }
+
+
+
