@@ -4,7 +4,7 @@
    height: 50px;
    overflow: hidden;
    
-   @include bp($bp-nav){
+   @media (min-width:$bp-nav), (min-height:660px){
        background-color: transparent;
        height: auto;
    }
@@ -29,7 +29,7 @@
     display: inline-block;
     width: 100%;
     
-    @include bp($bp-nav){
+    @media (min-width:$bp-nav), (min-height:660px){
         display: none;
     }
 }
@@ -50,6 +50,16 @@
     
     &:last-of-type:after{
         display: none;
+    }
+    
+    @media (max-width:$bp-nav), (max-height:660px){
+        min-height: 90px;
+        width: 50%;
+        font-size: .8em;
+        
+        &:nth-child(odd):after {
+            display: none;
+        }
     }
 }
 
