@@ -178,7 +178,10 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 15ce669... bower relocated
 orleans.codegen.cs
 
 # RIA/Silverlight projects
@@ -280,3 +283,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+public/Assets/dist/Js/vendor.min.js
+public/Assets/dist/Js/vendor.js
+public/Assets/dist/Js/base.js
