@@ -178,10 +178,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 node_modules/
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of 15ce669... bower relocated
 orleans.codegen.cs
 
 # RIA/Silverlight projects
