@@ -1,3 +1,7 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('scripts/serviceworker.js');
+}
+
 var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
 app.config(function () {
     var config = {
