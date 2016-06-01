@@ -16,7 +16,9 @@
     @include bp($bp-nav){
         height: calc(80vh - 3.75em - 5vh);
     } 
-    
+    @media (max-width:$bp-nav), (max-height:660px){
+        height: calc(80vh - 3.75em - (2*50px));
+    }
     ::selection {
         background: none;
     }
