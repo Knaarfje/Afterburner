@@ -1,29 +1,19 @@
 {
-  "name": "afterburner",
+  "name": "Afterburner",
   "version": "0.0.0",
   "authors": [
     "Boerdam"
   ],
-  "directory": "./",
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "src/_bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "devDependencies": {
     "bourbon": "~4.2.3",
     "fontawesome": "~4.5.0",
     "bootstrap-sass": "^3.3.6",
     "Chart.js": "^2.1.3"
-  },
-  "homepage": "https://github.com/Knaarfje/Afterburner",
-  "description": "",
-  "main": "",
-  "dependencies": {
-    "angularfire": "^1.2.0"
   }
 }

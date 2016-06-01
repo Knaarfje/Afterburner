@@ -1,5 +1,5 @@
 {
-  "name": "afterburner",
+  "name": "Afterburner",
   "version": "1.0.0",
   "description": "Afterburner",
   "main": "gulpfile.js",
@@ -38,7 +38,5 @@
     "imagemin-pngquant": "^4.2.0",
     "path": "^0.12.7"
   },
-  "dependencies": {
-    "bower-update": "^0.2.0"
-  }
+  "dependencies": {}
 }

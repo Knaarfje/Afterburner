@@ -22,16 +22,17 @@ var gulp = require('gulp'),
 
 var srcDir = './src/';
 var outDir = './dist/';
+var testDir = './test/';
 
-var header = "/*!\n" +
-  " * Chart.js\n" +
-  " * http://chartjs.org/\n" +
-  " * Version: {{ version }}\n" +
-  " *\n" +
-  " * Copyright 2016 Nick Downie\n" +
-  " * Released under the MIT license\n" +
-  " * https://github.com/chartjs/Chart.js/blob/master/LICENSE.md\n" +
-  " */\n";
+var header = "/*!\n\
+ * Chart.js\n\
+ * http://chartjs.org/\n\
+ * Version: {{ version }}\n\
+ *\n\
+ * Copyright 2016 Nick Downie\n\
+ * Released under the MIT license\n\
+ * https://github.com/chartjs/Chart.js/blob/master/LICENSE.md\n\
+ */\n";
 
 var preTestFiles = [
   './node_modules/moment/min/moment.min.js',
@@ -156,15 +157,13 @@ function validHTMLTask() {
     .pipe(htmlv());
 }
 
-function startTest() {
+
+function unittestTask() {
   var files = ['./src/**/*.js'];
   Array.prototype.unshift.apply(files, preTestFiles);
   Array.prototype.push.apply(files, testFiles);
-  return files;
-}
 
-function unittestTask() {
-  return gulp.src(startTest())
+  return gulp.src(files)
     .pipe(karma({
       configFile: 'karma.conf.ci.js',
       action: 'run'
@@ -172,7 +171,11 @@ function unittestTask() {
 }
 
 function unittestWatchTask() {
-  return gulp.src(startTest())
+  var files = ['./src/**/*.js'];
+  Array.prototype.unshift.apply(files, preTestFiles);
+  Array.prototype.push.apply(files, testFiles);
+
+  return gulp.src(files)
     .pipe(karma({
       configFile: 'karma.conf.js',
       action: 'watch'
@@ -180,7 +183,11 @@ function unittestWatchTask() {
 }
 
 function coverageTask() {
-  return gulp.src(startTest())
+  var files = ['./src/**/*.js'];
+  Array.prototype.unshift.apply(files, preTestFiles);
+  Array.prototype.push.apply(files, testFiles);
+
+  return gulp.src(files)
     .pipe(karma({
       configFile: 'karma.coverage.conf.js',
       action: 'run'

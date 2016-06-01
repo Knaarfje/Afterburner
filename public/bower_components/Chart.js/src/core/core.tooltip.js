@@ -84,50 +84,47 @@ module.exports = function(Chart) {
 
 	Chart.Tooltip = Chart.Element.extend({
 		initialize: function() {
-			var globalDefaults = Chart.defaults.global;
 			var options = this._options;
-			var tooltips = options.tooltips;
-
 			helpers.extend(this, {
 				_model: {
 					// Positioning
-					xPadding: tooltips.xPadding,
-					yPadding: tooltips.yPadding,
-					xAlign : tooltips.yAlign,
-					yAlign : tooltips.xAlign,
+					xPadding: options.tooltips.xPadding,
+					yPadding: options.tooltips.yPadding,
+					xAlign : options.tooltips.yAlign,
+					yAlign : options.tooltips.xAlign,
 
 					// Body
-					bodyColor: tooltips.bodyColor,
-					_bodyFontFamily: helpers.getValueOrDefault(tooltips.bodyFontFamily, globalDefaults.defaultFontFamily),
-					_bodyFontStyle: helpers.getValueOrDefault(tooltips.bodyFontStyle, globalDefaults.defaultFontStyle),
-					_bodyAlign: tooltips.bodyAlign,
-					bodyFontSize: helpers.getValueOrDefault(tooltips.bodyFontSize, globalDefaults.defaultFontSize),
-					bodySpacing: tooltips.bodySpacing,
+					bodyColor: options.tooltips.bodyColor,
+					_bodyFontFamily: helpers.getValueOrDefault(options.tooltips.bodyFontFamily, Chart.defaults.global.defaultFontFamily),
+					_bodyFontStyle: helpers.getValueOrDefault(options.tooltips.bodyFontStyle, Chart.defaults.global.defaultFontStyle),
+					_bodyAlign: options.tooltips.bodyAlign,
+					bodyFontSize: helpers.getValueOrDefault(options.tooltips.bodyFontSize, Chart.defaults.global.defaultFontSize),
+					bodySpacing: options.tooltips.bodySpacing,
 
 					// Title
-					titleColor: tooltips.titleColor,
-					_titleFontFamily: helpers.getValueOrDefault(tooltips.titleFontFamily, globalDefaults.defaultFontFamily),
-					_titleFontStyle: helpers.getValueOrDefault(tooltips.titleFontStyle, globalDefaults.defaultFontStyle),
-					titleFontSize: helpers.getValueOrDefault(tooltips.titleFontSize, globalDefaults.defaultFontSize),
-					_titleAlign: tooltips.titleAlign,
-					titleSpacing: tooltips.titleSpacing,
-					titleMarginBottom: tooltips.titleMarginBottom,
+					titleColor: options.tooltips.titleColor,
+					_titleFontFamily: helpers.getValueOrDefault(options.tooltips.titleFontFamily, Chart.defaults.global.defaultFontFamily),
+					_titleFontStyle: helpers.getValueOrDefault(options.tooltips.titleFontStyle, Chart.defaults.global.defaultFontStyle),
+					titleFontSize: helpers.getValueOrDefault(options.tooltips.titleFontSize, Chart.defaults.global.defaultFontSize),
+					_titleAlign: options.tooltips.titleAlign,
+					titleSpacing: options.tooltips.titleSpacing,
+					titleMarginBottom: options.tooltips.titleMarginBottom,
 
 					// Footer
-					footerColor: tooltips.footerColor,
-					_footerFontFamily: helpers.getValueOrDefault(tooltips.footerFontFamily, globalDefaults.defaultFontFamily),
-					_footerFontStyle: helpers.getValueOrDefault(tooltips.footerFontStyle, globalDefaults.defaultFontStyle),
-					footerFontSize: helpers.getValueOrDefault(tooltips.footerFontSize, globalDefaults.defaultFontSize),
-					_footerAlign: tooltips.footerAlign,
-					footerSpacing: tooltips.footerSpacing,
-					footerMarginTop: tooltips.footerMarginTop,
+					footerColor: options.tooltips.footerColor,
+					_footerFontFamily: helpers.getValueOrDefault(options.tooltips.footerFontFamily, Chart.defaults.global.defaultFontFamily),
+					_footerFontStyle: helpers.getValueOrDefault(options.tooltips.footerFontStyle, Chart.defaults.global.defaultFontStyle),
+					footerFontSize: helpers.getValueOrDefault(options.tooltips.footerFontSize, Chart.defaults.global.defaultFontSize),
+					_footerAlign: options.tooltips.footerAlign,
+					footerSpacing: options.tooltips.footerSpacing,
+					footerMarginTop: options.tooltips.footerMarginTop,
 
 					// Appearance
-					caretSize: tooltips.caretSize,
-					cornerRadius: tooltips.cornerRadius,
-					backgroundColor: tooltips.backgroundColor,
+					caretSize: options.tooltips.caretSize,
+					cornerRadius: options.tooltips.cornerRadius,
+					backgroundColor: options.tooltips.backgroundColor,
 					opacity: 0,
-					legendColorBackground: tooltips.multiKeyBackground
+					legendColorBackground: options.tooltips.multiKeyBackground
 				}
 			});
 		},
@@ -197,7 +194,7 @@ module.exports = function(Chart) {
 			var yPositions = [];
 
 			helpers.each(elements, function(el) {
-				if (el && el.hasValue()){
+				if (el) {
 					var pos = el.tooltipPosition();
 					xPositions.push(pos.x);
 					yPositions.push(pos.y);

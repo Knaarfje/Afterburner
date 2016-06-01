@@ -5,6 +5,7 @@
 var color = require('chartjs-color');
 
 module.exports = function(Chart) {
+
 	//Global Chart helpers object for utility methods and classes
 	var helpers = Chart.helpers = {};
 
@@ -34,12 +35,14 @@ module.exports = function(Chart) {
 	helpers.clone = function(obj) {
 		var objClone = {};
 		helpers.each(obj, function(value, key) {
-			if (helpers.isArray(value)) {
-				objClone[key] = value.slice(0);
-			} else if (typeof value === 'object' && value !== null) {
-				objClone[key] = helpers.clone(value);
-			} else {
-				objClone[key] = value;
+			if (obj.hasOwnProperty(key)) {
+				if (helpers.isArray(value)) {
+					objClone[key] = value.slice(0);
+				} else if (typeof value === 'object' && value !== null) {
+					objClone[key] = helpers.clone(value);
+				} else {
+					objClone[key] = value;
+				}
 			}
 		});
 		return objClone;
@@ -52,7 +55,9 @@ module.exports = function(Chart) {
 		}
 		helpers.each(additionalArgs, function(extensionObject) {
 			helpers.each(extensionObject, function(value, key) {
-				base[key] = value;
+				if (extensionObject.hasOwnProperty(key)) {
+					base[key] = value;
+				}
 			});
 		});
 		return base;
@@ -62,40 +67,42 @@ module.exports = function(Chart) {
 		var base = helpers.clone(_base);
 		helpers.each(Array.prototype.slice.call(arguments, 1), function(extension) {
 			helpers.each(extension, function(value, key) {
-				if (key === 'scales') {
-					// Scale config merging is complex. Add out own function here for that
-					base[key] = helpers.scaleMerge(base.hasOwnProperty(key) ? base[key] : {}, value);
+				if (extension.hasOwnProperty(key)) {
+					if (key === 'scales') {
+						// Scale config merging is complex. Add out own function here for that
+						base[key] = helpers.scaleMerge(base.hasOwnProperty(key) ? base[key] : {}, value);
 
-				} else if (key === 'scale') {
-					// Used in polar area & radar charts since there is only one scale
-					base[key] = helpers.configMerge(base.hasOwnProperty(key) ? base[key] : {}, Chart.scaleService.getScaleDefaults(value.type), value);
-				} else if (base.hasOwnProperty(key) && helpers.isArray(base[key]) && helpers.isArray(value)) {
-					// In this case we have an array of objects replacing another array. Rather than doing a strict replace,
-					// merge. This allows easy scale option merging
-					var baseArray = base[key];
+					} else if (key === 'scale') {
+						// Used in polar area & radar charts since there is only one scale
+						base[key] = helpers.configMerge(base.hasOwnProperty(key) ? base[key] : {}, Chart.scaleService.getScaleDefaults(value.type), value);
+					} else if (base.hasOwnProperty(key) && helpers.isArray(base[key]) && helpers.isArray(value)) {
+						// In this case we have an array of objects replacing another array. Rather than doing a strict replace,
+						// merge. This allows easy scale option merging
+						var baseArray = base[key];
 
-					helpers.each(value, function(valueObj, index) {
+						helpers.each(value, function(valueObj, index) {
 
-						if (index < baseArray.length) {
-							if (typeof baseArray[index] === 'object' && baseArray[index] !== null && typeof valueObj === 'object' && valueObj !== null) {
-								// Two objects are coming together. Do a merge of them.
-								baseArray[index] = helpers.configMerge(baseArray[index], valueObj);
+							if (index < baseArray.length) {
+								if (typeof baseArray[index] === 'object' && baseArray[index] !== null && typeof valueObj === 'object' && valueObj !== null) {
+									// Two objects are coming together. Do a merge of them.
+									baseArray[index] = helpers.configMerge(baseArray[index], valueObj);
+								} else {
+									// Just overwrite in this case since there is nothing to merge
+									baseArray[index] = valueObj;
+								}
 							} else {
-								// Just overwrite in this case since there is nothing to merge
-								baseArray[index] = valueObj;
+								baseArray.push(valueObj); // nothing to merge
 							}
-						} else {
-							baseArray.push(valueObj); // nothing to merge
-						}
-					});
+						});
 
-				} else if (base.hasOwnProperty(key) && typeof base[key] === "object" && base[key] !== null && typeof value === "object") {
-					// If we are overwriting an object with an object, do a merge of the properties.
-					base[key] = helpers.configMerge(base[key], value);
+					} else if (base.hasOwnProperty(key) && typeof base[key] === "object" && base[key] !== null && typeof value === "object") {
+						// If we are overwriting an object with an object, do a merge of the properties.
+						base[key] = helpers.configMerge(base[key], value);
 
-				} else {
-					// can just overwrite the value in this case
-					base[key] = value;
+					} else {
+						// can just overwrite the value in this case
+						base[key] = value;
+					}
 				}
 			});
 		});
@@ -124,36 +131,38 @@ module.exports = function(Chart) {
 		var base = helpers.clone(_base);
 
 		helpers.each(extension, function(value, key) {
-			if (key === 'xAxes' || key === 'yAxes') {
-				// These properties are arrays of items
-				if (base.hasOwnProperty(key)) {
-					helpers.each(value, function(valueObj, index) {
-						var axisType = helpers.getValueOrDefault(valueObj.type, key === 'xAxes' ? 'category' : 'linear');
-						var axisDefaults = Chart.scaleService.getScaleDefaults(axisType);
-						if (index >= base[key].length || !base[key][index].type) {
-							base[key].push(helpers.configMerge(axisDefaults, valueObj));
-						} else if (valueObj.type && valueObj.type !== base[key][index].type) {
-							// Type changed. Bring in the new defaults before we bring in valueObj so that valueObj can override the correct scale defaults
-							base[key][index] = helpers.configMerge(base[key][index], axisDefaults, valueObj);
-						} else {
-							// Type is the same
-							base[key][index] = helpers.configMerge(base[key][index], valueObj);
-						}
-					});
-				} else {
-					base[key] = [];
-					helpers.each(value, function(valueObj) {
-						var axisType = helpers.getValueOrDefault(valueObj.type, key === 'xAxes' ? 'category' : 'linear');
-						base[key].push(helpers.configMerge(Chart.scaleService.getScaleDefaults(axisType), valueObj));
-					});
-				}
-			} else if (base.hasOwnProperty(key) && typeof base[key] === "object" && base[key] !== null && typeof value === "object") {
-				// If we are overwriting an object with an object, do a merge of the properties.
-				base[key] = helpers.configMerge(base[key], value);
+			if (extension.hasOwnProperty(key)) {
+				if (key === 'xAxes' || key === 'yAxes') {
+					// These properties are arrays of items
+					if (base.hasOwnProperty(key)) {
+						helpers.each(value, function(valueObj, index) {
+							var axisType = helpers.getValueOrDefault(valueObj.type, key === 'xAxes' ? 'category' : 'linear');
+							var axisDefaults = Chart.scaleService.getScaleDefaults(axisType);
+							if (index >= base[key].length || !base[key][index].type) {
+								base[key].push(helpers.configMerge(axisDefaults, valueObj));
+							} else if (valueObj.type && valueObj.type !== base[key][index].type) {
+								// Type changed. Bring in the new defaults before we bring in valueObj so that valueObj can override the correct scale defaults
+								base[key][index] = helpers.configMerge(base[key][index], axisDefaults, valueObj);
+							} else {
+								// Type is the same
+								base[key][index] = helpers.configMerge(base[key][index], valueObj);
+							}
+						});
+					} else {
+						base[key] = [];
+						helpers.each(value, function(valueObj) {
+							var axisType = helpers.getValueOrDefault(valueObj.type, key === 'xAxes' ? 'category' : 'linear');
+							base[key].push(helpers.configMerge(Chart.scaleService.getScaleDefaults(axisType), valueObj));
+						});
+					}
+				} else if (base.hasOwnProperty(key) && typeof base[key] === "object" && base[key] !== null && typeof value === "object") {
+					// If we are overwriting an object with an object, do a merge of the properties.
+					base[key] = helpers.configMerge(base[key], value);
 
-			} else {
-				// can just overwrite the value in this case
-				base[key] = value;
+				} else {
+					// can just overwrite the value in this case
+					base[key] = value;
+				}
 			}
 		});
 
@@ -185,19 +194,15 @@ module.exports = function(Chart) {
 		}
 	};
 	helpers.where = function(collection, filterCallback) {
-		if (helpers.isArray(collection) && Array.prototype.filter) {
-			return collection.filter(filterCallback);
-		} else {
-			var filtered = [];
+		var filtered = [];
 
-			helpers.each(collection, function(item) {
-				if (filterCallback(item)) {
-					filtered.push(item);
-				}
-			});
+		helpers.each(collection, function(item) {
+			if (filterCallback(item)) {
+				filtered.push(item);
+			}
+		});
 
-			return filtered;
-		}
+		return filtered;
 	};
 	helpers.findIndex = function(arrayToSearch, callback, thisArg) {
 		var index = -1;
@@ -648,10 +653,9 @@ module.exports = function(Chart) {
 			canvas = evt.currentTarget || evt.srcElement,
 			boundingRect = canvas.getBoundingClientRect();
 
-		var touches = e.touches;
-		if (touches && touches.length > 0) {
-			mouseX = touches[0].clientX;
-			mouseY = touches[0].clientY;
+		if (e.touches && e.touches.length > 0) {
+			mouseX = e.touches[0].clientX;
+			mouseY = e.touches[0].clientY;
 
 		} else {
 			mouseX = e.clientX;
@@ -699,19 +703,19 @@ module.exports = function(Chart) {
 	};
 	helpers.bindEvents = function(chartInstance, arrayOfEvents, handler) {
 		// Create the events object if it's not already present
-		var events = chartInstance.events = chartInstance.events || {};
+		if (!chartInstance.events)
+			chartInstance.events = {};
 
 		helpers.each(arrayOfEvents, function(eventName) {
-			events[eventName] = function() {
+			chartInstance.events[eventName] = function() {
 				handler.apply(chartInstance, arguments);
 			};
-			helpers.addEvent(chartInstance.chart.canvas, eventName, events[eventName]);
+			helpers.addEvent(chartInstance.chart.canvas, eventName, chartInstance.events[eventName]);
 		});
 	};
 	helpers.unbindEvents = function(chartInstance, arrayOfEvents) {
-		var canvas = chartInstance.chart.canvas;
 		helpers.each(arrayOfEvents, function(handler, eventName) {
-			helpers.removeEvent(canvas, eventName, handler);
+			helpers.removeEvent(chartInstance.chart.canvas, eventName, handler);
 		});
 	};
 
@@ -732,35 +736,21 @@ module.exports = function(Chart) {
 		return valueInPixels;
 	}
 
-	/**
-	 * Returns if the given value contains an effective constraint.
-	 * @private
-	 */
-	function isConstrainedValue(value) {
-		return value !== undefined &&  value !== null && value !== 'none';
-	}
-
 	// Private helper to get a constraint dimension
 	// @param domNode : the node to check the constraint on
-	// @param maxStyle : the style that defines the maximum for the direction we are using (maxWidth / maxHeight)
+	// @param maxStyle : the style that defines the maximum for the direction we are using (max-width / max-height)
 	// @param percentageProperty : property of parent to use when calculating width as a percentage
-	// @see http://www.nathanaeljones.com/blog/2013/reading-max-width-cross-browser
 	function getConstraintDimension(domNode, maxStyle, percentageProperty) {
-		var view = document.defaultView;
-		var parentNode = domNode.parentNode;
-		var constrainedNode = view.getComputedStyle(domNode)[maxStyle];
-		var constrainedContainer = view.getComputedStyle(parentNode)[maxStyle];
-		var hasCNode = isConstrainedValue(constrainedNode);
-		var hasCContainer = isConstrainedValue(constrainedContainer);
-		var infinity = Number.POSITIVE_INFINITY;
+		var constrainedDimension;
+		var constrainedNode = document.defaultView.getComputedStyle(domNode)[maxStyle];
+		var constrainedContainer = document.defaultView.getComputedStyle(domNode.parentNode)[maxStyle];
+		var hasCNode = constrainedNode !== null && constrainedNode !== "none";
+		var hasCContainer = constrainedContainer !== null && constrainedContainer !== "none";
 
 		if (hasCNode || hasCContainer) {
-			return Math.min(
-				hasCNode? parseMaxStyle(constrainedNode, domNode, percentageProperty) : infinity,
-				hasCContainer? parseMaxStyle(constrainedContainer, parentNode, percentageProperty) : infinity);
+			constrainedDimension = Math.min((hasCNode ? parseMaxStyle(constrainedNode, domNode, percentageProperty) : Number.POSITIVE_INFINITY), (hasCContainer ? parseMaxStyle(constrainedContainer, domNode.parentNode, percentageProperty) : Number.POSITIVE_INFINITY));
 		}
-
-		return 'none';
+		return constrainedDimension;
 	}
 	// returns Number or undefined if no constraint
 	helpers.getConstraintWidth = function(domNode) {
@@ -773,16 +763,26 @@ module.exports = function(Chart) {
 	helpers.getMaximumWidth = function(domNode) {
 		var container = domNode.parentNode;
 		var padding = parseInt(helpers.getStyle(container, 'padding-left')) + parseInt(helpers.getStyle(container, 'padding-right'));
+
 		var w = container.clientWidth - padding;
 		var cw = helpers.getConstraintWidth(domNode);
-		return isNaN(cw)? w : Math.min(w, cw);
+		if (cw !== undefined) {
+			w = Math.min(w, cw);
+		}
+
+		return w;
 	};
 	helpers.getMaximumHeight = function(domNode) {
 		var container = domNode.parentNode;
 		var padding = parseInt(helpers.getStyle(container, 'padding-top')) + parseInt(helpers.getStyle(container, 'padding-bottom'));
+
 		var h = container.clientHeight - padding;
 		var ch = helpers.getConstraintHeight(domNode);
-		return isNaN(ch)? h : Math.min(h, ch);
+		if (ch !== undefined) {
+			h = Math.min(h, ch);
+		}
+
+		return h;
 	};
 	helpers.getStyle = function(el, property) {
 		return el.currentStyle ?
@@ -791,14 +791,13 @@ module.exports = function(Chart) {
 	};
 	helpers.retinaScale = function(chart) {
 		var ctx = chart.ctx;
-		var canvas = chart.canvas;
-		var width = canvas.width;
-		var height = canvas.height;
+		var width = chart.canvas.width;
+		var height = chart.canvas.height;
 		var pixelRatio = chart.currentDevicePixelRatio = window.devicePixelRatio || 1;
 
 		if (pixelRatio !== 1) {
-			canvas.height = height * pixelRatio;
-			canvas.width = width * pixelRatio;
+			ctx.canvas.height = height * pixelRatio;
+			ctx.canvas.width = width * pixelRatio;
 			ctx.scale(pixelRatio, pixelRatio);
 
 			// Store the device pixel ratio so that we can go backwards in `destroy`.
@@ -807,8 +806,8 @@ module.exports = function(Chart) {
 			chart.originalDevicePixelRatio = chart.originalDevicePixelRatio || pixelRatio;
 		}
 
-		canvas.style.width = width + 'px';
-		canvas.style.height = height + 'px';
+		ctx.canvas.style.width = width + 'px';
+		ctx.canvas.style.height = height + 'px';
 	};
 	//-- Canvas methods
 	helpers.clear = function(chart) {
@@ -819,12 +818,12 @@ module.exports = function(Chart) {
 	};
 	helpers.longestText = function(ctx, font, arrayOfStrings, cache) {
 		cache = cache || {};
-		var data = cache.data = cache.data || {};
-		var gc = cache.garbageCollect = cache.garbageCollect || [];
+		cache.data = cache.data || {};
+		cache.garbageCollect = cache.garbageCollect || [];
 
 		if (cache.font !== font) {
-			data = cache.data = {};
-			gc = cache.garbageCollect = [];
+			cache.data = {};
+			cache.garbageCollect = [];
 			cache.font = font;
 		}
 
@@ -833,10 +832,10 @@ module.exports = function(Chart) {
 		helpers.each(arrayOfStrings, function(string) {
 			// Undefined strings should not be measured
 			if (string !== undefined && string !== null) {
-				var textWidth = data[string];
+				var textWidth = cache.data[string];
 				if (!textWidth) {
-					textWidth = data[string] = ctx.measureText(string).width;
-					gc.push(string);
+					textWidth = cache.data[string] = ctx.measureText(string).width;
+					cache.garbageCollect.push(string);
 				}
 
 				if (textWidth > longest) {
@@ -845,12 +844,12 @@ module.exports = function(Chart) {
 			}
 		});
 
-		var gcLen = gc.length / 2;
+		var gcLen = cache.garbageCollect.length / 2;
 		if (gcLen > arrayOfStrings.length) {
 			for (var i = 0; i < gcLen; i++) {
-				delete data[gc[i]];
+				delete cache.data[cache.garbageCollect[i]];
 			}
-			gc.splice(0, gcLen);
+			cache.garbageCollect.splice(0, gcLen);
 		}
 
 		return longest;
@@ -894,17 +893,16 @@ module.exports = function(Chart) {
 		}
 
 		// Set the style
-		var style = hiddenIframe.style;
-		style.width = '100%';
-		style.display = 'block';
-		style.border = 0;
-		style.height = 0;
-		style.margin = 0;
-		style.position = 'absolute';
-		style.left = 0;
-		style.right = 0;
-		style.top = 0;
-		style.bottom = 0;
+		hiddenIframe.style.width = '100%';
+		hiddenIframe.style.display = 'block';
+		hiddenIframe.style.border = 0;
+		hiddenIframe.style.height = 0;
+		hiddenIframe.style.margin = 0;
+		hiddenIframe.style.position = 'absolute';
+		hiddenIframe.style.left = 0;
+		hiddenIframe.style.right = 0;
+		hiddenIframe.style.top = 0;
+		hiddenIframe.style.bottom = 0;
 
 		// Insert the iframe so that contentWindow is available
 		node.insertBefore(hiddenIframe, node.firstChild);
@@ -928,30 +926,6 @@ module.exports = function(Chart) {
 			return Object.prototype.toString.call(obj) === '[object Array]';
 		}
 		return Array.isArray(obj);
-	};
-	//! @see http://stackoverflow.com/a/14853974
-	helpers.arrayEquals = function(a0, a1) {
-		var i, ilen, v0, v1;
-
-		if (!a0 || !a1 || a0.length != a1.length) {
-			return false;
-		}
-
-		for (i = 0, ilen=a0.length; i < ilen; ++i) {
-			v0 = a0[i];
-			v1 = a1[i];
-
-			if (v0 instanceof Array && v1 instanceof Array) {
-				if (!helpers.arrayEquals(v0, v1)) {
-					return false;
-				}
-			} else if (v0 != v1) {
-				// NOTE: two different object instances will never be equal: {x:20} != {x:20}
-				return false;
-			}
-		}
-
-		return true;
 	};
 	helpers.pushAllIfDefined = function(element, array) {
 		if (typeof element === "undefined") {

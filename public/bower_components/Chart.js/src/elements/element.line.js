@@ -3,13 +3,12 @@
 module.exports = function(Chart) {
 
 	var helpers = Chart.helpers;
-	var globalDefaults = Chart.defaults.global;
 
 	Chart.defaults.global.elements.line = {
 		tension: 0.4,
-		backgroundColor: globalDefaults.defaultColor,
+		backgroundColor: Chart.defaults.global.defaultColor,
 		borderWidth: 3,
-		borderColor: globalDefaults.defaultColor,
+		borderColor: Chart.defaults.global.defaultColor,
 		borderCapStyle: 'butt',
 		borderDash: [],
 		borderDashOffset: 0.0,
@@ -116,24 +115,23 @@ module.exports = function(Chart) {
 					ctx.lineTo(this._children[0]._view.x, vm.scaleZero);
 				}
 
-				ctx.fillStyle = vm.backgroundColor || globalDefaults.defaultColor;
+				ctx.fillStyle = vm.backgroundColor || Chart.defaults.global.defaultColor;
 				ctx.closePath();
 				ctx.fill();
 			}
 
-			var globalOptionLineElements = globalDefaults.elements.line;
 			// Now draw the line between all the points with any borders
-			ctx.lineCap = vm.borderCapStyle || globalOptionLineElements.borderCapStyle;
+			ctx.lineCap = vm.borderCapStyle || Chart.defaults.global.elements.line.borderCapStyle;
 
 			// IE 9 and 10 do not support line dash
 			if (ctx.setLineDash) {
-				ctx.setLineDash(vm.borderDash || globalOptionLineElements.borderDash);
+				ctx.setLineDash(vm.borderDash || Chart.defaults.global.elements.line.borderDash);
 			}
 
-			ctx.lineDashOffset = vm.borderDashOffset || globalOptionLineElements.borderDashOffset;
-			ctx.lineJoin = vm.borderJoinStyle || globalOptionLineElements.borderJoinStyle;
-			ctx.lineWidth = vm.borderWidth || globalOptionLineElements.borderWidth;
-			ctx.strokeStyle = vm.borderColor || globalDefaults.defaultColor;
+			ctx.lineDashOffset = vm.borderDashOffset || Chart.defaults.global.elements.line.borderDashOffset;
+			ctx.lineJoin = vm.borderJoinStyle || Chart.defaults.global.elements.line.borderJoinStyle;
+			ctx.lineWidth = vm.borderWidth || Chart.defaults.global.elements.line.borderWidth;
+			ctx.strokeStyle = vm.borderColor || Chart.defaults.global.defaultColor;
 			ctx.beginPath();
 
 			helpers.each(this._children, function(point, index) {

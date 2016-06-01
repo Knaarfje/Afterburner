@@ -228,7 +228,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             var i = 0;
             for (var x in d.burndown) {
                 i = i + d.burndown[x];
-            } 
+            }
             return i;
         });
 
