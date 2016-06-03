@@ -26,6 +26,7 @@
     <meta name="msapplication-TileImage" content="/assets/dist/img/ms-icon-144x144.png">
     <meta name="theme-color" content="#3C2261">
     
+    <script src="//use.fontawesome.com/e54236619d.js"></script>
   </head>
   
 <body ng-app="afterburnerApp" ng-controller="afterburnerCtrl" data-ng-class="{'open' : NavOpen}">
@@ -94,7 +95,8 @@
         <div class="stats">
           <div class="stat-small" data-ng-click="StatOpen = !StatOpen">
             <span class="stat-quick"><strong>{{lastSprint.velocity - sum(lastSprint.burndown)}}</strong> points remaining in sprint</span>
-            <span class="fa fa-signal""></span>
+            <span class="fa fa-signal" data-ng-hide="StatOpen"></span>
+            <span class="fa fa-times" data-ng-show="StatOpen"></span>
           </div>
           
           
