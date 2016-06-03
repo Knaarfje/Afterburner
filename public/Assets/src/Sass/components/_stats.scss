@@ -1,13 +1,22 @@
 
+$stat-height-mobile: 240px;
+
 .footer{
    background: rgba(12,17,58,0.68);
    height: 50px;
    overflow: hidden;
+   transition: height .5s;
    
    @media (min-width:$bp-nav), (min-height:660px){
        background-color: transparent;
        height: auto;
    }
+   
+   &.stat-open {
+        bottom: 0;
+        height: $stat-height-mobile;
+        background: rgba(12,17,58,.95);
+    }
 }
 
 .stats{
@@ -31,6 +40,16 @@
     
     @media (min-width:$bp-nav), (min-height:660px){
         display: none;
+    }
+    
+    .fa {
+        float: right;
+        line-height: 50px;
+        display: block;
+    }
+    
+    .stat-open & .stat-quick{
+        opacity: 0;
     }
 }
 
@@ -75,5 +94,18 @@
         font-size: 50%;
         display: inline-block;
         margin-left: 5px;
+    }
+}
+
+
+.fab-add {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+    transition: bottom .5s;
+    
+    @media (min-width:$bp-nav), (min-height:660px){
+        display: none;
     }
 }

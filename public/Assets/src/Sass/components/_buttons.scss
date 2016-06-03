@@ -49,8 +49,6 @@ $border-width: 3px;
         border: $border-width solid rgba(white, .8);
     }
     
-    
-    
     // &:hover{
     //     &:after{
     //         top: -10px;
@@ -62,3 +60,15 @@ $border-width: 3px;
     // }
 } 
 
+.fab{
+    background: $brand-primary;
+    box-shadow: 0px 2px 6px 0px rgba($brand-primary,0.33), 
+                0px 2px 24px 0px rgba($brand-primary,0.33), 
+                -5px 9px 14px 0px rgba(0,0,0,0.50), 
+                0px 2px 4px 0px rgba(0,0,0,0.50);
+    border-radius: 50px;
+    @include size(4em);
+    line-height: 4em;
+    display: inline-block;
+    text-align: center;
+}

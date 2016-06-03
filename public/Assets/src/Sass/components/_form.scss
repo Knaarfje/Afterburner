@@ -1,5 +1,3 @@
-
-
 input[type="text"],input[type="password"] {
     background: none;
     border: none;
@@ -22,6 +20,12 @@ input[type="text"],input[type="password"] {
         color: rgba( white, .13);
         font-weight: 600;
         letter-spacing: 3px;
+    }
+    
+    &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px darken(#3F2A7D, 2%) inset;
+        -webkit-text-fill-color: white !important;
+        border-bottom: darken(#3F2A7D, 2%);
     }
 } 
 
