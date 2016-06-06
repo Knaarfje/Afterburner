@@ -100,8 +100,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }
         
         var activePoints = $scope.myBar.getElementsAtEvent(evt);
-        var index = ('test:', activePoints[1]._index);
-        $scope.selectSprint(index);
+        if (activePoints && activePoints.length > 1) {
+            var index = activePoints[1]._index;
+            $scope.selectSprint(index);
+        }
     };
 
 
