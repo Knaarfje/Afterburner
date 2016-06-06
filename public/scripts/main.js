@@ -247,7 +247,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
     /// INIT
     $scope.initBurndownChart = (sprint) => {
         var burndownData = {
-            labels: ["di", "wo", "do", "vr", "ma", "di", "wo", "do", "vr"],
+            labels: ["di", "wo", "do", "vr", "ma", "di", "wo", "do", "vr", "ma"],
             datasets: [
                 {
                     label: "Gehaald",
@@ -285,7 +285,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             if (i == burndownData.labels.length - 1) {
                 return sprint.velocity;
             }
-            return (sprint.velocity / 8) * i;
+            return (sprint.velocity / 9) * i;
         }).reverse();
         burndownData.datasets[1].data = idealBurndown;
 
