@@ -4,12 +4,26 @@
     overflow: hidden;
     width: 100%;
     height: 100%;
+    
+    &:before {
+        content: "";
+        @include abs();
+        background: #000;
+        background-image: $purple-gradient;
+        z-index: 0;
+        left: 0px;
+        @include bp($bp-nav){
+            left: 340px;
+        }
+    }
+    .open &:before{
+        left: 340px;
+    }
 }
 
 .main{
-    background: #000;
-    background-image: $purple-gradient;
     transition: all .3s;
+    z-index: 2;
     
     @include abs();
     
@@ -17,9 +31,8 @@
         left: $side-width;
     }
     
-    &-inner{
+    .main-inner{
         @include abs(); 
-        z-index: 2;
     }
     
     @include bp($bp-nav, max){
@@ -38,5 +51,10 @@
 
 #particles-js{
     @include abs(); 
-    z-index: 0;
+    z-index: 1;
 }
+
+// .side > *, .main-inner > *, .footer > *{
+//     position: relative;
+//     z-index: 1;
+// }

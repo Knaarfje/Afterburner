@@ -163,7 +163,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                 responsive: true,
                 maintainAspectRatio: false,
                 tooltips: {
-                    mode: 'single',
+                    mode: 'label',
                     cornerRadius: 3,
                 },
                 elements: {
@@ -322,7 +322,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                 responsive: true,
                 maintainAspectRatio: false,
                 tooltips: {
-                    mode: 'single',
+                    mode: 'label',
                     cornerRadius: 3,
                 },
                 elements: {
