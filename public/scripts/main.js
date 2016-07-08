@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('scripts/serviceworker.js');
 }
 
-var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
+var app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'as.sortable']);
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -47,7 +47,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 }
 
     $scope.initApp = () => {
-        $scope.initChart();
+        $timeout(function(){
+            $scope.initChart();    
+        });
+        
         
         $scope.sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
 
@@ -69,8 +72,11 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 
     $scope.toOverview = () => {
         if ($scope.selectedSprint) {
+            
+        $timeout(function(){
             $scope.initChart();
             $scope.updateChart();
+        });
             $scope.selectedSprint.$destroy();
             $scope.selectedSprint = null;
         }
@@ -105,17 +111,21 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }
         
         var activePoints = $scope.myBar.getElementsAtEvent(evt);
-        var index = ('test:', activePoints[1]._index);
-        $scope.selectSprint(index);
+        if (activePoints && activePoints.length > 1) {
+            var index = activePoints[1]._index;
+            $scope.selectSprint(index);
+        }
     };
 
 
     $scope.addBurndown = (points, sprint) => {
-
         var sprintKey = $scope.sprints.$keyAt(sprint);
         var burndowns = $scope.sprints.$getRecord(sprintKey).burndown;
         burndowns.$add(points);
     }
+    
+    var lineColor = '#EB51D8',
+        barColor = '#5FFAFC';
 
     $scope.initChart = () => {
         var chartCtx = document.getElementById("graph").getContext("2d");
@@ -123,27 +133,27 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
             labels: [],
             datasets: [
                 {
-                    label: "Achieved",
                     type: 'line',
-                    data: [],
-                    fill: false,
-                    borderColor: '#EB51D8',
-                    backgroundColor: '#EB51D8',
-                    pointBorderColor: '#EB51D8',
-                    pointBackgroundColor: '#EB51D8',
-                    pointHoverBackgroundColor: '#EB51D8',
-                    pointHoverBorderColor: '#EB51D8',
-                    yAxisID: 'y-axis-2',
-                }, {
-                    type: 'bar',
                     label: "Estimated",
                     data: [],
                     fill: false,
-                    backgroundColor: '#5FFAFC',
-                    borderColor: '#5FFAFC',
+                    backgroundColor: lineColor,
+                    borderColor: lineColor,
                     hoverBackgroundColor: '#5CE5E7',
                     hoverBorderColor: '#5CE5E7',
                     yAxisID: 'y-axis-1',
+                },{
+                    label: "Achieved",
+                    type: 'bar',
+                    data: [],
+                    fill: false,
+                    borderColor: barColor,
+                    backgroundColor: barColor,
+                    pointBorderColor: barColor,
+                    pointBackgroundColor: barColor,
+                    pointHoverBackgroundColor: barColor,
+                    pointHoverBorderColor: barColor,
+                    yAxisID: 'y-axis-2',
                 }]
         };
 
@@ -242,8 +252,8 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
 
         $scope.myBar.data.labels = labels;
-        $scope.myBar.data.datasets[0].data = burned;
-        $scope.myBar.data.datasets[1].data = estimated;
+        $scope.myBar.data.datasets[1].data = burned;
+        $scope.myBar.data.datasets[0].data = estimated;
 
         $scope.myBar.update();
     };
@@ -260,12 +270,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     data: [],
                     fill: false,
                     yAxisID: 'y-axis-2',
-                    borderColor: '#5FFAFC',
-                    backgroundColor: '#5FFAFC',
-                    pointBorderColor: '#5FFAFC',
-                    pointBackgroundColor: '#5FFAFC',
-                    pointHoverBackgroundColor: '#5FFAFC',
-                    pointHoverBorderColor: '#5FFAFC',
+                    borderColor: lineColor,
+                    backgroundColor: lineColor,
+                    pointBorderColor: lineColor,
+                    pointBackgroundColor: lineColor,
+                    pointHoverBackgroundColor: lineColor,
+                    pointHoverBorderColor: lineColor,
                     hitRadius: 15,
                     lineTension: 0
                 }, {
@@ -274,12 +284,12 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
                     data: [],
                     fill: false,
                     yAxisID: 'y-axis-1',
-                    borderColor: '#EB51D8',
-                    backgroundColor: '#EB51D8',
-                    pointBorderColor: '#EB51D8',
-                    pointBackgroundColor: '#EB51D8',
-                    pointHoverBackgroundColor: '#EB51D8',
-                    pointHoverBorderColor: '#EB51D8',
+                    borderColor: barColor,
+                    backgroundColor: barColor,
+                    pointBorderColor: barColor,
+                    pointBackgroundColor: barColor,
+                    pointHoverBackgroundColor: barColor,
+                    pointHoverBorderColor: barColor,
                     hitRadius: 15,
                     lineTension: 0
                 }]
@@ -416,6 +426,27 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }
         return i;
     }
+
+
+      $scope.items = [{
+            name: 'Element 1'
+        }, {
+            name: 'Element 2'
+        }, {
+            name: 'Element 3'
+        }, {
+            name: 'Element 4'
+        }, {
+            name: 'Element 5'
+        }, {
+            name: 'Element 6'
+        }, {
+            name: 'Element 7'
+        }, {
+            name: 'Element 8'
+        }];
+
+
 });
 
 function pad(n) {

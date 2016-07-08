@@ -3,6 +3,7 @@ $side-padding: 30px;
 
 .side{
     position: relative;
+    z-index: 2;
     
     @include abs(0,auto,0,0);
     width: $side-width;
