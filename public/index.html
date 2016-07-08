@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Afterburner</title>
     
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="/Assets/dist/Css/base.min.css">
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -72,7 +73,7 @@
       <a href="" class="btn btn-primary">Add sprint...</a>
     </section>
      
-    <section class="main">
+    <section class="main" style="display: none;">
       
       <div class="main-inner">
         <div class="header">
@@ -121,8 +122,91 @@
       </div>
     </div>
     </section>
+
+
+	<section class="main">
+      <div class="main-inner">
+        <div class="header">
+        <a href="" class="nav-toggle" data-ng-click="NavOpen = !NavOpen"> 
+        <span></span><span></span><span></span>
+        </a>
+        <h1 class="page-title type">
+          Backlog
+          <span class="page-title-back">
+            overzicht
+          </span>
+        </h1>
+      </div>
+
+        <div class="main-body" ng-controller="BacklogController">
+	      <section class="backlog">
+          <div class="bi-toolbar">
+            <div class="fa fa-search">
+              <input type="text">
+            </div>
+            <div class="states">
+              <a href="" class="state state-done"></a>
+              <a href="" class="state state-approved"></a>
+              <a href="" class="state state-new"></a>
+              <a href="" class="state state-removed"></a>
+            </div>
+          </div>
+          <div id="SortableList" class="list-bi">
+            <div class="list-bi-item">
+              <div class="list-bi-item-inner">
+                <div class="thumb thumb-lg">
+                  <span class="state"></span>
+                  HE
+                </div>
+                <div class="bi-body">Drempelvrij</div>
+                <span class="badge bi-points">5</span>
+              </div>
+            </div>
+        </div>
+        </section>
+        <div>
+          <div class="row">
+          <div class="col-md-9">
+            <label for="">Titel</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="">SP</label>
+            <input type="number" class="form-control">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="">Omschrijving</label>
+            <textarea rows="4" class="form-control" cols="50"></textarea>
+          </div>
+        </div>
+        <div class="row radio-states">
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="done" >
+              <span>Done</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="approved">
+              <span>approved</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="new">
+              <span>new</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="removed" checked> 
+              <span>removed</span>
+            </label>
+        </div>
+        </div>
+
+        </div>
+      </div>
+    </section>
    
 </div>
+
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="//www.gstatic.com/firebasejs/3.0.2/firebase.js"></script>

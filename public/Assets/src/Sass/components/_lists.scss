@@ -1,0 +1,33 @@
+
+
+.list-bi{
+
+    &-item{
+        background-color: rgba(white,0.98);
+        border-radius: 2px;
+        color:$black;
+        display: table;
+        width: 100%;
+        padding: 7px 10px;
+	    margin-bottom: 4px;
+
+        &-inner{
+            display: table-row;
+        }
+
+        .thumb{
+            display: table-cell;
+            min-width: 35px;
+        }
+        .bi-body{
+            display: table-cell;
+            padding: 0 10px;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        .bi-point{
+            display: table-cell;
+        }
+    }
+}
+

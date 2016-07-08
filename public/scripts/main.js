@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('scripts/serviceworker.js');
 }
 
-var app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'as.sortable']);
+var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -44,7 +44,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }, function (error) {
             // An error happened.
         });
-}
+    }
 
     $scope.initApp = () => {
         $timeout(function(){
@@ -449,11 +449,16 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
 
 });
 
+
+app.controller("BacklogController", function ($scope) {
+
+    Sortable.create(SortableList, {
+        animation: 150
+    });
+
+});
+
 function pad(n) {
     return (n < 10) ? ("0" + n) : n;
 }
 
-// box-shadow: 0px 2px 6px 0px rgba(95,250,252,0.37), 
-//             0px 2px 24px 0px rgba(95,250,252,0.48), 
-//             -5px 9px 14px 0px rgba(0,0,0,0.50), 
-//             0px 2px 4px 0px rgba(0,0,0,0.50);
