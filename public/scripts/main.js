@@ -63,6 +63,10 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });
     }
 
+    $scope.getBacklog = (sprint) => { 
+        $scope.sprintBacklog = $firebaseArray(ref.child("backlog").orderByChild("sprint").equalTo(sprint.$id));
+    }
+
     $scope.toOverview = () => {
         if ($scope.selectedSprint) {
             $scope.initChart();
@@ -91,6 +95,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         });        
         $scope.selectedSprint.$loaded().then(function () {
             $scope.initBurndownChart($scope.selectedSprint);
+            $scope.getBacklog($scope.selectedSprint);
         });
     }
 
