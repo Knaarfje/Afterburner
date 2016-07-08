@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('scripts/serviceworker.js');
 }
 
-var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
+var app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'as.sortable']);
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -421,6 +421,27 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }
         return i;
     }
+
+
+      $scope.items = [{
+            name: 'Element 1'
+        }, {
+            name: 'Element 2'
+        }, {
+            name: 'Element 3'
+        }, {
+            name: 'Element 4'
+        }, {
+            name: 'Element 5'
+        }, {
+            name: 'Element 6'
+        }, {
+            name: 'Element 7'
+        }, {
+            name: 'Element 8'
+        }];
+
+
 });
 
 function pad(n) {
