@@ -10,8 +10,6 @@ app.component('signin', {
                 $location.path('/')
             });
         }
-
-        ctrl.signIn('thomas@boerdam.nl', 'Batman01');
     },
     templateUrl: `${templatePath}/signin.html`
 });
