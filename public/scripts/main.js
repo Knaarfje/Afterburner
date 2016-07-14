@@ -3,6 +3,7 @@ if ('serviceWorker' in navigator) {
 }
 
 var app = angular.module("afterburnerApp", ["firebase", 'ngTouch']);
+
 app.config(function () {
     var config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
@@ -13,15 +14,17 @@ app.config(function () {
     firebase.initializeApp(config);
 });
 
-app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray, $timeout) {
+app.controller("AfterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObject, $firebaseArray, $timeout) {
+    const ctrl = this;
+   
     var ref = firebase.database().ref();
     $timeout(function () {
         $scope.currentUser = firebase.auth().currentUser;
-        $scope.init();
+        ctrl.init();
     }, 500);
 
 
-    $scope.init = () => {
+    ctrl.init = () => {
         if ($scope.currentUser) {
             $scope.initApp();
         }
@@ -44,7 +47,7 @@ app.controller("afterburnerCtrl", function ($scope, $firebaseAuth, $firebaseObje
         }, function (error) {
             // An error happened.
         });
-}
+    }
 
     $scope.initApp = () => {
         $timeout(function(){

@@ -10,9 +10,19 @@
 
 .nav-toggle {
     display: inline-block;
-    float: left;
     margin-top: .3em;
     margin-right: 20px;
+    position: absolute;
+    left: $side-width;
+    top: 10vh;
+    z-index: 999;
+    transition: all .3s;
+
+    @include bp($bp-nav, max){
+        .page-container:not(.open) & {
+            left: 0;
+        }
+    }
     
     span {
         display: block;

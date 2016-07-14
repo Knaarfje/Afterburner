@@ -1,12 +1,15 @@
 
 
-.graph{
+chart {
     padding: 3em;
     padding-top: 4em;
     height: calc(80vh - 3.75em);
     max-width: 1300px;
     cursor: pointer;
-    
+    display: block;
+    position: relative;
+    display: block;
+
     @include bp($bp-xs, max){
         padding: 2em;
         padding-top: 4em;

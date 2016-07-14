@@ -23,7 +23,7 @@
     }
     
     @include bp($bp-nav, max){
-        .open &{
+        .page-container.open & {
             left: $side-width;
             right: -$side-width;
             box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
@@ -34,9 +34,5 @@
 
 .footer {
     @include abs(auto,0,0,0);
-}
-
-#particles-js{
-    @include abs(); 
-    z-index: 0;
+    z-index: 10;
 }

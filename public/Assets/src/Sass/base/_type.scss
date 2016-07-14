@@ -15,16 +15,11 @@ html, body {
     font-size: $base-font-size;
     font-family: $font-body;
     font-size: 16px;
+    overflow-y: hidden;
 }
 
 *{        
-    -webkit-user-select: none;
-    -moz-user-select: -moz-none;
-    /*IE10*/
-    -ms-user-select: none;
     user-select: none;
-
-    /*You just need this if you are only concerned with android and not desktop browsers.*/
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 } 
 
@@ -205,4 +200,14 @@ p{
         left: -17px;
         top: 10px;
     }
+
+    .header & {
+        &, &-back {
+            padding-left: 62px;
+        }
+    }
+}
+
+[ng-click] {
+    cursor: pointer;
 }

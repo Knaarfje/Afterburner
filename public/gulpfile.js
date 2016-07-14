@@ -16,13 +16,14 @@ const config = {
 };
 
 const vendorJs = [ 
-    config.bower + '/Chart.js/dist/Chart.min.js',
-    config.bower + '/angular-touch/angular-touch.min.js'
+    `${config.bower}/Chart.js/dist/Chart.min.js`,
+    `${config.bower}/angular-touch/angular-touch.min.js`,
+    `${config.bower}/angular-route/angular-route.js`
 ];
 
 const baseJs = [
-    config.src + '/Js/app.js',
-    config.src + '/Js/*.js',
+    `${config.src}/Js/app.js`,
+    `${config.src}/Js/**/*.js`,
 ];
 
 // Js
@@ -31,7 +32,7 @@ gulp.task('concatJs.vendor', () => {
         .pipe($.sourcemaps.init())
         .pipe($.concat('vendor.js'))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest(config.dist + '/Js'))
+        .pipe(gulp.dest(`${config.dist}/Js`))
 });
 
 gulp.task('concatJs.base', () => {
@@ -40,20 +41,26 @@ gulp.task('concatJs.base', () => {
         .pipe($.babel())
         .pipe($.concat('base.js'))
         .pipe($.sourcemaps.write())
-        .pipe(gulp.dest(config.dist + '/Js'))
+        .pipe(gulp.dest(`${config.dist}/Js`))
         .pipe(browserSync.stream());
 });
+
+gulp.task('templates', ()=> {
+    return gulp.src(`${config.src}/Js/components/**/*.html`)
+        .pipe($.flatten())
+        .pipe(gulp.dest(`${config.dist}/Templates/`))
+})
 
 const processMinifyJS =(src, name)=> {
     return gulp.src(src)
         .pipe($.cached('jsmin' + name))
         .pipe($.uglify({ mangle: false }))
         .pipe($.rename({ suffix: '.min' }))
-        .pipe(gulp.dest(config.dist + '/Js/'));
+        .pipe(gulp.dest(`${config.dist}/Js/`));
 };
 
-gulp.task('scripts.vendor', ['concatJs.vendor'], ()=> processMinifyJS(config.dist + '/Js/vendor.js', 'vendor'));
-gulp.task('scripts', ['concatJs.base'], ()=> processMinifyJS(config.dist + '/Js/base.js', 'base'));
+gulp.task('scripts.vendor', ['concatJs.vendor'], ()=> processMinifyJS(`${config.dist}/Js/vendor.js`, 'vendor'));
+gulp.task('scripts', ['concatJs.base'], ()=> processMinifyJS(`${config.dist}/Js/base.js`, 'base'));
 
 // Styles
 const stylesStream =(source, name, dist)=> {
@@ -64,13 +71,13 @@ const stylesStream =(source, name, dist)=> {
         .pipe($.autoprefixer(['last 2 version', 'ie 9']))
         .pipe($.rename({ basename: name, suffix: '.min' }))
         .pipe($.csso())
-        .pipe(gulp.dest(dist + '/Css/'))
+        .pipe(gulp.dest(`${dist}/Css/`))
         .pipe(browserSync.stream())
         .pipe($.sourcemaps.write('./Maps/'));
 };
 
-gulp.task('styles.vendor', ()=> stylesStream(config.src + '/Sass/vendor/vendor.scss', 'vendor'));
-gulp.task('styles', ()=> stylesStream(config.src + '/Sass/base.scss', 'base'));
+gulp.task('styles.vendor', ()=> stylesStream(`${config.src}/Sass/vendor/vendor.scss`, 'vendor'));
+gulp.task('styles', ()=> stylesStream(`${config.src}/Sass/base.scss`, 'base'));
 
 // Images
 gulp.task('images', ()=> {
@@ -85,30 +92,25 @@ gulp.task('images', ()=> {
 // Sync
 const startBrowserSync =cb=> browserSync({
     open: false,
-    proxy: {
-        target: "http://localhost:" + config.iisPort,
-        middleware: (req, res, next) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            next();
-        }
-    }
+    server: "./"
 }, cb);
 
 gulp.task('sync', ['watch'], startBrowserSync);
 
 gulp.task('watch', ()=> {
-    gulp.watch([config.src + '/Sass/**/*.scss', '!' + config.src + '/Sass/vendor/**/*.scss'], ['styles']);
+    gulp.watch([`${config.src }/Sass/**/*.scss`, `!${config.src}/Sass/vendor/**/*.scss`], ['styles']);
     gulp.watch(baseJs, ['scripts']);
     gulp.watch('scripts/*.js', ['scripts']);
-    gulp.watch(['./*.html']).on('change', browserSync.reload);
+    gulp.watch(`${config.src}/Js/components/**/*.html`, ['templates'])
+    gulp.watch(['./*.html', `${config.dist}/Templates/*.html`]).on('change', browserSync.reload);
 });
 
 // Clean
 gulp.task('clean', cb=> del(
     [
-        config.dist + '/Css',
-        config.dist + '/Js',
-        config.dist + '/Img'
+        `${config.dist}/Css`,
+        `${config.dist}/Js`,
+        `${config.dist}/Img`,
     ], { force: true }, cb)
 );
 

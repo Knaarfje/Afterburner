@@ -1,0 +1,17 @@
+<div class="main-inner">
+    <div class="header">
+        <h1 class="page-title type">
+            {{$ctrl.title}}
+
+            <span class="page-title-back">{{$ctrl.backTitle}}</span>
+        </h1>
+    </div>
+    
+    <chart type="$ctrl.chart.type"
+           options="$ctrl.chart.options"
+           data="$ctrl.chart.data"
+           loaded="$ctrl.loaded">
+    </chart>
+</div>
+
+<footer sprint="$ctrl.chart"></footer> 

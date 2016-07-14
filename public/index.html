@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Afterburner</title>
+    <base href="/">
     
     <link rel="stylesheet" href="/Assets/dist/Css/base.min.css">
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,800italic' rel='stylesheet' type='text/css'>
@@ -25,113 +26,20 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/assets/dist/img/ms-icon-144x144.png">
     <meta name="theme-color" content="#3C2261">
+
     
     <script src="//use.fontawesome.com/e54236619d.js"></script>
   </head>
   
-<body ng-app="afterburnerApp" ng-controller="afterburnerCtrl" data-ng-class="{'open' : NavOpen}">
-  <div id="particles-js"></div>
-
-  <div class="sign-in-container" data-ng-show="!currentUser" ng-cloak>
-    
-  
-    <div class="sign-in-form">
-       <h1 class="page-title">
-          Sign in
-          <span class="page-title-back">
-            Scrum
-          </span>
-        </h1>
-        <form>
-          <div class="form-block">
-            <input type="text" ng-model="user.email" placeholder="Username">
-            <input ng-model="user.password" type="password" placeholder="Password">
-          </div>
-        <button type="submit" class="btn btn-primary" ng-click="signin(user.email, user.password)">Login</button>
-      </form>
-    </div>
-  </div>
-  
-  <div class="page-container" data-ng-show="currentUser" ng-cloak ng-swipe-right="NavOpen = true" ng-swipe-left="NavOpen = false">
-    <section class="side" data-ng-class="{'open' : NavOpen}">
-      <div class="user">
-        <span>{{currentUser.email}}</span>
-        <br>
-        <a href="#" ng-click="signout()">Sign out</a>
-      </div>
-      <nav>
-        <ul>
-          <li>
-            <a href="" ng-click="selectSprint(sprints.length -1); NavOpen = false">Current sprint</a>
-          </li>
-           <li>
-            <a href="" ng-click="toOverview(); NavOpen = false">Overview</a>
-          </li>
-        </ul> 
-      </nav>
-      <a href="" class="btn btn-primary">Add sprint...</a>
-    </section>
-     
-    <section class="main">
-      
-      <div class="main-inner">
-        <div class="header">
-        <a href="" class="nav-toggle" data-ng-click="NavOpen = !NavOpen"> 
-        <span></span><span></span><span></span>
-        </a>
-        <h1 class="page-title type">
-          {{selectedSprint ? selectedSprint.name : "Overview"}}
-          <span class="page-title-back">
-            {{selectedSprint ? "Burndown" : "Velocity"}}
-          </span>
-        </h1>
-      </div>
-      
-      <div class="graph">
-        <canvas id="graph"></canvas>
-      </div>
-      
-       <div class="footer" data-ng-class="{'stat-open' : StatOpen}">
-        <div class="stats">
-          <div class="stat-small" data-ng-click="StatOpen = !StatOpen">
-            <span class="stat-quick"><strong>{{lastSprint.velocity - sum(lastSprint.burndown)}}</strong> points remaining in sprint</span>
-            <span class="fa fa-signal" data-ng-hide="StatOpen"></span>
-            <span class="fa fa-times" data-ng-show="StatOpen"></span>
-          </div>
-          
-          
-          <div class="stats-group" ng-cloak>
-            <span class="stat">{{lastSprint.velocity}}<small>pt</small></span>
-            <span class="stat-label">Current velocity</span>
-          </div>
-          <div class="stats-group" ng-cloak>
-            <span class="stat">{{sum(lastSprint.burndown)}}<small>pt</small></span>
-            <span class="stat-label">Points burned</span>
-          </div>
-          <div class="stats-group" ng-cloak>
-            <span class="stat">{{lastSprint.velocity - sum(lastSprint.burndown)}}<small>pt</small></span>
-            <span class="stat-label">Points remaining</span>
-          </div>
-          <div class="stats-group" ng-cloak>
-            <span class="stat">{{lastSprint.velocity / lastSprint.duration | number : 1}}<small>pt</small></span>
-            <span class="stat-label">Daily needed</span>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-    </section>
-   
-</div>
+<body ng-app="afterburnerApp" id="particles-js">
+    <ng-view></ng-view> 
 
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="//www.gstatic.com/firebasejs/3.0.2/firebase.js"></script>
-    <script src="/scripts/angularfire.min.js"></script>    
-    
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
     <script src="//cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="/Assets/dist/Js/base.js"></script>
     <script src="/Assets/dist/Js/vendor.min.js"></script>
     
-    <script src="/scripts/main.js"></script>
   </body>
 </html>

@@ -1,0 +1,18 @@
+
+  <div class="sign-in-container">
+    <div class="sign-in-form">
+       <h1 class="page-title">
+          Sign in
+          <span class="page-title-back">
+            Scrum
+          </span>
+        </h1>
+        <form>
+          <div class="form-block">
+            <input type="text" ng-model="$ctrl.user.email" placeholder="Username">
+            <input ng-model="$ctrl.user.password" type="password" placeholder="Password">
+          </div>
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.signIn($ctrl.user.email, $ctrl.user.password)">Login</button>
+      </form>
+    </div>
+  </div> 

@@ -1,0 +1,16 @@
+<div class="page-container" 
+     ng-swipe-right="$ctrl.navOpen = true" 
+     ng-swipe-left="$ctrl.navOpen = false"
+     ng-class="{ 'open' : $ctrl.navOpen }">
+
+    <side-nav user="$ctrl.auth.$getAuth()"
+              on-sign-out="$ctrl.auth.$signOut()"
+              open="$ctrl.navOpen">
+    </side-nav>
+
+    <a class="nav-toggle" ng-click="$ctrl.navOpen = !$ctrl.navOpen">
+        <span></span><span></span><span></span>
+    </a>
+
+    <section class="main" ng-transclude></section>
+</div> 
