@@ -1,9 +1,9 @@
 app.component('chart', {
     bindings: {
-        type: '<',
         options: '<',
         data: '<',
-        loaded: '<'
+        loaded: '<',
+        type: '<'
     },
     controller($element, $scope, $timeout, $location) {
         let ctrl = this;
@@ -20,14 +20,15 @@ app.component('chart', {
                 options: ctrl.options
             });
 
-            if ($location.path() !== '/') return;
-            $canvas.onclick =e=> {
-                let activePoints = ctrl.chart.getElementsAtEvent(e);
-                if (activePoints && activePoints.length > 1) {
-                    let clickedSprint = activePoints[1]._index + 1;
-                    $timeout(()=> $location.path(`/sprint/${clickedSprint}`))
-                }
-            };
+            if ($location.path() === '/') {
+                $canvas.onclick =e=> {
+                    let activePoints = ctrl.chart.getElementsAtEvent(e);
+                    if (activePoints && activePoints.length > 1) {
+                        let clickedSprint = activePoints[1]._index + 1;
+                        $timeout(()=> $location.path(`/sprint/${clickedSprint}`))
+                    }
+                };
+            }
         }
 
         $scope.$watch(()=> ctrl.loaded, loaded=> {

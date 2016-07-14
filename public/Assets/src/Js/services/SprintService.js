@@ -166,7 +166,7 @@ app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilitySe
             let currentSprint = $firebaseObject(ref.child(`sprints/${current}`));
             currentSprint.$loaded(sprint=> {
                 let chartObj = { 
-                    type: "bar",
+                    type: "bar", 
                     options: chartOptions, 
                     data: data,
                     velocity: sprint.velocity,
