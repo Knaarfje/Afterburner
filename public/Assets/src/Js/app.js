@@ -30,7 +30,7 @@ app.config(function ($locationProvider, $routeProvider) {
                     <sprints title="'Overview'" 
                              back-title="'Velocity'" 
                              chart="$resolve.chart">
-                    </sprint>
+                    </sprints> 
                 </app>`,
         }).
         when('/current-sprint', {
@@ -44,7 +44,7 @@ app.config(function ($locationProvider, $routeProvider) {
                     <sprints title="$resolve.chart.name" 
                              back-title="'Burndown'" 
                              chart="$resolve.chart">
-                    </sprint>
+                    </sprints>
                 </app>`,
         }).
         when('/sprint/:sprint', {
@@ -59,7 +59,7 @@ app.config(function ($locationProvider, $routeProvider) {
                     <sprints title="$resolve.chart.name" 
                              back-title="'Burndown'" 
                              chart="$resolve.chart">
-                    </sprint>
+                    </sprints>
                 </app>`,
         }).
         otherwise('/'); 
