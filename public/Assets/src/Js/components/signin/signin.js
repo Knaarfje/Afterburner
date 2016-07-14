@@ -9,7 +9,7 @@ app.component('signin', {
             $firebaseAuth().$signInWithEmailAndPassword(name, email).then(data => {
                 $location.path('/')
             });
-        }
+        } 
     },
     templateUrl: `${templatePath}/signin.html`
 });
