@@ -1,0 +1,39 @@
+
+.state{
+    @include size(13px);
+    display: inline-block;
+    border-radius: 30px;
+}
+
+
+$state-list:
+    done            $color-done,
+    approved        $color-approved,
+    new             $color-new,
+    removed         $color-removed,
+;
+
+ @each $state in $state-list {
+    $name:        nth($state, 1);
+    $bg-color:    nth($state, 2);
+
+    .state-#{$name} { 
+        background-color: $bg-color;
+
+        .active &, 
+        &.active,
+        input[type=radio]:checked+span &{
+            box-shadow: 0px 0px 6px 0px rgba($bg-color,0.83), 
+                        0px 2px 4px 0px rgba(0,0,0,0.30);
+            border: 1.5px solid #fff;
+        }
+    }
+
+    
+ } 
+
+.thumb .state{
+    position: absolute;
+    left: -4px;
+    top: 0;
+}

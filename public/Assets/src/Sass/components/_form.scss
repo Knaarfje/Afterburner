@@ -11,6 +11,7 @@ input[type="text"],input[type="password"], .form-control{
     font-weight: 600;
     transition: border-color .2s;
     border-radius: 0;
+    padding-left: 2px!important;
     
     &:focus {
         outline: none;
@@ -38,20 +39,11 @@ input[type="text"],input[type="password"], .form-control{
 
 .radio-states{
     input[type="radio"]{
-        &:before {
-            //content: "";
-            background: black;
-            width: 17px;
-            height: 17px;
-            display: block;
-            margin-left: -2px;
-            pointer-events: none;
-            border-radius: 20px;
-            margin-top: -1px;
-        }
+        display: none;
 
         &:not(:checked), &:not(:checked)+span {
             opacity: 0.3;
         }
     }
+    .state {margin-right: 5px;}
 }

@@ -5,17 +5,6 @@
     width: 100%;
     height: 100%;
     
-    &:before {
-        content: "";
-        @include abs();
-        background: #000;
-        background-image: $purple-gradient;
-        z-index: 0;
-        left: 0px;
-        @include bp($bp-nav){
-            left: 340px;
-        }
-    }
     .open &:before{
         left: 340px;
     }
@@ -25,7 +14,7 @@
     transition: all .3s;
     z-index: 2;
     
-    @include abs();
+    @include abs(0);
     
     @include bp($bp-nav){
         left: $side-width;
@@ -45,8 +34,18 @@
 
 
     &-body{
-        max-width: 1200px;
+        max-width: 1400px;
 	    padding: 4em 4.45em 3em;
+    }
+
+    &:before {
+        content: "";
+        @include abs();
+        background: #000;
+        background-image: $purple-gradient;
+        z-index: 0;
+        left: 0px;
+        @include abs();
     }
 }
 
