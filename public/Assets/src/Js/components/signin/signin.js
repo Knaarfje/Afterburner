@@ -1,8 +1,5 @@
 app.component('signin', {
-    binding: {
-
-    }, 
-    controller($firebaseAuth, $timeout, $location) { 
+    controller($firebaseAuth, $location) { 
         const ctrl = this;
 
         ctrl.signIn =(name, email)=> {

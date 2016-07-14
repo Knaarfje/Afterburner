@@ -1,13 +1,14 @@
 app.component('sprints', {
     bindings: {
-        title: '@',
-        backTitle: '@',
-        type: '@',
+        title: '<',
+        backTitle: '<',
         chart: '<'
     },
     controller() {
         let ctrl = this;
-        ctrl.loaded = true;
+
+        ctrl.loaded = false;
+        ctrl.$onInit =()=> ctrl.loaded = true;
     },
     templateUrl: `${templatePath}/sprints.html` 
 });  

@@ -1,4 +1,4 @@
-app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilityService, $q, $timeout, $filter) {
+app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilityService, $q, $filter, $location, $timeout) {
     let _ = UtilityService;
     let ref = firebase.database().ref();
     let lineColor = '#EB51D8';
@@ -142,7 +142,7 @@ app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilitySe
 
     function getSprints(cb) {
         let sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(15));
-        sprints.$loaded(cb)
+        sprints.$loaded(cb, ()=> $location.path('/signin'))
     }
 
     function getOverviewChart() {
@@ -250,5 +250,4 @@ app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilitySe
         getCurrentChart,
         getSprintChart
     }
-
 });

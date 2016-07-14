@@ -15,7 +15,7 @@ app.config(function ($locationProvider, $routeProvider) {
 
     firebase.initializeApp(config);
 
-    //$locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true).hashPrefix('');
 
     $routeProvider
         .when('/signin', { 
@@ -29,8 +29,8 @@ app.config(function ($locationProvider, $routeProvider) {
             },
             template: `
                 <app>
-                    <sprints title="Overview" 
-                             back-title="Velocity" 
+                    <sprints title="'Overview'" 
+                             back-title="'Velocity'" 
                              chart="$resolve.chart">
                     </sprint>
                 </app>`,
@@ -43,8 +43,8 @@ app.config(function ($locationProvider, $routeProvider) {
             },
             template: `
                 <app>
-                    <sprints title="{{$resolve.chart.name}}" 
-                             back-title="Burndown" 
+                    <sprints title="$resolve.chart.name" 
+                             back-title="'Burndown'" 
                              chart="$resolve.chart">
                     </sprint>
                 </app>`,
@@ -58,8 +58,8 @@ app.config(function ($locationProvider, $routeProvider) {
             },
             template: `
                 <app>
-                    <sprints title="{{$resolve.chart.name}}" 
-                             back-title="Burndown" 
+                    <sprints title="$resolve.chart.name" 
+                             back-title="'Burndown'" 
                              chart="$resolve.chart">
                     </sprint>
                 </app>`,

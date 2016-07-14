@@ -1,17 +1,16 @@
 app.component('app', {
-    binding: {
-
-    },
     transclude: true,
-    controller($timeout, $location, $firebaseAuth) {
+    controller($location, $firebaseAuth) {
         let ctrl = this;
         let auth = $firebaseAuth();
         
         ctrl.auth = auth;
-        ctrl.navOpen = true;
+        if(!auth.$getAuth()) $location.path('/signin');
 
-        ctrl.$onInit =()=> {
-            if(!auth.$getAuth()) $location.path('/signin');
+        ctrl.navOpen = true;
+        ctrl.signOut =()=> {
+            ctrl.auth.$signOut();
+            $location.path('/signin');
         }
     },
     templateUrl: `${templatePath}/app.html` 

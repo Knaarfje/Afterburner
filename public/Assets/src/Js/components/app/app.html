@@ -4,7 +4,7 @@
      ng-class="{ 'open' : $ctrl.navOpen }">
 
     <side-nav user="$ctrl.auth.$getAuth()"
-              on-sign-out="$ctrl.auth.$signOut()"
+              on-sign-out="$ctrl.signOut()"
               open="$ctrl.navOpen">
     </side-nav>
 

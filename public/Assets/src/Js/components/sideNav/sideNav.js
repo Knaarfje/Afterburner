@@ -4,7 +4,7 @@ app.component('sideNav', {
         open: '<',
         onSignOut: '&',
     },
-    controller($timeout, $location, $swipe) {
+    controller() {
         let ctrl = this;
         ctrl.open = true;
     },
