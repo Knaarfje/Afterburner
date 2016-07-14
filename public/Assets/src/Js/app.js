@@ -15,8 +15,6 @@ app.config(function ($locationProvider, $routeProvider) {
 
     firebase.initializeApp(config);
 
-    //$locationProvider.html5Mode(true).hashPrefix('');
-
     $routeProvider
         .when('/signin', { 
             template: '<signin></signin>'
