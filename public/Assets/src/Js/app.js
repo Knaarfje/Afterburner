@@ -13,6 +13,8 @@ app.config(function ($locationProvider, $routeProvider) {
         storageBucket: "project-7784811851232431954.appspot.com",
     };
 
+    $locationProvider.html5Mode(true);
+
     firebase.initializeApp(config);
 
     $routeProvider
