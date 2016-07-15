@@ -3,8 +3,10 @@ app.component('sprints', {
         title: '<',
         backTitle: '<',
         chart: '<'
+
     },
-    controller($firebaseAuth) {
+
+    controller($firebaseAuth, SprintService, $scope) {
         let ctrl = this;
         let auth = $firebaseAuth();
 

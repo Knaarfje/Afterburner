@@ -166,8 +166,6 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
             let currentSprint = $firebaseObject(ref.child(`sprints/${current}`));
 
             currentSprint.$loaded(sprint=> {
-
-                console.log(sprint)
                 let chartObj = { 
                     type: "bar", 
                     options: chartOptions, 
@@ -241,7 +239,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         getSprints(sprints=> {
             let sprint = $firebaseObject(ref.child(`sprints/s${sprintNumber}`));
             sprint.$loaded(()=> {
-                deferred.resolve(buildBurnDownChart(sprint, sprintNumber));
+                deferred.resolve(buildBurnDownChart(sprint));
             });
         });
 
