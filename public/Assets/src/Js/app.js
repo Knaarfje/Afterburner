@@ -23,7 +23,7 @@ app.controller("BacklogController", function ($scope) {
     $scope.filterState;
     $scope.filterStates = function(x) {
         if(x == $scope.filterState){
-            $scope.filterState = "";
+            $scope.filterState = ""; 
         }else{
             $scope.filterState = x;
         }
