@@ -177,45 +177,47 @@
            -->
         </div>
         </section>
+
+        <a href="" class="fab">x</a>
         <div class="col-md-6">
           <div class="row">
-          <div class="col-md-9">
-            <label for="">Titel</label>
-            <input type="text" ng-model="itemToAdd.name" class="form-control">
+            <div class="col-md-9">
+              <label for="">Titel</label>
+              <input type="text" ng-model="itemToAdd.name" class="form-control">
+            </div>
+            <div class="col-md-3">
+              <label for="">SP</label>
+              <input type="number" ng-model="itemToAdd.points" class="form-control" min="0">
+            </div>
           </div>
-          <div class="col-md-3">
-            <label for="">SP</label>
-            <input type="number" ng-model="itemToAdd.points" class="form-control" min="0">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="">Omschrijving</label>
+              <textarea rows="4" class="form-control" cols="50"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <label for="">Omschrijving</label>
-            <textarea rows="4" class="form-control" cols="50"></textarea>
+          <div class="row radio-states">
+              <label class="checkbox-inline">
+                <input type="radio" name="state" value="done" ng-model="itemToAdd.state.done">
+                <span><span class="state state-done"></span> Done</span>
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="state" value="approved" ng-model="itemToAdd.state.approved">
+                <span><span class="state state-approved"></span> Approved</span>
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="state" value="new" checked ng-model="itemToAdd.state.new">
+                <span><span class="state state-new"></span> New</span>
+              </label>
+              <label class="checkbox-inline">
+                <input type="radio" name="state" value="removed" ng-model="itemToAdd.state.removed"> 
+                <span><span class="state state-removed"></span> Removed</span>
+              </label>
           </div>
-        </div>
-        <div class="row radio-states">
-            <label class="checkbox-inline">
-              <input type="radio" name="state" value="done" ng-model="itemToAdd.state.done">
-              <span><span class="state state-done"></span> Done</span>
-            </label>
-            <label class="checkbox-inline">
-              <input type="radio" name="state" value="approved" ng-model="itemToAdd.state.approved">
-              <span><span class="state state-approved"></span> Approved</span>
-            </label>
-            <label class="checkbox-inline">
-              <input type="radio" name="state" value="new" checked ng-model="itemToAdd.state.new">
-              <span><span class="state state-new"></span> New</span>
-            </label>
-            <label class="checkbox-inline">
-              <input type="radio" name="state" value="removed" ng-model="itemToAdd.state.removed"> 
-              <span><span class="state state-removed"></span> Removed</span>
-            </label>
-        </div>
-        <div class="row">
-          <br>
-          <a class="btn btn-primary" ng-click="add(itemToAdd)">Voeg toe</a>
-        </div>
+          <div class="row">
+            <br>
+            <a class="btn btn-primary" ng-click="add(itemToAdd)">Voeg toe</a>
+          </div>
         </div>
 
         </div>

@@ -124,4 +124,27 @@ $btn-types:
     }
   }
 }
+ 
+.fab{
+    $fab-size: 3.5em;
 
+    @extend %default-btn;
+    
+    text-align: center;
+    border-radius: 100em;
+    background: $brand-primary;
+    color: white;
+    display: inline-block;
+    transition: background .3s, border .15s, box-shadow .5s;
+    @include size($fab-size);
+    line-height: $fab-size;
+
+    @include states {
+      color: white;
+      text-decoration: none;
+      background: darken($brand-primary, 15%);
+      box-shadow: 0px 2px 6px 0px rgba(95,250,252,0.2), 
+                        0px 2px 40px 0px rgba(95,250,252,0.3), 
+                        0px 2px 4px 0px rgba(0,0,0,0.50);
+    }
+}
