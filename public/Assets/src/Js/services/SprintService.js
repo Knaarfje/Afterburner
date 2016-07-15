@@ -148,23 +148,21 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
     function getOverviewChart() {
         let deferred = $q.defer();
 
-        getSprints(sprints=> {
-            let labels = sprints.map(d=> `Sprint ${_.pad(d.order)}`);
-            let estimated = sprints.map(d=> d.velocity);
-            let burned = sprints.map(d=> {
-                let i = 0;
-                for (var x in d.burndown) i = i + d.burndown[x];
-                return i;
+        getSprints(sprints => {
+
+            sprints.$loaded(() => {
+                updateOverviewChart(deferred, sprints);                
+
+                sprints.$watch(() => {
+                    $rootScope.$broadcast('sprint:update');    
+                    updateOverviewChart(deferred, sprints);
+                });    
             });
 
-            let data = overviewData;
-            data.labels = labels;
-            data.datasets[1].data = burned;
-            data.datasets[0].data = estimated;
 
-            let current = sprints.$keyAt(sprints.length-1);
-            let currentSprint = $firebaseObject(ref.child(`sprints/${current}`));
+        });
 
+<<<<<<< HEAD
             currentSprint.$loaded(sprint=> {
                 let chartObj = { 
                     type: "bar", 
@@ -175,12 +173,43 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                     remaining: sprint.velocity - _.sum(sprint.burndown),
                     needed: $filter('number')(sprint.velocity / sprint.duration, 1)
                 }
+=======
+        return deferred.promise;
+    }
 
-                deferred.resolve(chartObj);
-            });
+    function updateOverviewChart(deferred, sprints) {
+>>>>>>> 52868f174b20c6cdf3a04800f0f82280fc4a65a0
+
+        let labels;
+        let estimated;
+        let burned;
+
+        labels = sprints.map(d => `Sprint ${_.pad(d.order)}`);
+        estimated = sprints.map(d => d.velocity);
+        burned = sprints.map(d => {
+            let i = 0;
+            for (var x in d.burndown) i = i + d.burndown[x];
+            return i;
         });
 
-        return deferred.promise;
+        let data = overviewData;
+        data.labels = labels;
+        data.datasets[1].data = burned;
+        data.datasets[0].data = estimated;
+
+        let currentSprint = sprints[sprints.length - 1];
+
+        let chartObj = {
+            type: "bar",
+            options: chartOptions,
+            data: data,
+            velocity: currentSprint.velocity,
+            burndown: _.sum(currentSprint.burndown),
+            remaining: currentSprint.velocity - _.sum(currentSprint.burndown),
+            needed: $filter('number')(currentSprint.velocity / currentSprint.duration, 1)
+        }
+                
+        deferred.resolve(chartObj);
     }
 
     function buildBurnDownChart(sprint) {
@@ -238,9 +267,11 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
 
         getSprints(sprints=> {
             let sprint = $firebaseObject(ref.child(`sprints/s${sprintNumber}`));
-            sprint.$loaded(()=> {
+
+            sprint.$watch(e => {
+                $rootScope.$broadcast('sprint:update');
                 deferred.resolve(buildBurnDownChart(sprint));
-            });
+            })
         });
 
         return deferred.promise;

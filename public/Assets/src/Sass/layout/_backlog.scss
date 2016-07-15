@@ -1,0 +1,44 @@
+
+
+.backlog{
+    @include bp($screen-md){
+        padding-right: 3em;
+    }
+}
+
+.bi-toolbar{
+    display: table;
+    width: 100%;
+
+    &-inner{display: table-row}
+
+
+    .states{
+        display: table-cell; 
+        vertical-align: top;    
+        text-align: right;
+        min-width: 75px;
+    }
+} 
+
+.bi-search{
+    display: table-cell;
+    position: relative;
+    width: 100%;
+
+    .fa-search {
+        position: absolute;
+        top: 4px;
+    }
+
+    input{
+        float:left;
+        text-indent: 30px;
+        border: transparent;
+        margin-bottom: 5px;
+        margin-top: -7px;
+
+        &:focus{border-bottom: 2px solid white;}
+    }
+}
+

@@ -18,7 +18,9 @@ const config = {
 const vendorJs = [ 
     `${config.bower}/Chart.js/dist/Chart.min.js`,
     `${config.bower}/angular-touch/angular-touch.min.js`,
-    `${config.bower}/angular-route/angular-route.js`
+    `${config.bower}/angular-route/angular-route.js`,
+        `${config.node}/sortablejs/Sortable.js`,
+        `${config.node}/sortablejs/ng-sortable.js`
 ];
 
 const baseJs = [
