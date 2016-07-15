@@ -1,5 +1,5 @@
 
-<div class="main-inner" data-ng-controller="BacklogController">
+<div class="main-inner">
     <div class="header">
         <h1 class="page-title type">
             {{$ctrl.title}}
@@ -16,16 +16,16 @@
               <input type="text" ng-model="BIsearch">
             </div>
             <div class="states">
-              <a href="" ng-click="filterStates('done')" class="state state-done" ng-class="{'active': filterState == 'done'}"></a>
-              <a href="" ng-click="filterStates('approved')" class="state state-approved" ng-class="{'active': filterState == 'approved'}"></a>
-              <a href="" ng-click="filterStates('new')" class="state state-new" ng-class="{'active': filterState == 'new'}"></a>
-              <a href="" ng-click="filterStates('removed')" class="state state-removed" ng-class="{'active': filterState == 'removed'}"></a>
+              <a href="" ng-click="$ctrl.filterStates($ctrl.State.Done)" class="state state-done" ng-class="{'active': filterState == $ctrl.State.Done}"></a>
+              <a href="" ng-click="$ctrl.filterStates($ctrl.State.Approved)" class="state state-approved" ng-class="{'active': filterState == $ctrl.State.Approved}"></a>
+              <a href="" ng-click="$ctrl.filterStates($ctrl.State.New)" class="state state-new" ng-class="{'active': filterState == $ctrl.State.New}"></a>
+              <a href="" ng-click="$ctrl.filterStates($ctrl.State.Removed)" class="state state-removed" ng-class="{'active': filterState == $ctrl.State.Removed}"></a>
             </div>
             </div>
           </div>
 
           <div id="SortableList" class="list-bi" ng-sortable="{animation:150}">
-            <div class="list-bi-item" ng-repeat="BiItem in BiItems | filter: BiItem.state+filterState | filter: BIsearch" ng-class="{'list-bi-sprint':BiItem.state == 'sprint'}">
+            <div class="list-bi-item" ng-repeat="BiItem in $ctrl.BiItems | filter: BiItem.state+filterState | filter: BIsearch" ng-class="{'list-bi-sprint':BiItem.state == 'sprint'}">
               <div class="list-bi-item-inner">
                 <div class="thumb-container">
                   <div class="thumb thumb-lg">
@@ -36,7 +36,7 @@
                 <div class="bi-body">{{BiItem.name}}</div>
                 <span class="badge bi-points">{{BiItem.points}}</span>
               </div>
-            </div>
+            </div> 
             <!--<div class="list-bi-item list-bi-sprint">
               <strong>SPRINT - 05</strong>
             </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="row">
           <br>
-          <a class="btn btn-primary" ng-click="add(itemToAdd)">Voeg toe</a>
+          <a class="btn btn-primary" ng-click="$ctrl.add(itemToAdd)">Voeg toe</a>
         </div>
         </div>
           </div>
