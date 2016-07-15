@@ -2,7 +2,7 @@ app.component('sprints', {
     bindings: {
         title: '<',
         backTitle: '<',
-        chart: '<'
+        chart: '='
     },
     controller($firebaseAuth) {
         let ctrl = this;
