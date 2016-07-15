@@ -1,6 +1,6 @@
 app.component('app', {
     transclude: true,
-    controller($location, $firebaseAuth) {
+    controller($location, $firebaseAuth, SprintService) {
         let ctrl = this;
         let auth = $firebaseAuth();
         

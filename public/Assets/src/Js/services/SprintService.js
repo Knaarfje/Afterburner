@@ -1,4 +1,4 @@
-app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilityService, $q, $filter, $location, $timeout) {
+app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObject, UtilityService, $q, $filter, $location, $timeout) {
     let _ = UtilityService;
     let ref = firebase.database().ref();
     let lineColor = '#EB51D8';
@@ -164,7 +164,10 @@ app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilitySe
 
             let current = sprints.$keyAt(sprints.length-1);
             let currentSprint = $firebaseObject(ref.child(`sprints/${current}`));
+
             currentSprint.$loaded(sprint=> {
+
+                console.log(sprint)
                 let chartObj = { 
                     type: "bar", 
                     options: chartOptions, 
@@ -223,9 +226,10 @@ app.factory('SprintService', function($firebaseArray, $firebaseObject, UtilitySe
             let current = sprints.$keyAt(sprints.length-1);
             let currentNumber = current.split("s")[1];
             let currentSprint = $firebaseObject(ref.child(`sprints/${current}`));
-            currentSprint.$loaded(()=> {
-                deferred.resolve(buildBurnDownChart(currentSprint, currentNumber));
-            });
+            currentSprint.$watch(e=> {
+                $rootScope.$broadcast('sprint:update');
+                deferred.resolve(buildBurnDownChart(currentSprint));
+            })
         });
 
         return deferred.promise;

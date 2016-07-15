@@ -5,7 +5,7 @@ app.component('chart', {
         loaded: '<',
         type: '<'
     },
-    controller($element, $scope, $timeout, $location) {
+    controller($element, $scope, $timeout, $location, $rootScope) {
         let ctrl = this;
         let $canvas = $element[0].querySelector("canvas");
 
@@ -19,6 +19,8 @@ app.component('chart', {
                 data: ctrl.data,
                 options: ctrl.options
             });
+
+            window.chart = ctrl.chart;
 
             if ($location.path() === '/') {
                 $canvas.onclick =e=> {
@@ -34,6 +36,10 @@ app.component('chart', {
         $scope.$watch(()=> ctrl.loaded, loaded=> {
             if(!loaded) return;
             init();
+        })
+
+        $rootScope.$on('sprint:update', ()=> {
+            $timeout(()=>ctrl.chart.update());
         })
     },
     template: `<canvas></canvas>` 
