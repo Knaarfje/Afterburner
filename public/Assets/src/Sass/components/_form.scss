@@ -1,4 +1,4 @@
-input[type="text"],input[type="password"] {
+input[type="text"],input[type="password"], .form-control{
     background: none;
     border: none;
     border-bottom: 2px solid rgba(255, 255, 255, 0.21);
@@ -10,10 +10,13 @@ input[type="text"],input[type="password"] {
     display: inline-block;
     font-weight: 600;
     transition: border-color .2s;
+    border-radius: 0;
+    padding-left: 2px!important;
     
     &:focus {
         outline: none;
         border-bottom: 2px solid white;
+        box-shadow: none;
     }
     
     @include placeholder {
@@ -31,4 +34,16 @@ input[type="text"],input[type="password"] {
 
 .form-block{
     margin-bottom: 1em;
+}
+
+
+.radio-states{
+    input[type="radio"]{
+        display: none;
+
+        &:not(:checked), &:not(:checked)+span {
+            opacity: 0.3;
+        }
+    }
+    .state {margin-right: 5px;}
 }
