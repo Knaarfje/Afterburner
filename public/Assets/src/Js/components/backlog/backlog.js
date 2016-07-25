@@ -3,8 +3,10 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService) {
+    controller(BacklogService, $firebaseAuth) {
         let ctrl = this;
+        let auth = $firebaseAuth();
+
         ctrl.state = {
             New: 0,
             Approved: 1,
@@ -12,53 +14,46 @@ app.component('backlog', {
             Removed: -1
         };
 
+        ctrl.filter = {};
         ctrl.open = true;
 
-
-        console.log(BacklogService)        
         BacklogService.getBacklog().then(function (data) {
             ctrl.BiItems = data;
         });
 
-
-    ctrl.addBI = function() {
-        ctrl.BiItems.push({name: ctrl.newBIname,points: 2,state: 'approved'})
-    }
-
-    ctrl.filterState;
-    ctrl.filterStates = function(x) {
-        if(x == ctrl.filterState){
-            ctrl.filterState = "";
-        }else{
-            ctrl.filterState = x;
+        ctrl.selectItem = (item) => {
+            ctrl.selectedItem = item;
         }
-    }
 
-    ctrl.itemsToAdd = [{
-        name: '',
-        points: '',
-        state: ''
-    }];
+        ctrl.addItem = () => {
+            var newItem = {
+                name: "Nieuw...",
+                effort: 0,
+                description: "",
+                order: 0,
+                state: 0
+            }
 
-    ctrl.add = function(itemToAdd) {
+            BacklogService.add(newItem).then((data) => {
+                ctrl.selectItem(ctrl.BiItems.$getRecord(data.key));
+            });
+        }
 
-        var index = ctrl.itemsToAdd.indexOf(itemToAdd);
+        ctrl.deleteItem = (item) => {
+            BacklogService.remove(item);
+        }
 
-        ctrl.itemsToAdd.splice(index, 1);
+        ctrl.saveItem = (item) => {
+            BacklogService.save(item);
+        }
 
-        ctrl.BiItems.push(angular.copy(itemToAdd))
-    }
-
-    ctrl.addNew = function() {
-
-        ctrl.itemsToAdd.push({
-            name: '',
-            points: '',
-            state: ''
-        })
-    }
-
-
+        ctrl.filterItems = function (x) {
+            if (x == ctrl.filter.state) {
+                ctrl.filter.state = null;
+            } else {
+                ctrl.filter.state = x;
+            }
+        }
     },
-    templateUrl: `${templatePath}/backlog.html` 
+    templateUrl: `${templatePath}/backlog.html`
 });  

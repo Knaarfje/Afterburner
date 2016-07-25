@@ -1,17 +1,33 @@
 app.factory('BacklogService', function ($rootScope, $firebaseArray, $firebaseObject, UtilityService, $q, $filter, $location, $timeout) {
     let _ = UtilityService;
     let ref = firebase.database().ref();
+    let backlog;
 
     function getBacklog(sprint) {
         return $q(function (resolve, reject) {
             if (!sprint) {
-                let backlog = $firebaseArray(ref.child("backlog").orderByChild('order'));
+                backlog = $firebaseArray(ref.child("backlog").orderByChild('order'));
                 resolve(backlog);
            } 
         });
     }
 
+    function add(backlogItem) {
+        return backlog.$add(backlogItem);
+    }
+    
+    function remove(backlogItem) {
+        return backlog.$remove(backlogItem);
+    }
+
+    function save(backlogItem) {
+        return backlog.$save(backlogItem);
+    }
+
     return {
-        getBacklog
+        getBacklog,
+        save,
+        add,
+        remove
     };
 });
