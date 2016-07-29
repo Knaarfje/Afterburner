@@ -23,8 +23,8 @@
             display: table-cell;
             padding: 0 10px;
             width: 100%;
-	        font-weight: 600;
             color: #2b2b2b;
+            vertical-align: middle;
         }
         .bi-point{
             display: table-cell;
@@ -52,3 +52,6 @@
 }
 
 
+[ng-sortable] > * {
+    cursor: move;
+}

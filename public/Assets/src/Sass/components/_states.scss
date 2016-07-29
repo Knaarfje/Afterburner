@@ -7,17 +7,18 @@
 
 
 $state-list:
-    done            $color-done,
-    approved        $color-approved,
-    new             $color-new,
-    removed         $color-removed,
+    3   done            $color-done,
+    1   approved        $color-approved,
+    0   new             $color-new,
+    -1  removed         $color-removed,
 ;
 
  @each $state in $state-list {
-    $name:        nth($state, 1);
-    $bg-color:    nth($state, 2);
+    $id:        nth($state, 1);
+    $name:    nth($state, 2);
+    $bg-color:    nth($state, 3);
 
-    .state-#{$name} { 
+    .state-#{$name}, .state-#{$id}{ 
         background-color: $bg-color;
 
         .active &, 

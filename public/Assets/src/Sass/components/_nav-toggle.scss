@@ -28,9 +28,13 @@
         display: block;
         height: 0.4em;
         background: $brand-primary-lighter;
-        width: 3em;
+        width: 35px;
         margin-top: .66em;
         min-width: 44px;
+
+        @include bp(600px){
+            font-size: 1em;
+        }
     }
 }
 

@@ -1,44 +1,44 @@
 <div class="main-inner">
-  <div class="header">
-    <h1 class="page-title type">
-            {{$ctrl.title}}
-            <span class="page-title-back">{{$ctrl.backTitle}}</span>
-        </h1>
-  </div>
-  <section class="backlog col-md-6">
+	<div class="header">
+		<h1 class="page-title type">
+			{{$ctrl.title}}
+			<span class="page-title-back">{{$ctrl.backTitle}}</span>
+		</h1>
+	</div>
 
-    <div class="row">
-      <div class="bi-toolbar">
-        <div class="bi-toolbar-inner">
-          <div class="bi-search">
-            <div class="fa fa-search"></div>
-            <input type="text" ng-model="filter.name">
-          </div>
-          <div class="states">
-            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
-            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
-            <a href="" ng-click="$ctrl.filterItems($ctrl.state.New)" class="state state-new" ng-class="{'active': $ctrl.filter.state == $ctrl.state.New}"></a>
-            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Removed)" class="state state-removed" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Removed}"></a>
-          </div>
-        </div>
-      </div>
 
-      <div id="SortableList" class="list-bi" ng-sortable="{animation:150}">
-        <backlog-item item="BiItem" on-click="$ctrl.selectItem(BiItem)" ng-repeat="BiItem in $ctrl.BiItems | filter: filter">
-        </backlog-item>
-        <!--<div class="list-bi-item list-bi-sprint">
-              <strong>SPRINT - 05</strong>
-            </div>
-           -->
-      </div>
-  </section>
-  <div class="col-md-6">
-    <backlog-form 
-        item="$ctrl.selectedItem" 
-        on-add="$ctrl.addItem()" 
-        on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
-        on-save="$ctrl.saveItem($ctrl.selectedItem)">
-    </backlog-form>
-  </div>
-  </div>
+	<div class="body-container">
+		<section class="backlog col-md-6">
+			<div class="row">
+				<div class="bi-toolbar">
+						<div class="bi-toolbar-inner">
+							<div class="bi-search">
+								<div class="fa fa-search"></div>
+								<input type="text" ng-model="filter.name">
+							</div>
+							<div class="states">
+								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
+								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
+								<a href="" ng-click="$ctrl.filterItems($ctrl.state.New)" class="state state-new" ng-class="{'active': $ctrl.filter.state == $ctrl.state.New}"></a>
+								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Removed)" class="state state-removed" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Removed}"></a>
+							</div>
+						</div>
+				</div>
+			</div>
+
+			<div id="SortableList" class="row list-bi" ng-sortable="{animation:150}">
+				<backlog-item item="BiItem" on-click="$ctrl.selectItem(BiItem)" ng-repeat="BiItem in $ctrl.BiItems | filter: filter"></backlog-item>
+			</div>
+		</section>
+
+
+		<div class="col-md-6">
+			<backlog-form 
+				item="$ctrl.selectedItem" 
+				on-add="$ctrl.addItem()" 
+				on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
+				on-save="$ctrl.saveItem($ctrl.selectedItem)">
+			</backlog-form>
+		</div>
+	</div>
 </div>
