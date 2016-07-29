@@ -7,7 +7,7 @@ app.component('app', {
         ctrl.auth = auth;
         if(!auth.$getAuth()) $location.path('/signin');
 
-        ctrl.navOpen = true;
+        ctrl.navOpen = false;
         ctrl.signOut =()=> {
             ctrl.auth.$signOut();
             $location.path('/signin');

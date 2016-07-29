@@ -1,0 +1,20 @@
+
+$fab-size: 3em;
+
+.btn.btn-fab{
+    border-radius: 100px;
+    @include size($fab-size);
+    line-height: ($fab-size + 0.1);
+    padding: 0;
+    font-size: 1.4em;
+
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    transition: all .2s;
+
+    &.active{
+        transform: rotate(135deg);
+    }
+} 

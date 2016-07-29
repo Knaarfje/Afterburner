@@ -31,7 +31,8 @@ $btn-sizes:
 $btn-types:
 //  Name       // Background      Text          Outline  
     primary    $brand-primary       white         true,
-    secondary  $brand-secondary     white         true;
+    secondary  $brand-secondary     white         true,
+    danger     $brand-secondary     white          false;
 
 .btn-block {
     display: block;
@@ -86,25 +87,33 @@ $btn-types:
     }
 }
 
+.btn-cirlce{
+    width: 2.5em;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 @each $type in $btn-types {
   $name:        nth($type, 1);
   $bg-color:    nth($type, 2);
   $txt-color:   nth($type, 3);
   $outline:     nth($type, 4);
 
-  .btn-#{$name} {
+  .btn-#{$name},
+  .btn-#{$name}.active{
     background: $bg-color;
     color: $txt-color;
-    box-shadow: 0px 2px 6px 0px rgba(95,250,252,0.14), 
-                    0px 2px 24px 0px rgba(95,250,252,0.21), 
+    box-shadow: 0px 2px 6px 0px rgba($bg-color,0.14), 
+                    0px 2px 24px 0px rgba($bg-color,0.21), 
                     0px 2px 4px 0px rgba(0,0,0,0.50);
 	transition: background .3s, border .15s, box-shadow .5s;
 
     @include states {
       color: $txt-color;
       background: darken($bg-color, 15%);
-      box-shadow: 0px 2px 6px 0px rgba(95,250,252,0.2), 
-                        0px 2px 40px 0px rgba(95,250,252,0.3), 
+      box-shadow: 0px 2px 6px 0px rgba($bg-color,0.2), 
+                        0px 2px 40px 0px rgba($bg-color,0.3), 
                         0px 2px 4px 0px rgba(0,0,0,0.50);
     }
 
