@@ -1,6 +1,5 @@
 
-
-.bi-toolbar{
+.backlog-toolbar{
     display: table;
     width: 100%;
 
@@ -15,7 +14,7 @@
     }
 } 
 
-.bi-search{
+.backlog-search{
     display: table-cell;
     position: relative;
     width: 100%;
@@ -36,11 +35,10 @@
     }
 }
 
-#SortableList {
+.backlog-list {
     max-height: calc(90vh - 1em - 2em - 40px - 6em);
     overflow-y: auto;
 }
-
 
 .backlog-form{
     @include bp(600px, max){

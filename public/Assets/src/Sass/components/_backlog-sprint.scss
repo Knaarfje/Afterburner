@@ -1,0 +1,18 @@
+.backlog-sprint{
+    background-color: transparent;
+    padding: 20px 0 5px 0;
+
+    .thumb-container {
+        display: none;
+    }
+    .badge {
+        background: none;
+        padding: 0;
+    }
+    .backlog-body {
+        padding: 0;
+        color: white;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+}

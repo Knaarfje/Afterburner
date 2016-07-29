@@ -88,6 +88,13 @@ app.component('backlog', {
                 ctrl.filter.state = x;
             }
         } 
+
+        ctrl.sortConfig = {
+            animation: 150,
+            onSort(e) {
+                console.log(e)
+            }
+        }
     },
     templateUrl: `${templatePath}/backlog.html`
 });  

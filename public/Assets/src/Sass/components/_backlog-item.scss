@@ -1,0 +1,33 @@
+
+backlog-item {
+    display: block;
+}
+
+.backlog-item {
+    background-color: rgba(white,0.98);
+    border-radius: 2px;
+    color:$black;
+    display: table; 
+    width: 100%;
+    padding: 7px 10px;
+    margin-bottom: 4px;
+
+    &-inner{
+        display: table-row; 
+    }
+
+    .thumb-container{
+        display: table-cell;
+        min-width: 35px;
+    }
+    .backlog-body{
+        display: table-cell;
+        padding: 0 10px;
+        width: 100%;
+        color: #2b2b2b;
+        vertical-align: middle;
+    }
+    .backlog-point{
+        display: table-cell;
+    }
+}

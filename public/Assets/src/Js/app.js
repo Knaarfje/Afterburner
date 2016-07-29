@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('scripts/serviceworker.js');
 }
 
-const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute']);
+const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', 'ng-sortable']);
 const templatePath = './Assets/dist/Templates';
 
 app.config(function ($locationProvider, $routeProvider) {
@@ -13,15 +13,15 @@ app.config(function ($locationProvider, $routeProvider) {
         storageBucket: "project-7784811851232431954.appspot.com",
     };
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true); 
 
     firebase.initializeApp(config);
 
     $routeProvider
         .when('/signin', { 
             template: '<signin></signin>'
-        }).
-        when('/', {
+        }) 
+        .when('/', {
             resolve: {
                 chart(SprintService) {
                     return SprintService.getOverviewChart()
@@ -34,8 +34,8 @@ app.config(function ($locationProvider, $routeProvider) {
                              chart="$resolve.chart">
                     </sprints> 
                 </app>`,
-        }).
-        when('/current-sprint', {
+        })
+        .when('/current-sprint', {
             resolve: {
                 chart(SprintService) {
                     return SprintService.getCurrentChart()
@@ -48,8 +48,8 @@ app.config(function ($locationProvider, $routeProvider) {
                              chart="$resolve.chart">
                     </sprints>
                 </app>`,
-        }).
-        when('/sprint/:sprint', {
+        })
+        .when('/sprint/:sprint', {
             resolve: {
                 chart(SprintService, $route) {
                     let sprint = $route.current.params.sprint;
@@ -63,14 +63,14 @@ app.config(function ($locationProvider, $routeProvider) {
                              chart="$resolve.chart">
                     </sprints>
                 </app>`,
-        }).
-        when('/backlog', {
+        })
+        .when('/backlog', {
             template: `
                 <app>
                     <backlog title="'Backlog'"
                              back-title="'Overview'">
                     </backlog>
                 </app>`, 
-        }). 
-        otherwise('/'); 
-});
+        }) 
+        .otherwise('/'); 
+}); 

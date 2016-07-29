@@ -9,14 +9,14 @@ const $ = require("gulp-load-plugins")({ lazy: true });
 // Config
 const config = {
     iisPort:    39154,
-    bower:      './src/_bower_components',
+    bower:      './bower_components',
     node:       './node_modules',
     src:        './public/Assets/src',
     dist:       './public/Assets/dist',
 };
 
 const vendorJs = [ 
-    `${config.bower}/Chart.js/dist/Chart.min.js`,
+    `${config.node}/chart.js/dist/Chart.min.js`,
     `${config.bower}/angular-touch/angular-touch.min.js`,
     `${config.bower}/angular-route/angular-route.js`,
     `${config.node}/sortablejs/Sortable.js`,
@@ -24,8 +24,10 @@ const vendorJs = [
 ];
 
 const baseJs = [
+    `${config.src}/Js/particle.js`,
     `${config.src}/Js/app.js`,
-    `${config.src}/Js/**/*.js`,
+    `${config.src}/Js/components/**/*.js`,
+    `${config.src}/Js/services/**/*.js`
 ];
 
 // Js
