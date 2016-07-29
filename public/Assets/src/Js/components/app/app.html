@@ -1,8 +1,7 @@
 <div class="page-container" 
      ng-swipe-right="$ctrl.navOpen = true" 
      ng-swipe-left="$ctrl.navOpen = false"
-     ng-class="{ 'open' : $ctrl.navOpen }"
-     ng-swipe-disable-mouse>
+     ng-class="{ 'open' : $ctrl.navOpen }">
 
     <side-nav user="$ctrl.auth.$getAuth()"
               on-sign-out="$ctrl.signOut()"
