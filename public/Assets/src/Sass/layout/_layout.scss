@@ -9,14 +9,19 @@
 .body-container, chart{
     @include clearfix;
     padding-top: 1.2em;
-    max-width: 1300px;
-	padding-left: 50px;
+    max-width: 1360px;
+	padding-left: $nav-toggle-gutter;
+    padding-right: $nav-toggle-gutter;
+
+    @include bp($bp-nav, max){
+        padding-left: $nav-toggle-gutter-xs;
+        padding-right: $nav-toggle-gutter-xs;
+    }
 
     @include bp($bp-xs, max){
-        padding: 2em;
-        padding-top: 4em;
-        padding-left: 5px;
+	    padding: 1em 2em 2em $nav-toggle-gutter-xs;
     }
+    
 }
 
 .row-container{

@@ -23,6 +23,7 @@
     .fa-search {
         position: absolute;
         top: 4px;
+        pointer-events: none;
     }
 
     input{
@@ -37,13 +38,23 @@
 }
 
 #SortableList {
-    max-height: calc(90vh - 1em - 2em - 40px - 6em);
+    max-height: calc(90vh - 1em - 2em - 6em);
     overflow-y: auto;
+
+    @include bp($bp-nav){
+        max-height: calc(90vh - 1em - 2em - 40px - 6em);
+    }
 }
 
+.backlog {
+    @include bp($screen-lg){
+        padding-right: 35px;
+    }
+}
 
 .backlog-form{
-    @include bp(600px, max){
+    @include bp($screen-lg, max){
+        display: none;
         @include fxd();
     }
 }

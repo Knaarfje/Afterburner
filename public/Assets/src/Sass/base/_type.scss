@@ -101,7 +101,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6, p {
 
 h1,.h1 {
     font-size: em(60px);
-    line-height: 1.1;
+    line-height: 1.25;
 
     small {
         display: block;
@@ -203,7 +203,11 @@ p{
 
     .header & {
         &, &-back {
-            padding-left: 50px;
+            padding-left: $nav-toggle-gutter;
+
+            @include bp($bp-nav, max){
+                padding-left: $nav-toggle-gutter-xs;
+            }
         }
     }
 }
