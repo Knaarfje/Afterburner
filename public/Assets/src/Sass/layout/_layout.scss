@@ -6,11 +6,16 @@
     height: 100%;
 }
 
-.body-container {
-    padding: 1.5em 20px;
+.body-container, chart{
+    @include clearfix;
+    padding-top: 1.2em;
+    max-width: 1300px;
+	padding-left: 50px;
 
-    @include bp(600px){
-        padding: 2em 4em;
+    @include bp($bp-xs, max){
+        padding: 2em;
+        padding-top: 4em;
+        padding-left: 5px;
     }
 }
 

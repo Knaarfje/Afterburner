@@ -1,22 +1,12 @@
 
 
 chart {
-    padding-top: 1.2em;
-    padding-right: 0;
     height: calc(80vh - 3.75em);
-    max-width: 1300px;
     cursor: pointer;
     display: block;
     position: relative;
     display: block;
 
-    @include bp($bp-xs, max){
-        padding: 2em;
-        padding-top: 4em;
-        padding-left: 5px;
-    }
-    
-    
     @media (max-width:$bp-nav), (max-height:660px){
         height: calc(100vh - 3.75em - (100px));
     }
@@ -33,3 +23,4 @@ chart {
         background: none;
     }
 } 
+
