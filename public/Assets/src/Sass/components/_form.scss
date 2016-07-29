@@ -12,6 +12,10 @@ input[type="text"],input[type="password"], .form-control{
     transition: border-color .2s;
     border-radius: 0;
     padding-left: 2px!important;
+    max-width: 100%;
+	line-height: 24px;
+    font-size: 14px;
+    font-weight: normal;
     
     &:focus {
         outline: none;
@@ -46,4 +50,20 @@ input[type="text"],input[type="password"], .form-control{
         }
     }
     .state {margin-right: 5px;}
+
+    .checkbox-inline:first-of-type{padding-left:0;}
+}
+
+input.form-lg{
+    font-size: 2em;
+    line-height: 24px;
+    font-weight: normal;
+}
+
+
+label:not(.checkbox-inline), .label{
+    opacity: .5;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 0;
 }
