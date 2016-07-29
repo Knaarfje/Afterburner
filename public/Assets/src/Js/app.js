@@ -70,7 +70,7 @@ app.config(function ($locationProvider, $routeProvider) {
                     <backlog title="'Backlog'"
                              back-title="'Overview'">
                     </backlog>
-                </app>`,
-        }).
+                </app>`, 
+        }). 
         otherwise('/'); 
 });

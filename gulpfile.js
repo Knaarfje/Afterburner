@@ -11,8 +11,8 @@ const config = {
     iisPort:    39154,
     bower:      './src/_bower_components',
     node:       './node_modules',
-    src:        './Assets/src',
-    dist:       './Assets/dist',
+    src:        './public/Assets/src',
+    dist:       './public/Assets/dist',
 };
 
 const vendorJs = [ 
@@ -94,7 +94,7 @@ gulp.task('images', ()=> {
 // Sync
 const startBrowserSync =cb=> browserSync({
     open: false,
-    server: "./"
+    server: "./public"
 }, cb);
 
 gulp.task('sync', ['watch'], startBrowserSync);

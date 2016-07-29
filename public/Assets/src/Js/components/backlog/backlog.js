@@ -5,16 +5,13 @@ app.component('backlog', {
     },
     controller(BacklogService, $firebaseAuth) {
         let ctrl = this;
-<<<<<<< HEAD
-=======
         let auth = $firebaseAuth();
->>>>>>> d85e579975611df4c38e4873c573c7bf81e26410
 
         ctrl.state = {
             New: 0,
             Approved: 1,
             Done: 3,
-            Removed: -1
+            Removed: -1 
         };
 
         ctrl.filter = {};
@@ -25,7 +22,6 @@ app.component('backlog', {
             ctrl.BiItems = data;
         });
 
-<<<<<<< HEAD
         ctrl.addBI =()=> {
             ctrl.BiItems.push({
                 name: ctrl.newBIname, 
@@ -36,7 +32,7 @@ app.component('backlog', {
         
         ctrl.filterStates =x=> {
             ctrl.filterState = x == ctrl.filterState ? "" : x;
-        };
+        }; 
 
         ctrl.itemsToAdd = [{
             name: '',
@@ -56,9 +52,9 @@ app.component('backlog', {
                 name: '',
                 points: '',
                 state: ''
-            })
+            }) 
         };
-=======
+
         ctrl.selectItem = (item) => {
             ctrl.selectedItem = item;
         }
@@ -91,8 +87,7 @@ app.component('backlog', {
             } else {
                 ctrl.filter.state = x;
             }
-        }
->>>>>>> d85e579975611df4c38e4873c573c7bf81e26410
+        } 
     },
     templateUrl: `${templatePath}/backlog.html`
 });  
