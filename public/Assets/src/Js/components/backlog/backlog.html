@@ -8,7 +8,7 @@
 
 
 	<div class="body-container">
-		<section class="backlog col-lg-6">
+		<section class="backlog col-lg-6" ng-class="{'opacity': $ctrl.formOpen}">
 			<div class="row">
 				<div class="backlog-toolbar">
 						<div class="backlog-toolbar-inner">
@@ -17,7 +17,7 @@
 								<input type="text" ng-model="filter.name">
 							</div>
 							<div class="states">
-								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
+								<a href="" ng-click="$ctrl.filterItems()" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
 								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
 								<a href="" ng-click="$ctrl.filterItems($ctrl.state.New)" class="state state-new" ng-class="{'active': $ctrl.filter.state == $ctrl.state.New}"></a>
 								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Removed)" class="state state-removed" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Removed}"></a>
@@ -39,7 +39,7 @@
 			</div>
 		</section>
 
-		<div class="col-lg-6 backlog-form">
+		<div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.formOpen}">
 			<backlog-form 
 				item="$ctrl.selectedItem" 
 				on-add="$ctrl.addItem()" 
@@ -53,7 +53,7 @@
 		<span class="fa fa-plus" aria-hidden="true"></span>
 	</div>-->
 
-	<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()">
+	<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()" ng-hide="$ctrl.formOpen">
 		<span class="fa fa-plus" aria-hidden="true"></span>
 	</div>
 </div>

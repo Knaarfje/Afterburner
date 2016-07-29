@@ -7,6 +7,8 @@ app.component('backlog', {
         let ctrl = this;
         let auth = $firebaseAuth();
 
+        ctrl.formOpen = false;
+
         ctrl.state = {
             New: 0,
             Approved: 1,
@@ -22,8 +24,6 @@ app.component('backlog', {
             ctrl.BiItems = data;
             ctrl.reOrder();
         });
-
-        ctrl.saveItem =item=> BacklogService.save(item);
 
         ctrl.reOrder =()=> ctrl.BiItems.forEach((item, index)=> {
             if(item.order !== index) {
@@ -61,10 +61,13 @@ app.component('backlog', {
             state: ''
         });
 
-        ctrl.selectItem =item=> ctrl.selectedItem = item;
+        ctrl.selectItem =item=> {
+            ctrl.formOpen = true;
+            ctrl.selectedItem = item;
+        }
 
         ctrl.addItem =()=> {
-            var newItem = {
+            let newItem = {
                 name: "Nieuw...",
                 effort: 0,
                 description: "",
@@ -74,6 +77,7 @@ app.component('backlog', {
 
             BacklogService.add(newItem).then(data=> {
                 ctrl.selectItem(ctrl.BiItems.$getRecord(data.key));
+                ctrl.formOpen = true;
             });
         }
 
@@ -82,7 +86,14 @@ app.component('backlog', {
             let selectIndex = index === 0 ? 0 : index-1;
 
             BacklogService.remove(item).then(()=> {
-                ctrl.selectItem(ctrl.BiItems[selectIndex])
+                ctrl.selectItem(ctrl.BiItems[selectIndex]);
+                ctrl.formOpen = false;
+            });
+        };
+
+        ctrl.saveItem = (item) => {
+            BacklogService.save(item).then(()=> {
+                ctrl.formOpen = false;
             });
         }
 
