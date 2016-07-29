@@ -13,5 +13,5 @@ app.component('app', {
             $location.path('/signin');
         }
     },
-    templateUrl: `${templatePath}/app.html` 
+    templateUrl: `${templatePath}/app.html`   
 });  

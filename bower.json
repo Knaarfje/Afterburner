@@ -1,0 +1,20 @@
+{
+  "name": "Afterburner",
+  "version": "0.0.0",
+  "authors": [
+    "Boerdam"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "devDependencies": {
+    "bourbon": "~4.2.3",
+    "fontawesome": "~4.5.0",
+    "bootstrap-sass": "^3.3.6",
+    "angular-route": "^1.5.7",
+    "angular-touch": "^1.5.8"
+  }
+}

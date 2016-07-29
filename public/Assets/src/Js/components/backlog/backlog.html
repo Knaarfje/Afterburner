@@ -10,9 +10,9 @@
 	<div class="body-container" ng-class="{'backlog-form-open': $ctrl.formOpen}">
 		<section class="backlog col-lg-6">
 			<div class="row">
-				<div class="bi-toolbar">
-						<div class="bi-toolbar-inner">
-							<div class="bi-search">
+				<div class="backlog-toolbar">
+						<div class="backlog-toolbar-inner">
+							<div class="backlog-search">
 								<div class="fa fa-search"></div>
 								<input type="text" ng-model="filter.name">
 							</div>
@@ -26,13 +26,25 @@
 				</div>
 			</div>
 
-			<div id="SortableList" class="row list-bi" ng-sortable="{animation:150, handle: '.thumb'}">
-				<backlog-item item="BiItem" on-click="$ctrl.selectItem(BiItem)" ng-repeat="BiItem in $ctrl.BiItems | filter: filter"></backlog-item>
+			<div id="SortableList" 
+				 class="row list-backlog" 
+				 ng-sortable="$ctrl.sortConfig">
+
+				<backlog-item item="BiItem"
+							  order="{{BiItem.order}}"
+							  on-click="$ctrl.selectItem(BiItem)" 
+							  ng-repeat="BiItem in $ctrl.BiItems | filter: filter"
+							  ng-class="{'active' : BiItem === $ctrl.selectedItem}">
+				</backlog-item>
 			</div>
 		</section>
 
+<<<<<<< HEAD
 
 		<div class="col-lg-6 backlog-form">
+=======
+		<div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.formOpen}">
+>>>>>>> 1ea42ac2b518b017d5ed9df3548b36346a71aa69
 			<backlog-form 
 				item="$ctrl.selectedItem" 
 				on-add="$ctrl.addItem()" 
@@ -47,9 +59,15 @@
 		</div>
 	</div>
 
-
 	<!--<div class="btn btn-primary btn-fab" ng-click="fabActive = !fabActive" ng-class="{'active': fabActive}">
 		<span class="fa fa-plus" aria-hidden="true"></span>
 	</div>-->
+<<<<<<< HEAD
 	
+=======
+
+	<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()" ng-hide="$ctrl.formOpen">
+		<span class="fa fa-plus" aria-hidden="true"></span>
+	</div>
+>>>>>>> 1ea42ac2b518b017d5ed9df3548b36346a71aa69
 </div>

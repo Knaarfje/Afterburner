@@ -4,7 +4,8 @@ app.component('sprints', {
         backTitle: '<',
         chart: '='
     },
-    controller($firebaseAuth) {
+
+    controller($firebaseAuth, SprintService, $scope) {
         let ctrl = this;
         let auth = $firebaseAuth();
 

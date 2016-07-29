@@ -5,6 +5,7 @@ app.component('backlogItem', {
     },
     controller(BacklogService, $firebaseAuth) {
         let ctrl = this;
+
     },
     templateUrl: `${templatePath}/backlogItem.html` 
 });

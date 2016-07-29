@@ -6,7 +6,7 @@ app.component('sideNav', {
     },
     controller() {
         let ctrl = this;
-        ctrl.open = true;
+        ctrl.open = false;
     },
     templateUrl: `${templatePath}/sideNav.html` 
 });  
