@@ -7,8 +7,8 @@
 	</div>
 
 
-	<div class="body-container">
-		<section class="backlog col-lg-6" ng-class="{'opacity': $ctrl.formOpen}">
+	<div class="body-container" ng-class="{'backlog-form-open': $ctrl.formOpen}">
+		<section class="backlog col-lg-6">
 			<div class="row">
 				<div class="bi-toolbar">
 						<div class="bi-toolbar-inner">
@@ -32,7 +32,7 @@
 		</section>
 
 
-		<div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.formOpen}">
+		<div class="col-lg-6 backlog-form">
 			<backlog-form 
 				item="$ctrl.selectedItem" 
 				on-add="$ctrl.addItem()" 
@@ -40,13 +40,16 @@
 				on-save="$ctrl.saveItem($ctrl.selectedItem)">
 			</backlog-form>
 		</div>
+
+
+		<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()">
+			<span class="fa fa-plus" aria-hidden="true"></span>
+		</div>
 	</div>
 
 
 	<!--<div class="btn btn-primary btn-fab" ng-click="fabActive = !fabActive" ng-class="{'active': fabActive}">
 		<span class="fa fa-plus" aria-hidden="true"></span>
 	</div>-->
-	<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()" ng-hide="$ctrl.formOpen">
-		<span class="fa fa-plus" aria-hidden="true"></span>
-	</div>
+	
 </div>

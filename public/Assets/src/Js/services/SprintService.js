@@ -202,9 +202,9 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
     function buildBurnDownChart(sprint) {
         let idealBurndown = burndownData.labels.map((d, i) => {
             if (i === burndownData.labels.length - 1) {
-                return sprint.velocity;
+                return sprint.velocity.toFixed(2);
             }
-            return (sprint.velocity / 9) * i;
+            return ((sprint.velocity / 9) * i).toFixed(2);
         }).reverse();
 
         let velocityRemaining = sprint.velocity
