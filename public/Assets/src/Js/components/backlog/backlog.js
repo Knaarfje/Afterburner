@@ -7,6 +7,8 @@ app.component('backlog', {
         let ctrl = this;
         let auth = $firebaseAuth();
 
+        ctrl.formOpen = false;
+
         ctrl.state = {
             New: 0,
             Approved: 1,
@@ -22,10 +24,13 @@ app.component('backlog', {
         });
 
         ctrl.selectItem = (item) => {
+            ctrl.formOpen = true;
             ctrl.selectedItem = item;
         }
 
         ctrl.addItem = () => {
+            ctrl.formOpen = true;
+
             var newItem = {
                 name: "Nieuw...",
                 effort: 0,
@@ -41,10 +46,14 @@ app.component('backlog', {
 
         ctrl.deleteItem = (item) => {
             BacklogService.remove(item);
+
+            ctrl.formOpen = false;
         }
 
         ctrl.saveItem = (item) => {
             BacklogService.save(item);
+
+            ctrl.formOpen = false;
         }
 
         ctrl.filterItems = function (x) {
