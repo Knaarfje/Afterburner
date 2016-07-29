@@ -12,6 +12,7 @@ input[type="text"],input[type="password"], .form-control{
     transition: border-color .2s;
     border-radius: 0;
     padding-left: 2px!important;
+    max-width: 100%;
     
     &:focus {
         outline: none;

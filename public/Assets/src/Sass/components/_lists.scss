@@ -52,3 +52,6 @@
 }
 
 
+[ng-sortable] > * {
+    cursor: move;
+}
