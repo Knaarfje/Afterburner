@@ -1,83 +1,86 @@
+
 <div class="main-inner" data-ng-controller="BacklogController">
     <div class="header">
         <h1 class="page-title type">
-			{{$ctrl.title}}
-			<span class="page-title-back">{{$ctrl.backTitle}}</span>
-		</h1>
-    </div>
-    <div class="body-container">
-        <section class="backlog col-md-6">
-            <div class="row">
-                <div class="bi-toolbar">
-                    <div class="bi-toolbar-inner">
-                        <div class="bi-search">
-                            <div class="fa fa-search"></div>
-                            <input type="text" ng-model="BIsearch">
-                        </div>
-                        <div class="states">
-                            <a href="" ng-click="filterStates('done')" class="state state-done" ng-class="{'active': filterState == 'done'}"></a>
-                            <a href="" ng-click="filterStates('approved')" class="state state-approved" ng-class="{'active': filterState == 'approved'}"></a>
-                            <a href="" ng-click="filterStates('new')" class="state state-new" ng-class="{'active': filterState == 'new'}"></a>
-                            <a href="" ng-click="filterStates('removed')" class="state state-removed" ng-class="{'active': filterState == 'removed'}"></a>
-                        </div>
-                    </div>
-                </div>
+            {{$ctrl.title}}
+            <span class="page-title-back">{{$ctrl.backTitle}}</span>
+        </h1>
+    </div> 
+	      <section class="backlog col-md-6">
+          
+          <div class="row">
+            <div class="bi-toolbar">
+            <div class="bi-toolbar-inner">
+            <div class="bi-search">
+              <div class="fa fa-search"></div>
+              <input type="text" ng-model="BIsearch">
+            </div>
+            <div class="states">
+              <a href="" ng-click="filterStates('done')" class="state state-done" ng-class="{'active': filterState == 'done'}"></a>
+              <a href="" ng-click="filterStates('approved')" class="state state-approved" ng-class="{'active': filterState == 'approved'}"></a>
+              <a href="" ng-click="filterStates('new')" class="state state-new" ng-class="{'active': filterState == 'new'}"></a>
+              <a href="" ng-click="filterStates('removed')" class="state state-removed" ng-class="{'active': filterState == 'removed'}"></a>
+            </div>
+            </div>
+          </div>
 
-                <div id="SortableList" class="list-bi" ng-sortable="{animation:150}">
-                    <div class="list-bi-item" ng-repeat="BiItem in BiItems | filter: BiItem.state+filterState | filter: BIsearch" ng-class="{'list-bi-sprint':BiItem.state == 'sprint'}">
-                        <div class="list-bi-item-inner">
-                            <div class="thumb-container">
-                                <div class="thumb thumb-lg">
-                                    <span class="state state-{{BiItem.state}}"></span> HE
-                                </div>
-                            </div>
-                            <div class="bi-body">{{BiItem.name}}</div>
-                            <span class="badge bi-points">{{BiItem.points}}</span>
-                        </div>
-                    </div>
+          <div id="SortableList" class="list-bi" ng-sortable="{animation:150}">
+            <div class="list-bi-item" ng-repeat="BiItem in BiItems | filter: BiItem.state+filterState | filter: BIsearch" ng-class="{'list-bi-sprint':BiItem.state == 'sprint'}">
+              <div class="list-bi-item-inner">
+                <div class="thumb-container">
+                  <div class="thumb thumb-lg">
+                    <span class="state state-{{BiItem.state}}"></span>
+                    HE
+                  </div>
                 </div>
+                <div class="bi-body">{{BiItem.name}}</div>
+                <span class="badge bi-points">{{BiItem.points}}</span>
+              </div>
             </div>
-        </section>
-
-        <div class="col-md-6" class="backlog-form">
-            <div class="row">
-                <div class="col-md-9">
-                    <label for="">Titel</label>
-                    <input type="text" ng-model="itemToAdd.name" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label for="">SP</label>
-                    <input type="number" ng-model="itemToAdd.points" class="form-control" min="0">
-                </div>
+            <!--<div class="list-bi-item list-bi-sprint">
+              <strong>SPRINT - 05</strong>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="">Omschrijving</label>
-                    <textarea rows="4" class="form-control" cols="50"></textarea>
-                </div>
-            </div>
-            <div class="row radio-states">
-                <label class="checkbox-inline">
-                    <input type="radio" name="state" value="done" ng-model="itemToAdd.state.done">
-                    <span><span class="state state-done"></span> Done</span>
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="state" value="approved" ng-model="itemToAdd.state.approved">
-                    <span><span class="state state-approved"></span> Approved</span>
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="state" value="new" checked ng-model="itemToAdd.state.new">
-                    <span><span class="state state-new"></span> New</span>
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="state" value="removed" ng-model="itemToAdd.state.removed">
-                    <span><span class="state state-removed"></span> Removed</span>
-                </label>
-            </div>
-            <div class="row">
-                <br>
-                <a class="btn btn-primary" ng-click="add(itemToAdd)">Voeg toe</a>
-            </div>
+           -->
         </div>
-    </div>
-</div>
+        </section>
+        <div class="col-md-6">
+          <div class="row">
+          <div class="col-md-9">
+            <label for="">Titel</label>
+            <input type="text" ng-model="itemToAdd.name" class="form-control">
+          </div>
+          <div class="col-md-3">
+            <label for="">SP</label>
+            <input type="number" ng-model="itemToAdd.points" class="form-control" min="0">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label for="">Omschrijving</label>
+            <textarea rows="4" class="form-control" cols="50"></textarea>
+          </div>
+        </div>
+        <div class="row radio-states">
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="done" ng-model="itemToAdd.state.done">
+              <span><span class="state state-done"></span> Done</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="approved" ng-model="itemToAdd.state.approved">
+              <span><span class="state state-approved"></span> Approved</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="new" checked ng-model="itemToAdd.state.new">
+              <span><span class="state state-new"></span> New</span>
+            </label>
+            <label class="checkbox-inline">
+              <input type="radio" name="state" value="removed" ng-model="itemToAdd.state.removed"> 
+              <span><span class="state state-removed"></span> Removed</span>
+            </label>
+        </div>
+        <div class="row">
+          <br>
+          <a class="btn btn-primary" ng-click="add(itemToAdd)">Voeg toe</a>
+        </div>
+        </div>
+          </div>

@@ -17,11 +17,6 @@
     top: 10vh;
     z-index: 999;
     transition: all .3s;
-	font-size: .7em;
-
-    @include bp(600px){
-        font-size: 1em;
-    }
 
     @include bp($bp-nav, max){
         .page-container:not(.open) & {
@@ -33,12 +28,9 @@
         display: block;
         height: 0.4em;
         background: $brand-primary-lighter;
-        width: 35px;
+        width: 3em;
         margin-top: .66em;
-
-        @include bp(600px){
-            font-size: 1em;
-        }
+        min-width: 44px;
     }
 }
 

@@ -6,19 +6,6 @@
     height: 100%;
 }
 
-.body-container {
-    padding: 1.5em 20px;
-
-    @include bp(600px){
-        padding: 2em 4em;
-    }
-}
-
-.row-container{
-	padding-right: 15px;
-    padding-left: 15px;
-}
-
 .main{
     background: #000;
     background-image: $purple-gradient;

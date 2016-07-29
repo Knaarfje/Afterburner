@@ -118,4 +118,4 @@ gulp.task('clean', cb=> del(
 
 // Main tasks
 gulp.task('default', ['styles', 'scripts', 'sync']);
-gulp.task('build', ['clean'], ()=> gulp.start(['styles.vendor', 'scripts.vendor', 'scripts', 'styles', 'images', 'templates']));
+gulp.task('build', ['clean'], ()=> gulp.start(['styles.vendor', 'scripts.vendor', 'scripts', 'styles', 'images']));

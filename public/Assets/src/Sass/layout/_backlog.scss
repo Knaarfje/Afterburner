@@ -42,14 +42,3 @@
     }
 }
 
-#SortableList {
-    max-height: calc(90vh - 1em - 2em - 40px - 6em);
-    overflow-y: auto;
-}
-
-
-.backlog-form{
-    @include bp(600px, max){
-        @include fxd();
-    }
-}
