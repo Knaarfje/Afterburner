@@ -162,23 +162,10 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
 
         });
 
-<<<<<<< HEAD
-            currentSprint.$loaded(sprint=> {
-                let chartObj = { 
-                    type: "bar", 
-                    options: chartOptions, 
-                    data: data,
-                    velocity: sprint.velocity,
-                    burndown: _.sum(sprint.burndown),
-                    remaining: sprint.velocity - _.sum(sprint.burndown),
-                    needed: $filter('number')(sprint.velocity / sprint.duration, 1)
-                }
-=======
         return deferred.promise;
     }
 
     function updateOverviewChart(deferred, sprints) {
->>>>>>> 52868f174b20c6cdf3a04800f0f82280fc4a65a0
 
         let labels;
         let estimated;
