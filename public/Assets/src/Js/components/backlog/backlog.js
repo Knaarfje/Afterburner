@@ -3,8 +3,12 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService) {
+    controller(BacklogService, $firebaseAuth) {
         let ctrl = this;
+<<<<<<< HEAD
+=======
+        let auth = $firebaseAuth();
+>>>>>>> d85e579975611df4c38e4873c573c7bf81e26410
 
         ctrl.state = {
             New: 0,
@@ -13,6 +17,7 @@ app.component('backlog', {
             Removed: -1
         };
 
+        ctrl.filter = {};
         ctrl.open = true;
         ctrl.filterState;
 
@@ -20,6 +25,7 @@ app.component('backlog', {
             ctrl.BiItems = data;
         });
 
+<<<<<<< HEAD
         ctrl.addBI =()=> {
             ctrl.BiItems.push({
                 name: ctrl.newBIname, 
@@ -52,6 +58,41 @@ app.component('backlog', {
                 state: ''
             })
         };
+=======
+        ctrl.selectItem = (item) => {
+            ctrl.selectedItem = item;
+        }
+
+        ctrl.addItem = () => {
+            var newItem = {
+                name: "Nieuw...",
+                effort: 0,
+                description: "",
+                order: 0,
+                state: 0
+            }
+
+            BacklogService.add(newItem).then((data) => {
+                ctrl.selectItem(ctrl.BiItems.$getRecord(data.key));
+            });
+        }
+
+        ctrl.deleteItem = (item) => {
+            BacklogService.remove(item);
+        }
+
+        ctrl.saveItem = (item) => {
+            BacklogService.save(item);
+        }
+
+        ctrl.filterItems = function (x) {
+            if (x == ctrl.filter.state) {
+                ctrl.filter.state = null;
+            } else {
+                ctrl.filter.state = x;
+            }
+        }
+>>>>>>> d85e579975611df4c38e4873c573c7bf81e26410
     },
-    templateUrl: `${templatePath}/backlog.html` 
+    templateUrl: `${templatePath}/backlog.html`
 });  

@@ -1,0 +1,41 @@
+
+    <div class="row">
+        <div class="col-md-9">
+            <label for="">Titel</label>
+            <input type="text" ng-model="$ctrl.item.name" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <label for="">SP</label>
+            <input type="number" ng-model="$ctrl.item.effort" class="form-control" min="0">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="">Omschrijving</label>
+            <textarea rows="4" class="form-control" cols="50" ng-model="$ctrl.item.description"></textarea>
+        </div>
+    </div>
+    <div class="row radio-states">
+        <label class="checkbox-inline">
+              <input type="radio" name="state" value="3" ng-model="$ctrl.item.state">
+              <span><span class="state state-done"></span> Done</span>
+            </label>
+        <label class="checkbox-inline">
+              <input type="radio" name="state" value="1" ng-model="$ctrl.item.state">
+              <span><span class="state state-approved"></span> Approved</span>
+            </label>
+        <label class="checkbox-inline">
+              <input type="radio" name="state" value="0" checked ng-model="$ctrl.item.state">
+              <span><span class="state state-new"></span> New</span>
+            </label>
+        <label class="checkbox-inline">
+              <input type="radio" name="state" value="-1" ng-model="$ctrl.item.state"> 
+              <span><span class="state state-removed"></span> Removed</span>
+            </label>
+    </div>
+    <div class="row">
+        <br>
+        <a class="btn btn-primary" ng-click="$ctrl.onSave()">Save</a>
+        <a class="btn btn-primary" ng-click="$ctrl.onAdd()">New...</a>        
+        <a class="btn btn-danger" ng-click="$ctrl.onDelete()">Delete</a>
+    </div>
