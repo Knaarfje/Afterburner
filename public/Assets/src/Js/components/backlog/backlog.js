@@ -18,17 +18,25 @@ app.component('backlog', {
         ctrl.open = true;
         ctrl.filterState;
 
-        BacklogService.getBacklog().then(function (data) {
+        BacklogService.getBacklog().then(data=> {
             ctrl.BiItems = data;
+            ctrl.reOrder();
         });
 
-        ctrl.addBI =()=> {
-            ctrl.BiItems.push({
-                name: ctrl.newBIname, 
-                points: 2, 
-                state: 'approved'
-            })
-        };
+        ctrl.saveItem =item=> BacklogService.save(item);
+
+        ctrl.reOrder =()=> ctrl.BiItems.forEach((item, index)=> {
+            if(item.order !== index) {
+                item.order = index;
+                ctrl.saveItem(item);
+            }
+        });
+
+        ctrl.addBI =()=> ctrl.BiItems.push({
+            name: ctrl.newBIname, 
+            points: 2, 
+            state: 'approved'
+        });
         
         ctrl.filterStates =x=> {
             ctrl.filterState = x == ctrl.filterState ? "" : x;
@@ -47,19 +55,15 @@ app.component('backlog', {
             ctrl.BiItems.push(angular.copy(itemToAdd))
         }
 
-        ctrl.addNew =()=> {
-            ctrl.itemsToAdd.push({
-                name: '',
-                points: '',
-                state: ''
-            }) 
-        };
+        ctrl.addNew =()=> ctrl.itemsToAdd.push({
+            name: '',
+            points: '',
+            state: ''
+        });
 
-        ctrl.selectItem = (item) => {
-            ctrl.selectedItem = item;
-        }
+        ctrl.selectItem =item=> ctrl.selectedItem = item;
 
-        ctrl.addItem = () => {
+        ctrl.addItem =()=> {
             var newItem = {
                 name: "Nieuw...",
                 effort: 0,
@@ -68,31 +72,30 @@ app.component('backlog', {
                 state: 0
             }
 
-            BacklogService.add(newItem).then((data) => {
+            BacklogService.add(newItem).then(data=> {
                 ctrl.selectItem(ctrl.BiItems.$getRecord(data.key));
             });
         }
 
-        ctrl.deleteItem = (item) => {
-            BacklogService.remove(item);
+        ctrl.deleteItem =item=> {
+            let index = ctrl.BiItems.indexOf(item);
+            let selectIndex = index === 0 ? 0 : index-1;
+
+            BacklogService.remove(item).then(()=> {
+                ctrl.selectItem(ctrl.BiItems[selectIndex])
+            });
         }
 
-        ctrl.saveItem = (item) => {
-            BacklogService.save(item);
-        }
-
-        ctrl.filterItems = function (x) {
-            if (x == ctrl.filter.state) {
-                ctrl.filter.state = null;
-            } else {
-                ctrl.filter.state = x;
-            }
+        ctrl.filterItems =x=> {
+            x == ctrl.filter.state
+                ? ctrl.filter.state = null
+                : ctrl.filter.state = x;
         } 
 
         ctrl.sortConfig = {
             animation: 150,
             onSort(e) {
-                console.log(e)
+                ctrl.reOrder()
             }
         }
     },

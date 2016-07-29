@@ -1,13 +1,17 @@
 
 backlog-item {
     display: block;
+
+    &.active {
+        outline: 5px solid red;
+    }
 }
 
 .backlog-item {
     background-color: rgba(white,0.98);
     border-radius: 2px;
     color:$black;
-    display: table; 
+    display: table;
     width: 100%;
     padding: 7px 10px;
     margin-bottom: 4px;

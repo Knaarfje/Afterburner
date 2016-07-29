@@ -30,9 +30,11 @@
 				 class="row list-backlog" 
 				 ng-sortable="$ctrl.sortConfig">
 
-				<backlog-item item="BiItem" 
+				<backlog-item item="BiItem"
+							  order="{{BiItem.order}}"
 							  on-click="$ctrl.selectItem(BiItem)" 
-							  ng-repeat="BiItem in $ctrl.BiItems | filter: filter">
+							  ng-repeat="BiItem in $ctrl.BiItems | filter: filter"
+							  ng-class="{'active' : BiItem === $ctrl.selectedItem}">
 				</backlog-item>
 			</div>
 		</section>
