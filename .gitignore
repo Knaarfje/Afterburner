@@ -179,7 +179,9 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
-public/Assets/dist/
+public/Assets/dist/**
+public/Assets/dist/Css
+public/Assets/dist/Js
 orleans.codegen.cs
 
 # RIA/Silverlight projects
