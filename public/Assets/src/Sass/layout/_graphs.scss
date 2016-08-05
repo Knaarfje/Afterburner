@@ -6,6 +6,7 @@ chart {
     display: block;
     position: relative;
     display: block;
+	margin-left: -15px;
 
     @media (max-width:$bp-nav), (max-height:660px){
         height: calc(100vh - 3.75em - (100px));

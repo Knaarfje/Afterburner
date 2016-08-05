@@ -3,7 +3,7 @@ backlog-item {
     display: block;
 
     &.active {
-        outline: 5px solid red;
+        .backlog-item{box-shadow: inset 0px 0px 0px 2px $brand-primary;}
     }
 }
 
@@ -34,4 +34,20 @@ backlog-item {
     .backlog-point{
         display: table-cell;
     }
+
+    .sortable-ghost &{
+        background: transparent;
+        box-shadow: none!important;
+        border: 2px dotted rgba(255,255,255, 0.55);
+
+        *{
+            opacity:0
+        }
+    }
 }
+
+
+.sortable-handle{
+    cursor: move;
+}
+

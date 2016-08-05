@@ -36,7 +36,7 @@
     }
 }
 
-.backlog-list {
+.list-backlog{
     max-height: calc(90vh - 1em - 2em - 40px - 6em);
     max-height: calc(90vh - 1em - 2em - 6em);
     overflow-y: auto;
@@ -44,11 +44,17 @@
     @include bp($bp-nav){
         max-height: calc(90vh - 1em - 2em - 40px - 6em);
     }
+
+    .backlog-side &{
+        @include bp($bp-nav){
+            max-height: calc(90vh - 1em - 2em - 40px - 11.5em);
+        }
+    }
 }
 
 
- .backlog {
-     transition: opacity .2s;
+.backlog {
+    transition: opacity .2s;
 
     @include bp($screen-lg){
         padding-right: 35px;
@@ -58,7 +64,11 @@
             opacity: 0;
         }
     }
- }
+
+    &-side{
+        margin-top: -17px;
+    }
+}
 
 .backlog-form-open{
     .btn-fab{display: none;}
@@ -77,6 +87,9 @@
         &-open &{
             z-index: 10;
             opacity: 1;
+            max-height: calc(90vh - 1em - 2em);
+            overflow-y: auto;
+            padding-bottom: 30px;
         }
 	}
 }

@@ -1,12 +1,12 @@
 <div class="backlog-item" ng-click="$ctrl.onClick()">
 	<div class="backlog-item-inner">	
 		<div class="thumb-container">
-			<div class="thumb thumb-lg">
+			<div class="thumb thumb-lg sortable-handle">
 				<span class="state state-{{$ctrl.item.state}}"></span>
 				HE
 			</div>
 		</div>
     	<div class="backlog-body">{{$ctrl.item.name}}</div>
-		<span class="badge backlog-points">{{$ctrl.item.effort}}</span>
+		<span class="badge backlog-points sortable-handle">{{$ctrl.item.effort}}</span>
 	</div>
 </div> 
