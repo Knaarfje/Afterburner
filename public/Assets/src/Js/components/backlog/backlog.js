@@ -18,7 +18,6 @@ app.component('backlog', {
 
         ctrl.filter = {};
         ctrl.open = true;
-        ctrl.filterState;
 
         BacklogService.getBacklog().then(data=> {
             ctrl.BiItems = data;
@@ -34,35 +33,6 @@ app.component('backlog', {
                 item.order = index;
                 ctrl.saveItem(item);
             }
-        });
-
-        ctrl.addBI =()=> ctrl.BiItems.push({
-            name: ctrl.newBIname, 
-            points: 2, 
-            state: 'approved'
-        });
-        
-        ctrl.filterStates =x=> {
-            ctrl.filterState = x == ctrl.filterState ? "" : x;
-        }; 
-
-        ctrl.itemsToAdd = [{
-            name: '',
-            points: '',
-            state: ''
-        }];
-
-        ctrl.add =itemToAdd=> {
-            let index = ctrl.itemsToAdd.indexOf(itemToAdd);
-
-            ctrl.itemsToAdd.splice(index, 1);
-            ctrl.BiItems.push(angular.copy(itemToAdd))
-        }
-
-        ctrl.addNew =()=> ctrl.itemsToAdd.push({
-            name: '',
-            points: '',
-            state: ''
         });
 
         ctrl.selectItem =item=> {
@@ -97,6 +67,14 @@ app.component('backlog', {
         };
 
         ctrl.saveItem = (item) => {
+
+            if (item.state == ctrl.state.Done) {
+                item.resolvedOn = Date.now();
+            }
+            else{
+                item.resolvedOn = null;
+            }
+
             BacklogService.save(item).then(()=> {
                 ctrl.formOpen = false;
             });
