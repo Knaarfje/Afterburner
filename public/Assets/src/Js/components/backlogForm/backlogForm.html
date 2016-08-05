@@ -15,6 +15,14 @@
         <textarea rows="4" class="form-control" cols="50" ng-model="$ctrl.item.description"></textarea>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <label for="">Sprint</label>
+        <select class="form-control form-lg" ng-model="$ctrl.item.sprint">
+            <option ng-repeat="sprint in $ctrl.sprints" value="{{sprint.$id}}">{{sprint.name}}</option>
+        </select>
+    </div> 
+</div>
 <div class="row radio-states">
     <div class="col-md-12">
         <span class="label">status</span>
@@ -32,7 +40,7 @@
             <span><span class="state state-new"></span> New</span>
         </label>
         <label class="checkbox-inline">
-            <input type="radio" name="state" value="-1" ng-model="$ctrl.item.state"> 
+            <input type="radio" name="state" value="4" ng-model="$ctrl.item.state"> 
             <span><span class="state state-removed"></span> Removed</span>
         </label> 
     </div>

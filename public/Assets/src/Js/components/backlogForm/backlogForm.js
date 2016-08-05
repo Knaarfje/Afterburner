@@ -1,6 +1,7 @@
 app.component('backlogForm', {
     bindings: {
         item: "<",
+        sprints: "<",
         onAdd: "&",
         onDelete: "&",
         onSave: "&"

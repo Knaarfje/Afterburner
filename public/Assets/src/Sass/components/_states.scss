@@ -10,7 +10,7 @@ $state-list:
     3   done            $color-done,
     1   approved        $color-approved,
     0   new             $color-new,
-    -1  removed         $color-removed,
+    4  removed         $color-removed,
 ;
 
  @each $state in $state-list {

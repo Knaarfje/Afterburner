@@ -227,7 +227,8 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
             name: sprint.name,
             burndown: _.sum(sprint.burndown),
             remaining: sprint.velocity - _.sum(sprint.burndown),
-            needed: $filter('number')(sprint.velocity / sprint.duration, 1)
+            needed: $filter('number')(sprint.velocity / sprint.duration, 1),
+            sprint: sprint
         }
 
         return chartObj;

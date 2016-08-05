@@ -3,17 +3,17 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService, $firebaseAuth) {
+    controller(BacklogService, SprintService, $firebaseAuth) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
         ctrl.formOpen = false;
 
         ctrl.state = {
-            New: 0,
-            Approved: 1,
-            Done: 3,
-            Removed: -1 
+            New: "0",
+            Approved: "1",
+            Done: "3",
+            Removed: "4" 
         };
 
         ctrl.filter = {};
@@ -25,8 +25,12 @@ app.component('backlog', {
             ctrl.reOrder();
         });
 
+        SprintService.getSprints((sprints) => {
+            ctrl.sprints = sprints;
+        })
+
         ctrl.reOrder =()=> ctrl.BiItems.forEach((item, index)=> {
-            if(item.order !== index) {
+            if(item.order !== index) { 
                 item.order = index;
                 ctrl.saveItem(item);
             }
@@ -72,7 +76,8 @@ app.component('backlog', {
                 effort: 0,
                 description: "",
                 order: 0,
-                state: 0
+                state: 0,
+                sprint: ""
             }
 
             BacklogService.add(newItem).then(data=> {
@@ -99,7 +104,7 @@ app.component('backlog', {
 
         ctrl.filterItems =x=> {
             x == ctrl.filter.state
-                ? ctrl.filter.state = null
+                ? ctrl.filter = {name: ctrl.filter.name}
                 : ctrl.filter.state = x;
         } 
 

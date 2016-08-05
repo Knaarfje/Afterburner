@@ -1,0 +1,7 @@
+<div id="SortableList" class="row list-backlog">
+    <backlog-item item="BiItem"
+                    order="{{BiItem.order}}" 
+                    ng-repeat="BiItem in $ctrl.items"
+                    ng-class="{'active' : BiItem === $ctrl.selectedItem}">
+    </backlog-item>
+</div>
