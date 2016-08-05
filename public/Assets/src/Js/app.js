@@ -34,7 +34,7 @@ app.config(function ($locationProvider, $routeProvider) {
                              chart="$resolve.chart">
                     </sprints> 
                 </app>`,
-        })
+        })        
         .when('/current-sprint', {
             resolve: {
                 chart(SprintService) {
@@ -45,7 +45,8 @@ app.config(function ($locationProvider, $routeProvider) {
                 <app>
                     <sprints title="$resolve.chart.name" 
                              back-title="'Burndown'" 
-                             chart="$resolve.chart">
+                             chart="$resolve.chart"
+                             backlog="true">
                     </sprints>
                 </app>`,
         })
@@ -60,9 +61,55 @@ app.config(function ($locationProvider, $routeProvider) {
                 <app>
                     <sprints title="$resolve.chart.name" 
                              back-title="'Burndown'" 
-                             chart="$resolve.chart">
+                             chart="$resolve.chart"
+                             backlog="true">
                     </sprints>
                 </app>`,
+        })
+        .when('/bigscreen', {
+            resolve: {
+                chart(SprintService) {
+                    return SprintService.getOverviewChart()
+                }
+            },
+            template: `
+                <bigscreen>
+                    <sprints title="'Overview'" 
+                             back-title="'Velocity'" 
+                             chart="$resolve.chart">
+                    </sprints> 
+                </bigscreen>`,
+        })
+        .when('/bigscreen/current-sprint', {
+            resolve: {
+                chart(SprintService) {
+                    return SprintService.getCurrentChart()
+                }
+            },
+            template: `
+                <bigscreen>
+                    <sprints title="$resolve.chart.name" 
+                             back-title="'Burndown'" 
+                             chart="$resolve.chart"
+                             backlog="false">
+                    </sprints>
+                </bigscreen>`,
+        })
+        .when('/bigscreen/sprint/:sprint', {
+            resolve: {
+                chart(SprintService, $route) {
+                    let sprint = $route.current.params.sprint;
+                    return SprintService.getSprintChart(sprint)
+                }
+            },
+            template: `
+                <bigscreen>
+                    <sprints title="$resolve.chart.name" 
+                             back-title="'Burndown'" 
+                             chart="$resolve.chart"
+                             backlog="false">
+                    </sprints>
+                </bigscreen>`,
         })
         .when('/backlog', {
             template: `
