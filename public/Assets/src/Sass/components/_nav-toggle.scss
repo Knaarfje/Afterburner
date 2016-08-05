@@ -18,6 +18,10 @@
     z-index: 999;
     transition: left .3s;
 
+    @include bp(960px, max){
+        left: $side-width-xs;
+    } 
+
     @include bp($bp-nav, max){
         .page-container:not(.open) & {
             left: 0;

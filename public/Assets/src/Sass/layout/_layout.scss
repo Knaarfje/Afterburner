@@ -45,12 +45,15 @@
         @include abs(); 
         z-index: 2;
     }
-    
-    @include bp($bp-nav, max){
-        .page-container.open & {
+    .page-container.open & {
+        @include bp($bp-nav, max){
             left: $side-width;
             right: -$side-width;
             box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+        }
+        @include bp(960px, max){
+            left: $side-width-xs;
+            right: -$side-width-xs;
         }
     }
 }
