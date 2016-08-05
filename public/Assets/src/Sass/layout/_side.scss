@@ -6,6 +6,10 @@ $side-padding: 30px;
     
     @include abs(0,auto,0,0);
     width: $side-width;
+
+    @include bp(960px, max){
+        width: $side-width-xs;
+    }
     
     padding: 30px;
     
@@ -37,9 +41,19 @@ nav{
         border-bottom: 2px solid rgba(255, 255, 255, 0.14);
         width: 100%;
 
+        @include bp(960px, max){
+            padding: 15px 0;
+            font-size: 1em;
+        }
+
         &:hover, &:focus{
             color: white;
         } 
+
+	    .fa {
+            width: 30px;
+            color: $brand-primary;
+        }
     }
 }
 
