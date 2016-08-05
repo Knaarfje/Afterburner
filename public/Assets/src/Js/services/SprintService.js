@@ -77,6 +77,17 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         datasets: [
             {
                 type: 'line',
+                label: "Average",
+                data: [],
+                fill: false,
+                backgroundColor: "#58F484",
+                borderColor: "#58F484",
+                hoverBackgroundColor: '#58F484',
+                hoverBorderColor: '#58F484',
+                yAxisID: 'y-axis-1',
+            },
+            {
+                type: 'line',
                 label: "Estimated",
                 data: [],
                 fill: false,
@@ -167,6 +178,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         let labels;
         let estimated;
         let burned;
+        let average = [];
 
         labels = sprints.map(d => `Sprint ${_.pad(d.order)}`);
         estimated = sprints.map(d => d.velocity);
@@ -176,10 +188,20 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
             return i;
         });
 
+        var sum = 0;
+        for (var i = 0; i < burned.length; i++) {
+            sum += parseInt(burned[i], 10); //don't forget to add the base
+        }
+        var avg = sum / burned.length;
+        for (var i = 0; i < sprints.length; i++) {
+            average.push(avg);
+        }
+
         let data = overviewData;
         data.labels = labels;
-        data.datasets[1].data = burned;
-        data.datasets[0].data = estimated;
+        data.datasets[2].data = burned;
+        data.datasets[1].data = estimated;
+        data.datasets[0].data = average;
 
         let currentSprint = sprints[sprints.length - 1];
 
