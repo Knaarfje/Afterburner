@@ -1,0 +1,26 @@
+
+
+.big-screen{
+    .main{left:0;} 
+
+    footer .stats{margin-left: auto; margin-right: auto;}
+    chart {margin:auto;}
+
+    .header{
+        text-align: center;
+
+        h1{
+            display: block;
+            width: 100%;
+            padding-left: 0;
+        }
+
+        .page-title-back{
+            left: auto;
+            right: auto;
+            display: block;
+            width: 100%;
+            padding: 0;
+        }
+	}
+}
