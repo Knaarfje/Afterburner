@@ -2,6 +2,7 @@ app.component('sprints', {
     bindings: {
         title: '<',
         backTitle: '<',
+        backlog: '<',
         chart: '='
     },
 
@@ -20,7 +21,7 @@ app.component('sprints', {
         ctrl.loaded = false;
         ctrl.filter = {};
         
-        if (ctrl.chart.sprint) {
+        if (ctrl.chart.sprint && ctrl.backlog) {
             BacklogService.getBacklog(ctrl.chart.sprint).then(data => {
                 ctrl.BiItems = data;
                 $timeout(()=> ctrl.loaded = true);
@@ -34,7 +35,7 @@ app.component('sprints', {
         }
 
         ctrl.$onInit = () => {
-            if(!ctrl.chart.sprint){
+            if(!ctrl.chart.sprint || !ctrl.backlog){
                 ctrl.loaded = true;
             }
         }
