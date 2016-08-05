@@ -113,7 +113,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
     };
 
     let burndownData = {
-        labels: ["di", "wo", "do", "vr", "ma", "di", "wo", "do", "vr", "ma"],
+        labels: ["di", "wo", "do", "vr", "ma", "di ", "wo ", "do ", "vr ", "ma "],
         datasets: [
             {
                 label: "Gehaald",
