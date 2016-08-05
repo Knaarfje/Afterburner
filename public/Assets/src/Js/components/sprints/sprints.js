@@ -5,7 +5,7 @@ app.component('sprints', {
         chart: '='
     },
 
-    controller($firebaseAuth, SprintService, BacklogService, $scope) {
+    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
@@ -23,7 +23,7 @@ app.component('sprints', {
         if (ctrl.chart.sprint) {
             BacklogService.getBacklog(ctrl.chart.sprint).then(data => {
                 ctrl.BiItems = data;
-                console.log(data);
+                $timeout(()=> ctrl.loaded = true);
             });
         }
 
@@ -34,7 +34,9 @@ app.component('sprints', {
         }
 
         ctrl.$onInit = () => {
-            ctrl.loaded = true;
+            if(!ctrl.chart.sprint){
+                ctrl.loaded = true;
+            }
         }
     },
     templateUrl: `${templatePath}/sprints.html` 

@@ -18,10 +18,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
             }
         },
         legend: {
-            position: 'bottom',
-            labels: {
-                fontColor: '#fff'
-            },
+            display: false
         },
         scales: {
             xAxes: [{

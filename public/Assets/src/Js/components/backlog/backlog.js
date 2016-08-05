@@ -75,7 +75,7 @@ app.component('backlog', {
                 name: "Nieuw...",
                 effort: 0,
                 description: "",
-                order: 0,
+                order: -1,
                 state: 0,
                 sprint: ""
             }
@@ -110,6 +110,7 @@ app.component('backlog', {
 
         ctrl.sortConfig = {
             animation: 150,
+            handle: '.sortable-handle',
             onSort(e) {
                 ctrl.reOrder()
             }
