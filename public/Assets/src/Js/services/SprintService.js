@@ -189,10 +189,10 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         });
 
         var sum = 0;
-        for (var i = 0; i < burned.length; i++) {
+        for (var i = 0; i < burned.length - 1; i++) {
             sum += parseInt(burned[i], 10); //don't forget to add the base
         }
-        var avg = sum / burned.length;
+        var avg = sum / (burned.length - 1);
         for (var i = 0; i < sprints.length; i++) {
             average.push(avg);
         }
@@ -219,11 +219,13 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
     }
 
     function buildBurnDownChart(sprint) {
-        let idealBurndown = burndownData.labels.map((d, i) => {
-            if (i === burndownData.labels.length - 1) {
+        let labels = ["di", "wo", "do", "vr", "ma", "di ", "wo ", "do ", "vr ", "ma "].slice(0,sprint.duration +1)
+
+        let idealBurndown = labels.map((d, i) => {
+            if (i === labels.length - 1) {
                 return sprint.velocity.toFixed(2);
             }
-            return ((sprint.velocity / 9) * i).toFixed(2);
+            return ((sprint.velocity / sprint.duration) * i).toFixed(2);
         }).reverse();
 
         let velocityRemaining = sprint.velocity
@@ -235,12 +237,16 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         };
 
         let data = burndownData;
+        data.labels = labels;
         data.datasets[0].data = graphableBurndown;
         data.datasets[1].data = idealBurndown;
+        let burndownChartOptions = chartOptions;
+        burndownChartOptions.scales.yAxes[0].ticks.suggestedMax = 10 * (sprint.duration + 1);
+        burndownChartOptions.scales.yAxes[1].ticks.suggestedMax = 10 * (sprint.duration + 1);
 
-        let chartObj = { 
+        let chartObj = {
             type: "line",
-            options: chartOptions, 
+            options: burndownChartOptions, 
             data: data,
             velocity: sprint.velocity,
             name: sprint.name,

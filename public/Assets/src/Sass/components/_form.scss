@@ -25,6 +25,10 @@ input[type="text"],input[type="password"], .form-control{
         box-shadow: none;
     }
     
+    >option{
+        color: #000;
+    }
+
     @include placeholder {
         color: rgba( white, .13);
         font-weight: 600;

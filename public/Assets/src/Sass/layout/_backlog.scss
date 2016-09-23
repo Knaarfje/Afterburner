@@ -50,6 +50,20 @@
             max-height: calc(90vh - 1em - 2em - 40px - 11.5em);
         }
     }
+
+    .list-bi-sprint{
+        padding: 1em 0 0.5em 0;
+        >strong>.effort{
+            float: right;
+            margin-right: 10px;
+            &.green{
+                color:#58F284;
+            }
+            &.red{
+                color:#F25899;
+            }
+        }
+    }
 }
 
 

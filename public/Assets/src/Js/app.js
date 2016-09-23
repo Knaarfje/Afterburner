@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('scripts/serviceworker.js');
 }
 
-const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', 'ng-sortable']);
+const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable']);
 const templatePath = './Assets/dist/Templates';
 
 app.config(function ($locationProvider, $routeProvider) {

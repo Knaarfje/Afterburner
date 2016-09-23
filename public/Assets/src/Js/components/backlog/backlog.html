@@ -27,15 +27,29 @@
 			</div>
 
 			<div id="SortableList" 
-				 class="row list-backlog" 
-				 ng-sortable="$ctrl.sortConfig">
+				 class="row list-backlog">
+				 <div ng-repeat="(key, value) in $ctrl.BiItems | orderBy: 'sprint' | groupBy: 'sprint'">
 
-				<backlog-item item="BiItem"
-							  order="{{BiItem.order}}"
-							  on-click="$ctrl.selectItem(BiItem)" 
-							  ng-repeat="BiItem in $ctrl.BiItems | filter: $ctrl.filter"
-							  ng-class="{'active' : BiItem === $ctrl.selectedItem}">
-				</backlog-item>
+					<div class="list-bi-item list-bi-sprint">
+						<strong>
+							{{key ? $ctrl.sprints.$getRecord(key).name: "NOT IN SPRINT" | uppercase}}
+							<span 
+								class="effort" 
+								ng-class="{
+											'green':$ctrl.sprints.$getRecord(key).velocity <= $ctrl.sumEffort(value),
+											'red': $ctrl.sprints.$getRecord(key).velocity > $ctrl.sumEffort(value)
+											}">{{$ctrl.sumEffort(value)}} / {{$ctrl.sprints.$getRecord(key).velocity}}</small>
+						</strong>
+					</div>
+					<div ng-sortable="$ctrl.sortConfig">
+						<backlog-item item="BiItem"
+									order="{{BiItem.order}}"
+									on-click="$ctrl.selectItem(BiItem)" 
+									ng-repeat="BiItem in value | filter: $ctrl.filter"
+									ng-class="{'active' : BiItem === $ctrl.selectedItem}">
+						</backlog-item>
+					</div>
+				</div>
 			</div>
 		</section>
 
