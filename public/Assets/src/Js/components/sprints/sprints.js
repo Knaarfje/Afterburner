@@ -65,9 +65,10 @@ app.component('sprints', {
                     continue;
                 }
 
-                while ([0, 6].indexOf(newDate.getDay()) >= 0) {
+                if ([0, 6].indexOf(newDate.getDay()) >= 0) {
                     daysToAdd++;
                     newDate = start.addDays(daysToAdd);
+                    continue;
                 }
                 dates.push(newDate);
                 daysToAdd++;
