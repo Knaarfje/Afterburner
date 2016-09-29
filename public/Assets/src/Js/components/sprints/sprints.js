@@ -58,6 +58,7 @@ app.component('sprints', {
             let daysToAdd = 0;            
             let velocityRemaining = ctrl.chart.sprint.velocity;
             let graphableBurndown = [];
+            let totalBurndown = 0;
 
             for (var i = 0; i <= duration; i++) {
                 var newDate = start.addDays(daysToAdd - 1);
@@ -68,6 +69,7 @@ app.component('sprints', {
                 if ([0, 6].indexOf(newDate.getDay()) >= 0) {
                     daysToAdd++;
                     newDate = start.addDays(daysToAdd);
+                    i--;
                     continue;
                 }
                 dates.push(newDate);
@@ -97,12 +99,13 @@ app.component('sprints', {
                 });
             }
 
-             console.log(burndown);
-
             for (let x in burndown) {
+                totalBurndown += burndown[x].burndown;
                 velocityRemaining -= burndown[x].burndown;
                 graphableBurndown.push(velocityRemaining);
             };
+            ctrl.chart.burndown = totalBurndown;
+            ctrl.chart.remaining = velocityRemaining;
             ctrl.chart.data.datasets[0].data = graphableBurndown;
         }
     },
