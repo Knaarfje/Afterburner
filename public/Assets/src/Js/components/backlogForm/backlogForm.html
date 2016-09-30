@@ -15,6 +15,18 @@
         <textarea rows="4" class="form-control" cols="50" ng-model="$ctrl.item.description"></textarea>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <label>Attachments <a href="#"><span class="fa fa-plus" ng-click="$ctrl.selectFiles()"></span></a></label>
+        
+        <ul class="attachment-list">
+            <li class="attachment" ng-repeat="a in $ctrl.attachments">
+                <div class="upload-progress" ng-style="{'right': (100 - a.progress) + '%' }"></div>
+                <span class="fa fa-file-o"></span> {{a.name}} <span class="attachment-state">Uploading... ({{a.progress | number : 0}}%)</span>
+            </li>
+        </ul>
+    </div>
+</div>
 <div class="row" ng-show="$ctrl.item.state == '3'">
     <div class="col-md-12">
         <label for="">Resolved on</label>

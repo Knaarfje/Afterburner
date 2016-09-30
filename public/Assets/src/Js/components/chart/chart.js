@@ -5,14 +5,14 @@ app.component('chart', {
         loaded: '<',
         type: '<'
     },
-    controller($element, $scope, $timeout, $location, $rootScope) {
+    controller($element, $scope, $timeout, $location, $rootScope, SprintService) {
         let ctrl = this;
         let $canvas = $element[0].querySelector("canvas");
 
         ctrl.chart;
 
         function init() {
-            if(ctrl.chart) ctrl.chart.destroy();
+            if (ctrl.chart) ctrl.chart.destroy();
 
             ctrl.chart = new Chart($canvas, {
                 type: ctrl.type,
@@ -23,11 +23,13 @@ app.component('chart', {
             window.chart = ctrl.chart;
 
             if ($location.path() === '/') {
-                $canvas.onclick =e=> {
+                $canvas.onclick = e => {
                     let activePoints = ctrl.chart.getElementsAtEvent(e);
                     if (activePoints && activePoints.length > 1) {
-                        let clickedSprint = activePoints[1]._index + 1;
-                        $timeout(()=> $location.path(`/sprint/${clickedSprint}`))
+                        let clickedIndex = activePoints[1]._index;
+                        let clickedSprint = SprintService.getCachedSprints()[clickedIndex].order;
+
+                        $timeout(() => $location.path(`/sprint/${clickedSprint}`))
                     }
                 };
             }

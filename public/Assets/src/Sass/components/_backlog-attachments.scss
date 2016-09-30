@@ -1,0 +1,30 @@
+.attachment-list{
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+
+    li.attachment{ 
+        transition: all .2s;       
+        padding: 7px 7px;
+        opacity: .7;
+        position: relative;
+        span.fa{
+            margin: 0 5px;
+        }
+div.upload-progress{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 30%;
+    transition: right .1s;
+    background: rgba(255,255,255,0.3);
+}
+.attachment-state{
+    float: right;
+}
+        &:hover{
+            opacity: 1;
+        }
+    }
+}

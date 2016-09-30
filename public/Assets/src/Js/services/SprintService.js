@@ -4,6 +4,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
     let lineColor = '#EB51D8';
     let barColor = '#5FFAFC';
     let chartType = "line";
+    let cachedSprints;
 
     let chartOptions = {
         responsive: true,
@@ -40,7 +41,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                     stepSize: 10,
                     beginAtZero: true,
                     fontColor: '#fff',
-                    suggestedMax: 100,
+                    suggestedMax: null,
                 },
                 gridLines: {
                     display: true,
@@ -153,15 +154,21 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         sprints.$loaded(cb, ()=> $location.path('/signin'))
     }
 
+    function getCachedSprints() {
+        return cachedSprints;
+    }
+
     function getOverviewChart() {
         let deferred = $q.defer();
 
         getSprints(sprints => {
 
             sprints.$loaded(() => {
-                updateOverviewChart(deferred, sprints);                
-
+                
+                cachedSprints = sprints;
+                updateOverviewChart(deferred, sprints);
                 sprints.$watch(() => {
+                    cachedSprints = sprints;
                     $rootScope.$broadcast('sprint:update');    
                     updateOverviewChart(deferred, sprints);
                 });    
@@ -203,11 +210,15 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         data.datasets[1].data = estimated;
         data.datasets[0].data = average;
 
+        let overviewChartOptions = chartOptions;
+        overviewChartOptions.scales.yAxes[0].ticks.suggestedMax = null;
+        overviewChartOptions.scales.yAxes[1].ticks.suggestedMax = null;
+
         let currentSprint = sprints[sprints.length - 1];
 
         let chartObj = {
             type: "bar",
-            options: chartOptions,
+            options: overviewChartOptions,
             data: data,
             velocity: currentSprint.velocity,
             burndown: _.sum(currentSprint.burndown),
@@ -294,6 +305,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         getSprints,
         getOverviewChart,
         getCurrentChart,
-        getSprintChart
+        getSprintChart,
+        getCachedSprints
     }
 });

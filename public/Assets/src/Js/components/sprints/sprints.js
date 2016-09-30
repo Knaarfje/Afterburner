@@ -87,7 +87,6 @@ app.component('sprints', {
                     }
 
                     var bliDate = new Date(parseInt(bli.resolvedOn));
-                    console.log(bliDate, d);
                     if (bliDate.getDate() == d.getDate() && bliDate.getMonth() == d.getMonth() && bliDate.getFullYear() == d.getFullYear()) {
                         bdown += bli.effort;
                     }

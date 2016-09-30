@@ -3,7 +3,7 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService, SprintService, $firebaseAuth) {
+    controller(BacklogService, SprintService, $firebaseAuth, $firebaseArray, FileService) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
@@ -56,8 +56,11 @@ app.component('backlog', {
         }
 
         ctrl.selectItem = item => {
-            ctrl.formOpen = true;
-            ctrl.selectedItem = item;
+                ctrl.formOpen = true;
+                ctrl.selectedItem = item;
+                FileService.getAttachments(item).then((data) => {
+                    ctrl.selectedItemAttachments = data;
+                });
         }
 
         ctrl.addItem = () => {

@@ -56,6 +56,7 @@
 		<div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.formOpen}">
 			<backlog-form 
 				item="$ctrl.selectedItem"
+				attachments="$ctrl.selectedItemAttachments"
 				sprints="$ctrl.sprints" 
 				on-add="$ctrl.addItem()" 
 				on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
