@@ -3,7 +3,7 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService, SprintService, $firebaseAuth, $firebaseArray, FileService) {
+    controller(BacklogService, SprintService, $firebaseAuth, $firebaseArray, FileService, $scope) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
@@ -27,6 +27,17 @@ app.component('backlog', {
         SprintService.getSprints((sprints) => {
             ctrl.sprints = sprints;
         })
+
+        $scope.customOrder = (key) => { 
+            if (!ctrl.sprints) {
+                return 0;
+            }
+            if(!key.sprint){
+                return 9999;
+            }
+
+            return -ctrl.sprints.$getRecord(key.sprint).order;
+        }
 
         ctrl.reOrder = (group) => {
             if (group) {

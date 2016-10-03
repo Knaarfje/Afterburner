@@ -3,28 +3,80 @@
     margin-left: 0;
     padding-left: 0;
 
-    li.attachment{ 
+    .attachment{ 
         transition: all .2s;       
         padding: 7px 7px;
         opacity: .7;
         position: relative;
-        span.fa{
-            margin: 0 5px;
+        display: inline-block;
+        background: rgba(255,255,255,0.1);
+        border-radius: 2px;
+        width: 186px;
+        height: 65px;        
+        margin: 5px 10px 5px 0;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        .filename{
+            display: block;
+            width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
-div.upload-progress{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 30%;
-    transition: right .1s;
-    background: rgba(255,255,255,0.3);
-}
-.attachment-state{
-    float: right;
-}
+        .mimetype{
+            font-size: 11px;
+            margin-top: 15px;
+            font-weight: bold;
+            display: block;
+        }
+        .remove-attachment{
+                color: #fff;
+                opacity: 0.5;
+                position: absolute;
+                top: 3px;
+                right: 5px;
+                font-size: 12px;
+            &:hover{
+                text-decoration: none;
+                opacity: 1;
+            }
+        }
+        div.upload-progress{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.2);
+            height: 2px;
+            border-radius: 0 0 2px 2px;
+            div.upload-progress-inner{
+                bottom: 0;
+                left: 0;
+                top: 0;
+                position: absolute;
+                background-color: #5BEF84;                
+                transition: right .1s;
+                border-radius: 0 0 2px 2px;
+                display: none;
+            }
+        }
+
+        &.uploading{
+            div.upload-progress{
+                height: 4px;
+                div.upload-progress-inner{
+                    display: block;
+                }
+            }
+        }
+
         &:hover{
             opacity: 1;
+            text-decoration: none;
         }
     }
 }

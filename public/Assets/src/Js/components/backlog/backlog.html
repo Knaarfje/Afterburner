@@ -28,7 +28,7 @@
 
 			<div id="SortableList" 
 				 class="row list-backlog">
-				 <div ng-repeat="(key, value) in $ctrl.BiItems | orderBy: 'sprint' | groupBy: 'sprint'">
+				 <div ng-repeat="(key, value) in $ctrl.BiItems | orderBy: customOrder | groupBy: 'sprint'">
 
 					<div class="list-bi-item list-bi-sprint">
 						<strong>

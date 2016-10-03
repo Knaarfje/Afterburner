@@ -1,4 +1,13 @@
 {
   ".read": "auth != null",
-    ".write": "auth != null"
+  ".write": "auth != null",
+  "sprints": {
+    ".indexOn": ["order"]
+  },
+  "backlog": {
+    ".indexOn": ["sprint"]
+  },
+  "attachments": {
+    ".indexOn": ["backlogItem"]
+  }
 }
