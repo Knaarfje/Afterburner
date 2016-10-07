@@ -37,4 +37,15 @@ $state-list:
     position: absolute;
     left: -4px;
     top: 0;
+
+    .condensed &{
+        left: 0;
+        top: 3px;
+    }
+}
+
+div.view-mode{
+    display: table-cell;
+    min-width: 36px;
+    vertical-align: top;
 }

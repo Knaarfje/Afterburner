@@ -24,6 +24,10 @@ backlog-item {
     .thumb-container{
         display: table-cell;
         min-width: 35px;
+
+        .condensed &{
+            min-width: 15px;
+        }
     }
     .backlog-body{
         display: table-cell;
@@ -45,8 +49,11 @@ backlog-item {
             opacity:0
         }
     }
-}
 
+    .condensed &{
+        padding: 5px 10px;
+    }
+}
 
 .sortable-handle{
     cursor: move;

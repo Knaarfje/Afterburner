@@ -211,8 +211,8 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         data.datasets[0].data = average;
 
         let overviewChartOptions = chartOptions;
-        overviewChartOptions.scales.yAxes[0].ticks.suggestedMax = null;
-        overviewChartOptions.scales.yAxes[1].ticks.suggestedMax = null;
+        overviewChartOptions.scales.yAxes[0].ticks.suggestedMax = 100;
+        overviewChartOptions.scales.yAxes[1].ticks.suggestedMax = 100;
 
         let currentSprint = sprints[sprints.length - 1];
 

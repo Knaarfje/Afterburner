@@ -13,4 +13,10 @@
     &-lg{
         @include size(35px);
     }
+
+    .condensed &{
+        line-height: initial;
+        height: 0;
+        width: 0;
+    }
 }

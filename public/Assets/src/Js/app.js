@@ -1,6 +1,27 @@
+var reg;
+
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('scripts/serviceworker.js');
+    console.log('Service Worker is supported');
+    navigator.serviceWorker.register('/serviceworker.js').then(function () {
+        return navigator.serviceWorker.ready;
+    }).then(function (serviceWorkerRegistration) {
+        console.log('Service Worker is ready :^)', reg);
+        reg = serviceWorkerRegistration;
+        // TODO
+    }).catch(function (error) {
+        console.log('Service Worker error :^(', error);
+    });
+
+    
+    navigator.serviceWorker.getRegistrations().then(a => {
+        for (var i in a) {
+            if (a[i].active.scriptURL.indexOf('/scripts/ser') >= 0) {
+                a[i].unregister();
+            }
+        }
+    });
 }
+
 
 const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable']);
 const templatePath = './Assets/dist/Templates';

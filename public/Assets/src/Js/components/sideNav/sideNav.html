@@ -1,8 +1,11 @@
-<section class="side" ng-class="{'open' : $ctrl.open}">
+<section class="side" ng-class="{'open' : $ctrl.open}" ng-init="$ctrl.checkSubscription()">
     <div class="user">
         <span>{{$ctrl.user.email}}</span>
         <br>
         <a ng-click="$ctrl.onSignOut()">Sign out</a>
+        <br/>
+        <a ng-click="$ctrl.subscribe()" ng-show="!$ctrl.hasSubscription">Notify me</a>
+        <a ng-click="$ctrl.unsubscribe()" ng-show="$ctrl.hasSubscription">Stop notifying me</a>
     </div>
     <nav>
         <ul>

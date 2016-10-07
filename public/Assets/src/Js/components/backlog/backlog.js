@@ -3,7 +3,7 @@ app.component('backlog', {
         title: '<',
         backTitle: '<'
     },
-    controller(BacklogService, SprintService, $firebaseAuth, $firebaseArray, FileService, $scope) {
+    controller(BacklogService, SprintService, $firebaseAuth, $firebaseArray, FileService, $scope, NotificationService) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
@@ -104,6 +104,7 @@ app.component('backlog', {
 
             if (item.state == ctrl.state.Done) {
                 item.resolvedOn = item.resolvedOn || Date.now();
+                NotificationService.notify('burndown');
             }
             else {
                 item.resolvedOn = null;
