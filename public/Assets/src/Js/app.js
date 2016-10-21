@@ -32,6 +32,7 @@ app.config(function ($locationProvider, $routeProvider) {
         authDomain: "project-7784811851232431954.firebaseapp.com",
         databaseURL: "https://project-7784811851232431954.firebaseio.com",
         storageBucket: "project-7784811851232431954.appspot.com",
+        messagingSenderId: "767810429309"
     };
 
     $locationProvider.html5Mode(true); 

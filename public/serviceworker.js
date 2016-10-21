@@ -103,13 +103,13 @@ self.addEventListener('fetch', event => {
 
 self.addEventListener('push', function(event) {
   console.log('Push message received', event);
-
+  var n = event.data.json();
   var title = 'Smells like fire...';
 
   event.waitUntil(
-    self.registration.showNotification(title, {
-     body: 'Burndown was updated',
-     icon: 'Assets/dist/Img/android-icon-192x192.png',
+    self.registration.showNotification(n.title, {
+     body: n.message,
+     icon: n.iconUrl,
      tag: 'burndown'
    }));
 });

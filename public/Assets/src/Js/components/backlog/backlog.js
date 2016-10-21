@@ -104,7 +104,7 @@ app.component('backlog', {
 
             if (item.state == ctrl.state.Done) {
                 item.resolvedOn = item.resolvedOn || Date.now();
-                NotificationService.notify('burndown');
+                NotificationService.notify('Smells like fire...', `Work on "${item.name}" has been completed!`); 
             }
             else {
                 item.resolvedOn = null;

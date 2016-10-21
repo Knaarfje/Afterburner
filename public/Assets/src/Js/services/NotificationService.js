@@ -29,7 +29,8 @@ app.factory('NotificationService', function ($rootScope, $firebaseArray, $fireba
                         subscriptions.$add(
                             {
                                 uid: userId,
-                                endpoint: endpoint
+                                endpoint: endpoint,
+                                keys: JSON.parse(JSON.stringify(pushSubscription)).keys
                             }
                         );
                     }
@@ -64,29 +65,13 @@ app.factory('NotificationService', function ($rootScope, $firebaseArray, $fireba
         });
     }
 
-    function notify(type) {        
+    function notify(title, message) {        
         return $q((resolve, reject) => {
-            var subscriptions = $firebaseArray(ref.child("subscriptions").orderByChild('uid'));
-            subscriptions.$loaded().then((data) => {
-                var endpoints = subscriptions.map((a) => {
-                    return a.endpoint;
-                });
-                    
-                $http({
-                    url: "https://android.googleapis.com/gcm/send",
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'key=AIzaSyBYQol9mz5SfJKG7_X81WPIABHc63IOuIc'
-                    },
-                    data: JSON.stringify({
-                        registration_ids: endpoints,
-                        collapse_key: type
-                    })
-                }).then(a => {                
-                    resolve(true);
-                });
-
+            $http({ 
+                url: `https://notifications.boerdamdns.nl/api/notify/post?title=${title}&message=${message}`,
+                method: 'POST'
+            }).then(a => {
+                resolve(a);
             });
         });
     }
