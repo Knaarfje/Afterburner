@@ -39,9 +39,9 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                 id: "y-axis-1",
                 ticks: {
                     stepSize: 10,
-                    beginAtZero: true,
+                    suggestedMin: 0,
                     fontColor: '#fff',
-                    suggestedMax: null,
+                    suggestedMax: null
                 },
                 gridLines: {
                     display: true,
@@ -50,24 +50,6 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                 },
                 labels: {
                     show: true,
-                }
-            }, 
-            {
-                type: "linear",
-                display: false,
-                position: "right",
-                id: "y-axis-2",
-                ticks: {
-                    stepSize: 10,
-                    beginAtZero: true,
-                    fontColor: '#fff',
-                    suggestedMax: 100,
-                },
-                gridLines: {
-                    display: false
-                },
-                labels: {
-                    show: false,
                 }
             }]
         }
@@ -108,7 +90,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                 pointBackgroundColor: barColor,
                 pointHoverBackgroundColor: barColor,
                 pointHoverBorderColor: barColor,
-                yAxisID: 'y-axis-2',
+                yAxisID: 'y-axis-1',
             }
         ]
     };
@@ -121,7 +103,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
                 type: 'line',
                 data: [],
                 fill: false,
-                yAxisID: 'y-axis-2',
+                yAxisID: 'y-axis-1',
                 borderColor: lineColor,
                 backgroundColor: lineColor,
                 pointBorderColor: lineColor,
@@ -212,7 +194,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
 
         let overviewChartOptions = chartOptions;
         overviewChartOptions.scales.yAxes[0].ticks.suggestedMax = 100;
-        overviewChartOptions.scales.yAxes[1].ticks.suggestedMax = 100;
+        //overviewChartOptions.scales.yAxes[1].ticks.suggestedMax = 100;
 
         let currentSprint = sprints[sprints.length - 1];
 
@@ -253,7 +235,7 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         data.datasets[1].data = idealBurndown;
         let burndownChartOptions = chartOptions;
         burndownChartOptions.scales.yAxes[0].ticks.suggestedMax = 10 * (sprint.duration + 1);
-        burndownChartOptions.scales.yAxes[1].ticks.suggestedMax = 10 * (sprint.duration + 1);
+        //burndownChartOptions.scales.yAxes[1].ticks.suggestedMax = 10 * (sprint.duration + 1);
 
         let chartObj = {
             type: "line",

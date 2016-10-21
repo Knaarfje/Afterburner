@@ -1,0 +1,7 @@
+<div>
+    <ul ng-init="$ctrl.init()">
+        <li ng-repeat="note in $ctrl.notes">{{note.note}}</li>
+    </ul>
+    <input type="text" ng-model="$ctrl.newNote.note" placeholder="new note..." />
+    <button class="btn btn-primary" ng-click="$ctrl.saveNote()">Add</button>
+</div>

@@ -9,8 +9,8 @@
 		<chart type="$ctrl.chart.type" options="$ctrl.chart.options" data="$ctrl.chart.data" loaded="$ctrl.loaded">
 		</chart>
 	</section>
-	<section class="backlog backlog-side col-lg-4 visible-lg-block" ng-if="$ctrl.chart.sprint" ng-show="$ctrl.BiItems.length > 0">
-
+	<section class="backlog backlog-side col-lg-4 visible-lg-block" ng-if="$ctrl.chart.sprint && $ctrl.BiItems.length > 0">
+		<text-notes type="'retrospective'" sprint="$ctrl.chart.sprint" ng-if="false"></text-notes>
 		<div class="row">
 			<div class="backlog-toolbar">
 				<div class="backlog-toolbar-inner">
