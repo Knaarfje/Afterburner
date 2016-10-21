@@ -17,9 +17,19 @@ app.component('sprints', {
             Removed: "4"
         };
 
+        ctrl.stateLookup = ['New', 'Approved', '', 'Done', 'Removed'];     
 
         ctrl.loaded = false;
         ctrl.filter = {};
+
+        ctrl.sumEffort = (items) => {
+            var sum = 0;
+            for (var i in items) {
+                sum += items[i].effort;
+            }
+
+            return sum;
+        };
         
         if (ctrl.chart.sprint && ctrl.backlog) {
             BacklogService.getBacklog(ctrl.chart.sprint).then(data => {

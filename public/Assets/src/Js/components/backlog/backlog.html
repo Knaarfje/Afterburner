@@ -32,7 +32,7 @@
 
 			<div id="SortableList" 
 				 class="row list-backlog" ng-class="{'condensed': viewMode}">
-				 <div ng-repeat="(key, value) in $ctrl.BiItems | orderBy: customOrder | groupBy: 'sprint'">
+				 <div ng-repeat="(key, value) in $ctrl.BiItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'">
 
 					<div class="list-bi-item list-bi-sprint">
 						<strong>
@@ -49,7 +49,7 @@
 						<backlog-item item="BiItem"
 									order="{{BiItem.order}}"
 									on-click="$ctrl.selectItem(BiItem)" 
-									ng-repeat="BiItem in value | filter: $ctrl.filter"
+									ng-repeat="BiItem in value"
 									ng-class="{'active' : BiItem === $ctrl.selectedItem}">
 						</backlog-item>
 					</div>
