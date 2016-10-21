@@ -26,7 +26,7 @@ if ('serviceWorker' in navigator) {
 const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable']);
 const templatePath = './Assets/dist/Templates';
 
-app.config(function ($locationProvider, $routeProvider) {
+app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
     const config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
         authDomain: "project-7784811851232431954.firebaseapp.com",
@@ -36,7 +36,8 @@ app.config(function ($locationProvider, $routeProvider) {
     };
 
     $locationProvider.html5Mode(true); 
-
+    $firebaseRefProvider.registerUrl(config.databaseURL);
+    
     firebase.initializeApp(config);
 
     $routeProvider
@@ -134,6 +135,11 @@ app.config(function ($locationProvider, $routeProvider) {
                 </bigscreen>`,
         })
         .when('/backlog', {
+            resolve: {
+                "firebaseUser": function ($firebaseAuthService) {
+                    return $firebaseAuthService.$waitForSignIn();
+                } 
+            },
             template: `
                 <app>
                     <backlog title="'Backlog'"

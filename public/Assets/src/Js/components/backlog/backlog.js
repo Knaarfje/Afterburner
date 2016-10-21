@@ -28,11 +28,11 @@ app.component('backlog', {
             ctrl.sprints = sprints;
         })
 
-        $scope.customOrder = (key) => { 
+        $scope.customOrder = (key) => {
             if (!ctrl.sprints) {
                 return 0;
             }
-            if(!key.sprint){
+            if (!key.sprint) {
                 return 9999;
             }
 
@@ -56,7 +56,7 @@ app.component('backlog', {
                 sum += items[i].effort;
             }
 
-            return sum;  
+            return sum;
         };
 
         ctrl.orderBySprint = (key) => {
@@ -67,11 +67,11 @@ app.component('backlog', {
         }
 
         ctrl.selectItem = item => {
-                ctrl.formOpen = true;
-                ctrl.selectedItem = item;
-                FileService.getAttachments(item).then((data) => {
-                    ctrl.selectedItemAttachments = data;
-                });
+            ctrl.formOpen = true;
+            ctrl.selectedItem = item;
+            FileService.getAttachments(item).then((data) => {
+                ctrl.selectedItemAttachments = data;
+            });
         }
 
         ctrl.addItem = () => {
@@ -103,8 +103,10 @@ app.component('backlog', {
         ctrl.saveItem = (item) => {
 
             if (item.state == ctrl.state.Done) {
+                if (!item.resolvedOn) {
+                    NotificationService.notify('Smells like fire...', `Work on "${item.name}" has been completed!`);
+                }
                 item.resolvedOn = item.resolvedOn || Date.now();
-                NotificationService.notify('Smells like fire...', `Work on "${item.name}" has been completed!`); 
             }
             else {
                 item.resolvedOn = null;
@@ -124,7 +126,6 @@ app.component('backlog', {
         ctrl.sortConfig = {
             animation: 150,
             handle: '.sortable-handle',
-            group: 'backlogitems',
             onAdd(e) {
                 let model = e.model;
                 let sprint = e.models[0].sprint;
