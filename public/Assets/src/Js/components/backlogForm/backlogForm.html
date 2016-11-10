@@ -45,7 +45,7 @@
         <label for="">Sprint</label>
         <select class="form-control form-lg" ng-model="$ctrl.item.sprint">            
             <option value="">No sprint</option>
-            <option ng-repeat="sprint in $ctrl.sprints" value="{{sprint.$id}}">{{sprint.name}}</option>
+            <option ng-repeat="sprint in $ctrl.sprints | filter:{archived:!'true'}" value="{{sprint.$id}}">{{sprint.name}}</option>
         </select>
     </div> 
 </div>

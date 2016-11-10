@@ -26,7 +26,7 @@ app.component('backlog', {
 
         SprintService.getSprints((sprints) => {
             ctrl.sprints = sprints;
-        })
+        }, true);
 
         $scope.customOrder = (key) => {
             if (!ctrl.sprints) {

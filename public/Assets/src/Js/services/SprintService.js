@@ -131,9 +131,15 @@ app.factory('SprintService', function($rootScope, $firebaseArray, $firebaseObjec
         ]
     };
 
-    function getSprints(cb) {
-        let sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(9));
-        sprints.$loaded(cb, ()=> $location.path('/signin'))
+    function getSprints(cb, all) {
+        if (all) {
+            let sprints = $firebaseArray(ref.child("sprints").orderByChild('order'));
+            sprints.$loaded(cb, ()=> $location.path('/signin')); 
+        }
+        else {
+            let sprints = $firebaseArray(ref.child("sprints").orderByChild('order').limitToLast(9));
+            sprints.$loaded(cb, ()=> $location.path('/signin'));            
+        }
     }
 
     function getCachedSprints() {

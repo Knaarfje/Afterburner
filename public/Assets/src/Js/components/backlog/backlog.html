@@ -32,7 +32,9 @@
 
 			<div id="SortableList" 
 				 class="row list-backlog" ng-class="{'condensed': viewMode}">
-				 <div ng-repeat="(key, value) in $ctrl.BiItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'">
+				 <div 
+				 	ng-repeat="(key, value) in $ctrl.BiItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'" 
+					ng-if="key ? (!$ctrl.sprints.$getRecord(key).archived && !$ctrl.showArchived) : true">
 
 					<div class="list-bi-item list-bi-sprint">
 						<strong>
