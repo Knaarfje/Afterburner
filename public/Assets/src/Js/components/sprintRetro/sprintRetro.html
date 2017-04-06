@@ -1,0 +1,7 @@
+<div class="row list-retro">
+    <retro-item item="BiItem"
+                    order="{{BiItem.order}}" 
+                    ng-repeat="BiItem in $ctrl.items"
+                    ng-class="{'active' : BiItem === $ctrl.selectedItem}">
+    </retro-item>
+</div>

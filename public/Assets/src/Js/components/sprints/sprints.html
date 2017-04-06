@@ -9,19 +9,23 @@
 		<chart type="$ctrl.chart.type" options="$ctrl.chart.options" data="$ctrl.chart.data" loaded="$ctrl.loaded">
 		</chart>
 	</section>
-	<section class="backlog backlog-side col-lg-4 visible-lg-block" ng-if="$ctrl.chart.sprint && $ctrl.BiItems.length > 0">
+	<section class="backlog backlog-side col-lg-4 visible-lg-block" ng-init="$ctrl.backlogOverview = true" cng-if="$ctrl.chart.sprint && $ctrl.BiItems.length > 0">
 		<text-notes type="'retrospective'" sprint="$ctrl.chart.sprint" ng-if="false"></text-notes>
 		<div class="row">
 			<div class="backlog-toolbar">
-				<div class="backlog-toolbar-inner">
+				<div class="backlog-toolbar-inner" ng-class="{'search-active': $ctrl.searchActive}">
+					<div class="tabs">
+						<a href="" ng-click="$ctrl.backlogOverview = true; $ctrl.retroOverview = false" ng-class="{'active' : $ctrl.backlogOverview === true}">Backlog</a>
+						<a href="" ng-click="$ctrl.retroOverview = true; $ctrl.backlogOverview = false" ng-class="{'active' : $ctrl.retroOverview === true}">Retro</a>
+					</div>
 					<div class="backlog-search">
 						<div class="fa fa-search"></div>
-						<input type="text" ng-model="$ctrl.filter.name">
+						<input type="text" ng-model="$ctrl.filter.name" ng-focus="$ctrl.searchActive = true" ng-blur="$ctrl.searchActive = false">
 					</div>
-							<div class="view-mode">
-								<a href="#" ng-click="viewMode = 0"><span class="fa fa-th-list"></span></a>
-								<a href="#" ng-click="viewMode = 1"><span class="fa fa-list"></span></a>
-							</div>
+					<div class="view-mode">
+						<a href="#" ng-click="viewMode = 0"><span class="fa fa-th-list"></span></a>
+						<a href="#" ng-click="viewMode = 1"><span class="fa fa-list"></span></a>
+					</div>
 					<div class="states">
 						<a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
 						<a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
@@ -32,25 +36,31 @@
 			</div>
 		</div>
 
-
-		<div id="SortableList" class="row list-backlog" ng-class="{'condensed': viewMode}">
+		<div id="SortableList" class="row list-backlog" ng-class="{'condensed': viewMode}" ng-show="$ctrl.backlogOverview">
 			<div ng-repeat="(key, value) in $ctrl.BiItems | filter: $ctrl.filter | groupBy: '-state'">
 
 				<div class="list-bi-item list-bi-sprint">
 					<strong>
-							{{$ctrl.stateLookup[-key]}}
-							<span class="effort">{{$ctrl.sumEffort(value)}}pt</small>
-						</strong>
+						{{$ctrl.stateLookup[-key]}}
+						<span class="effort">{{$ctrl.sumEffort(value)}}pt</small>
+					</strong>
 				</div>
 				<div>
 					<backlog-item item="BiItem" order="{{BiItem.order}}" ng-repeat="BiItem in value | orderBy: 'order'">
 					</backlog-item>
 				</div>
 			</div>
-
-
+		</div>
+		<div class="row list-retro" ng-show="$ctrl.retroOverview">
+			<!--<retro-item>
+			</retro-item> for preview -->
+			<article class="retro-item">	
+				<h3 class="author-name">Naam auteur</h3>
+				<p class="retro-message">Een voorbeeld tekstje</p>
+			</article> 
+		</div>
 
 	</section>
-	</div>
 
-	<footer sprint="$ctrl.chart"></footer>
+	<footer sprint="$ctrl.chart" ng-class="{'col-lg-8': $ctrl.BiItems.length > 0}"></footer>
+	</div>

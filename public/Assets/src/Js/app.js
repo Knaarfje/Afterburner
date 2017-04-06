@@ -147,5 +147,18 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </backlog>
                 </app>`, 
         }) 
+        .when('/retro', {
+            resolve: {
+                "firebaseUser": function ($firebaseAuthService) {
+                    return $firebaseAuthService.$waitForSignIn();
+                } 
+            },
+            template: `
+                <app>
+                    <retro title="'Retro'"
+                             back-title="'Afspraken'">
+                    </retro>
+                </app>`, 
+        }) 
         .otherwise('/'); 
 }); 
