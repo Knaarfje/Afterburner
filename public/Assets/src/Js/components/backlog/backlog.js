@@ -31,7 +31,7 @@ app.component('backlog', {
                 ctrl.selectItem(ctrl.biItems.$getRecord(ctrl.itemKey));
             };
             ctrl.viewMode = ctrl.settings.get('ViewMode', 0);
-        };    
+        };
         //     }
         // });
 
@@ -40,6 +40,7 @@ app.component('backlog', {
         }, true);
 
         ctrl.customOrder = (key) => {
+            console.log(ctrl.sprints);
             if (!ctrl.sprints) {
                 return 0;
             }
@@ -87,8 +88,8 @@ app.component('backlog', {
             ctrl.selectedItem = item;
             FileService.getAttachments(item).then((data) => {
                 ctrl.selectedItemAttachments = data;
-            });    
-            $location.path(`/backlog/${item.$id}`);   
+            });
+            $location.path(`/backlog/${item.$id}`);
         }
 
         ctrl.addItem = () => {
@@ -142,7 +143,7 @@ app.component('backlog', {
         ctrl.dragOptions = {
             additionalPlaceholderClass: 'sortable-placeholder'
         }
-        
+
         ctrl.updateOrder = (models, oldIndex, newIndex) => {
             var from = Math.min(oldIndex, newIndex);
             var to = Math.max(oldIndex, newIndex);

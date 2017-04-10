@@ -1,42 +1,39 @@
 <div class="main-inner">
-	<div class="header">
-		<h1 class="page-title type">
-			{{$ctrl.title}}
-			<span class="page-title-back">{{$ctrl.backTitle}}</span>
-		</h1>
-	</div>
+    <div class="header">
+        <h1 class="page-title type">
+            {{$ctrl.title}}
+            <span class="page-title-back">{{$ctrl.backTitle}}</span>
+        </h1>
+    </div>
 
-	<div class="body-container" ng-class="{'backlog-form-open': $ctrl.selectedItem}">
-		<section class="backlog col-lg-6">
-			<div class="row">
-				<div class="backlog-toolbar">
-						<div class="backlog-toolbar-inner">
-							<div class="backlog-search">
-								<div class="fa fa-search"></div>
-								<input type="text" ng-model="$ctrl.filter.name">
-							</div>
-							<div class="view-mode">
-								<a href="#" ng-click="$ctrl.setViewMode(0)"><span class="fa fa-th-list"></span></a>
-								<a href="#" ng-click="$ctrl.setViewMode(1)"><span class="fa fa-list"></span></a>
-							</div>
-							<div class="states">
-								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
-								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
-								<a href="" ng-click="$ctrl.filterItems($ctrl.state.New)" class="state state-new" ng-class="{'active': $ctrl.filter.state == $ctrl.state.New}"></a>
-								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Removed)" class="state state-removed" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Removed}"></a>
-							</div>
-						</div>
-				</div>
-			</div>
+    <div class="body-container" ng-class="{'backlog-form-open': $ctrl.selectedItem}">
+        <section class="backlog col-lg-6">
+            <div class="row">
+                <div class="backlog-toolbar">
+                    <div class="backlog-toolbar-inner">
+                        <div class="backlog-search">
+                            <div class="fa fa-search"></div>
+                            <input type="text" ng-model="$ctrl.filter.name">
+                        </div>
+                        <div class="view-mode">
+                            <a href="#" ng-click="$ctrl.setViewMode(0)"><span class="fa fa-th-list"></span></a>
+                            <a href="#" ng-click="$ctrl.setViewMode(1)"><span class="fa fa-list"></span></a>
+                        </div>
+                        <div class="states">
+                            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
+                            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Approved)" class="state state-approved" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Approved}"></a>
+                            <a href="" ng-click="$ctrl.filterItems($ctrl.state.New)" class="state state-new" ng-class="{'active': $ctrl.filter.state == $ctrl.state.New}"></a>
+                            <a href="" ng-click="$ctrl.filterItems($ctrl.state.Removed)" class="state state-removed" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Removed}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div id="SortableList" 
-				 class="row list-backlog" ng-class="{'condensed': $ctrl.viewMode == 1}">
-				 <div 
-				 	ng-repeat="(key, value) in $ctrl.biItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'" 
-					ng-if="key ? (!$ctrl.sprints.$getRecord(key).archived && !$ctrl.showArchived) : true">
+            <div id="SortableList" class="row list-backlog" ng-class="{'condensed': $ctrl.viewMode == 1}">
+                <div ng-repeat="(key, value) in $ctrl.biItems | filter: $ctrl.filter | orderBy: $ctrl.customOrder | groupBy: 'sprint'" ng-if="key ? (!$ctrl.sprints.$getRecord(key).archived && !$ctrl.showArchived) : true">
 
-					<div class="list-bi-item list-bi-sprint">
-						<strong>
+                    <div class="list-bi-item list-bi-sprint">
+                        <strong>
 							{{key ? $ctrl.sprints.$getRecord(key).name: "NOT IN SPRINT" | uppercase}}
 							<span 
 								class="effort" 
@@ -45,32 +42,28 @@
 											'red': $ctrl.sprints.$getRecord(key).velocity > $ctrl.sumEffort(value)
 											}">{{$ctrl.sumEffort(value)}} / {{$ctrl.sprints.$getRecord(key).velocity}}</small>
 						</strong>
-					</div>
-					<div ng-sortable="$ctrl.sortConfig">
-						<backlog-item item="BiItem"
-									order="{{BiItem.order}}"
-									on-click="$ctrl.selectItem(BiItem)" 
-									ng-repeat="BiItem in value | orderBy: order"
-									ng-class="{'active' : BiItem === $ctrl.selectedItem}">
-						</backlog-item>
-					</div>
-				</div>
-			</div>
-		</section>
+                    </div>
+                    <div ng-sortable="$ctrl.sortConfig">
+                        <backlog-item item="BiItem" order="{{BiItem.order}}" on-click="$ctrl.selectItem(BiItem)" ng-repeat="BiItem in value | orderBy: order" ng-class="{'active' : BiItem === $ctrl.selectedItem}">
+                        </backlog-item>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-			<ui-view></ui-view>
+        <ui-view></ui-view>
 
 
-		<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()">
-			<span class="fa fa-close" aria-hidden="true"></span>
-		</div>
-	</div>
+        <div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()">
+            <span class="fa fa-close" aria-hidden="true"></span>
+        </div>
+    </div>
 
-	<div class="btn btn-primary btn-fab hidden-md hidden-lg" ng-click="$ctrl.addItem()" ng-hide="$ctrl.selectedItem">
-		<span class="fa fa-plus" aria-hidden="true"></span>
-	</div>
-	<div class="btn btn-primary btn-fab hidden-sm hidden-xs" ng-click="$ctrl.addItem()">
-		<span class="fa fa-plus" aria-hidden="true"></span>
-	</div>
-	
+    <div class="btn btn-primary btn-fab hidden-md hidden-lg" ng-click="$ctrl.addItem()" ng-hide="$ctrl.selectedItem">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+    </div>
+    <div class="btn btn-primary btn-fab hidden-sm hidden-xs" ng-click="$ctrl.addItem()">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+    </div>
+
 </div>
