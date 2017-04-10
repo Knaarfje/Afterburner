@@ -7,11 +7,10 @@ app.factory('BacklogService', function ($rootScope, $firebaseArray, $firebaseObj
         return $q(function (resolve, reject) {
             if (!sprint) {
                 backlog = $firebaseArray(ref.child("backlog").orderByChild('order'));
-                resolve(backlog);
             } else {
                 backlog = $firebaseArray(ref.child("backlog").orderByChild('sprint').equalTo(sprint.$id));
-                resolve(backlog);
             }
+            resolve(backlog.$loaded());
         });
     }
 

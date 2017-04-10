@@ -1,5 +1,5 @@
 
-<div class="row">
+<div class="row" ng-init="console.log('test')">
     <div class="col-md-9">
         <label for="">Title</label>
         <input type="text" ng-model="$ctrl.item.name" class="form-control form-lg">
@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-12">
         <label for="">Description</label>
-        <textarea rows="4" class="form-control" cols="50" ng-model="$ctrl.item.description"></textarea>
+        <textarea rows="4" class="form-control" cols="50" msd-elastic="\n" ng-model="$ctrl.item.description"></textarea>
         <div class="attachment-actions">
             <a href="#" ng-click="$ctrl.selectFiles()"><span class="fa fa-paperclip"></span></a>
         </div>
@@ -45,7 +45,7 @@
         <label for="">Sprint</label>
         <select class="form-control form-lg" ng-model="$ctrl.item.sprint">            
             <option value="">No sprint</option>
-            <option ng-repeat="sprint in $ctrl.sprints" value="{{sprint.$id}}">{{sprint.name}}</option>
+            <option ng-repeat="sprint in $ctrl.sprints | filter:{archived:!'true'}" value="{{sprint.$id}}">{{sprint.name}}</option>
         </select>
     </div> 
 </div>
@@ -74,8 +74,8 @@
 <div class="row">
     <div class="col-md-12">
         <br>
-        <a class="btn btn-primary" ng-click="$ctrl.onSave()">Save</a>
-        <a class="btn btn-danger btn-cirlce" ng-click="$ctrl.onDelete()"><span class="fa fa-trash-o"></span></a>
+        <a class="btn btn-primary" ng-click="$ctrl.onSave()">Save</a>&nbsp;
+        <a class="btn btn-danger" ng-click="$ctrl.close()">Cancel</a>
         <!--<a class="btn btn-primary" ng-click="$ctrl.onAdd()">New...</a>        -->
         <!--<a class="btn btn-danger" ng-click="$ctrl.onDelete()">Delete</a>-->
     </div>

@@ -6,8 +6,7 @@
 		</h1>
 	</div>
 
-
-	<div class="body-container" ng-class="{'backlog-form-open': $ctrl.formOpen}">
+	<div class="body-container" ng-class="{'backlog-form-open': $ctrl.selectedItem}">
 		<section class="backlog col-lg-6">
 			<div class="row">
 				<div class="backlog-toolbar">
@@ -17,8 +16,8 @@
 								<input type="text" ng-model="$ctrl.filter.name">
 							</div>
 							<div class="view-mode">
-								<a href="#" ng-click="viewMode = 0"><span class="fa fa-th-list"></span></a>
-								<a href="#" ng-click="viewMode = 1"><span class="fa fa-list"></span></a>
+								<a href="#" ng-click="$ctrl.setViewMode(0)"><span class="fa fa-th-list"></span></a>
+								<a href="#" ng-click="$ctrl.setViewMode(1)"><span class="fa fa-list"></span></a>
 							</div>
 							<div class="states">
 								<a href="" ng-click="$ctrl.filterItems($ctrl.state.Done)" class="state state-done" ng-class="{'active': $ctrl.filter.state == $ctrl.state.Done}"></a>
@@ -31,8 +30,10 @@
 			</div>
 
 			<div id="SortableList" 
-				 class="row list-backlog" ng-class="{'condensed': viewMode}">
-				 <div ng-repeat="(key, value) in $ctrl.BiItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'">
+				 class="row list-backlog" ng-class="{'condensed': $ctrl.viewMode == 1}">
+				 <div 
+				 	ng-repeat="(key, value) in $ctrl.biItems | filter: $ctrl.filter | orderBy: customOrder | groupBy: 'sprint'" 
+					ng-if="key ? (!$ctrl.sprints.$getRecord(key).archived && !$ctrl.showArchived) : true">
 
 					<div class="list-bi-item list-bi-sprint">
 						<strong>
@@ -49,7 +50,7 @@
 						<backlog-item item="BiItem"
 									order="{{BiItem.order}}"
 									on-click="$ctrl.selectItem(BiItem)" 
-									ng-repeat="BiItem in value"
+									ng-repeat="BiItem in value | orderBy: order"
 									ng-class="{'active' : BiItem === $ctrl.selectedItem}">
 						</backlog-item>
 					</div>
@@ -57,16 +58,7 @@
 			</div>
 		</section>
 
-		<div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.formOpen}">
-			<backlog-form 
-				item="$ctrl.selectedItem"
-				attachments="$ctrl.selectedItemAttachments"
-				sprints="$ctrl.sprints" 
-				on-add="$ctrl.addItem()" 
-				on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
-				on-save="$ctrl.saveItem($ctrl.selectedItem)">
-			</backlog-form>
-		</div>
+			<ui-view></ui-view>
 
 
 		<div class="btn btn-primary btn-fab" ng-click="$ctrl.addItem()">
@@ -74,7 +66,7 @@
 		</div>
 	</div>
 
-	<div class="btn btn-primary btn-fab hidden-md hidden-lg" ng-click="$ctrl.addItem()" ng-hide="$ctrl.formOpen">
+	<div class="btn btn-primary btn-fab hidden-md hidden-lg" ng-click="$ctrl.addItem()" ng-hide="$ctrl.selectedItem">
 		<span class="fa fa-plus" aria-hidden="true"></span>
 	</div>
 	<div class="btn btn-primary btn-fab hidden-sm hidden-xs" ng-click="$ctrl.addItem()">

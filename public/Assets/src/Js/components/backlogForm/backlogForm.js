@@ -1,13 +1,16 @@
 app.component('backlogForm', {
     bindings: {
-        item: "<",
+        item: "=",
+        items: "<",
+        itemKey: "<",
         sprints: "<",
-        attachments: "<",
+        attachments: "=",
         onAdd: "&",
         onDelete: "&",
-        onSave: "&"
+        onSave: "&",
+        onSelect: "&"
     },
-    controller(BacklogService, $firebaseAuth, $firebaseArray, $firebaseObject) {
+    controller(BacklogService, FileService, $firebaseAuth, $firebaseArray, $firebaseObject, $location) {
         let ctrl = this;
         ctrl.attachmentsToAdd;
         
@@ -16,6 +19,24 @@ app.component('backlogForm', {
         fileSelect.multiple = 'multiple';
         fileSelect.onchange = (evt) => {
             ctrl.uploadFiles(fileSelect.files);
+        }
+
+        ctrl.$onInit = () => {
+            if (ctrl.itemKey) {
+                ctrl.item = ctrl.items.$getRecord(ctrl.itemKey);
+                if (!ctrl.item) { 
+                    $location.path(`/backlog`);
+                    return;
+                }
+                FileService.getAttachments(ctrl.item).then((data) => {
+                    ctrl.attachments = data;
+                });
+            }
+        }
+
+        ctrl.close = () => {
+            ctrl.item = null;
+            $location.path(`/backlog`);
         }
 
         var mimeMap = {};

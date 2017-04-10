@@ -23,10 +23,10 @@ if ('serviceWorker' in navigator) {
 }
 
 
-const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable']);
+const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable','ui.router','monospaced.elastic']);
 const templatePath = './Assets/dist/Templates';
 
-app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
+app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $urlRouterProvider) {
     const config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
         authDomain: "project-7784811851232431954.firebaseapp.com",
@@ -37,14 +37,18 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
 
     $locationProvider.html5Mode(true); 
     $firebaseRefProvider.registerUrl(config.databaseURL);
-    
-    firebase.initializeApp(config);
 
-    $routeProvider
-        .when('/signin', { 
+    firebase.initializeApp(config);
+    $urlRouterProvider.otherwise("/");
+
+    $stateProvider
+        .state({
+            name: 'signin',
+            url: '/signin', 
             template: '<signin></signin>'
         }) 
-        .when('/', {
+        .state('default',{
+            url:'/', 
             resolve: {
                 chart(SprintService) {
                     return SprintService.getOverviewChart()
@@ -58,7 +62,8 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints> 
                 </app>`,
         })        
-        .when('/current-sprint', {
+        .state('current-sprint',{
+            url: '/current-sprint',
             resolve: {
                 chart(SprintService) {
                     return SprintService.getCurrentChart()
@@ -73,10 +78,11 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints>
                 </app>`,
         })
-        .when('/sprint/:sprint', {
+        .state('sprint',{
+            url: '/sprint/:sprint',
             resolve: {
-                chart(SprintService, $route) {
-                    let sprint = $route.current.params.sprint;
+                chart(SprintService, $stateParams) {
+                    let sprint = $stateParams.sprint;
                     return SprintService.getSprintChart(sprint)
                 }
             },
@@ -89,7 +95,8 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints>
                 </app>`,
         })
-        .when('/bigscreen', {
+        .state("bigscreen",{
+            url: '/bigscreen',
             resolve: {
                 chart(SprintService) {
                     return SprintService.getOverviewChart()
@@ -103,7 +110,8 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints> 
                 </bigscreen>`,
         })
-        .when('/bigscreen/current-sprint', {
+        .state("bigscreen.current-sprint",{
+            url: '/bigscreen/current-sprint',
             resolve: {
                 chart(SprintService) {
                     return SprintService.getCurrentChart()
@@ -118,10 +126,11 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints>
                 </bigscreen>`,
         })
-        .when('/bigscreen/sprint/:sprint', {
+        .state("bigscreen.sprint",{
+            url: '/bigscreen/sprint/:sprint', 
             resolve: {
                 chart(SprintService, $route) {
-                    let sprint = $route.current.params.sprint;
+                    let sprint = $stateParams.sprint;
                     return SprintService.getSprintChart(sprint)
                 }
             },
@@ -134,20 +143,52 @@ app.config(function ($locationProvider, $routeProvider,$firebaseRefProvider) {
                     </sprints>
                 </bigscreen>`,
         })
-        .when('/backlog', {
+        .state("backlog",{
+            url: '/backlog', 
             resolve: {
                 "firebaseUser": function ($firebaseAuthService) {
                     return $firebaseAuthService.$waitForSignIn();
+                }, 
+                "backlog": function (BacklogService) {
+                    return BacklogService.getBacklog();
                 } 
             },
             template: `
                 <app>
                     <backlog title="'Backlog'"
-                             back-title="'Overview'">
-                    </backlog>
+                             back-title="'Overview'"
+                             bi-items="$resolve.backlog">
+                    </backlog> 
                 </app>`, 
         }) 
-        .when('/retro', {
+        .state("backlog.item",{
+            url: '/:item', 
+            resolve: {
+                "firebaseUser": function ($firebaseAuthService) {
+                    return $firebaseAuthService.$waitForSignIn();
+                },
+                "key": ($stateParams) => {
+                    return $stateParams.item;
+                }
+            },
+            reloadOnSearch: false,
+            template: ` 
+            <div class="col-lg-6 backlog-form" ng-class="{'active': $ctrl.selectedItem}">               
+			<backlog-form 
+				item="$ctrl.selectedItem"
+                items="$ctrl.biItems"
+                item-key="$resolve.key"
+				attachments="$ctrl.selectedItemAttachments"
+				sprints="$ctrl.sprints" 
+				on-add="$ctrl.addItem()"                 
+				on-select="$ctrl.getItem($resolve.key)" 
+				on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
+				on-save="$ctrl.saveItem($ctrl.selectedItem)">
+			</backlog-form>
+            </div>` 
+        })
+        .state('retro', {
+            url: '/retro',
             resolve: {
                 "firebaseUser": function ($firebaseAuthService) {
                     return $firebaseAuthService.$waitForSignIn();

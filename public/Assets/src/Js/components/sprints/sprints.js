@@ -6,10 +6,15 @@ app.component('sprints', {
         chart: '='
     },
 
+<<<<<<< HEAD
     controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout, $rootScope, RetroService) {
+=======
+    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout,$rootScope, $location, SettingService) {
+>>>>>>> 7a66df816f5405b00ddba4e12f0c409e2816f439
         let ctrl = this;
         let auth = $firebaseAuth();
-
+        ctrl.settings = SettingService;
+        
         ctrl.state = {
             New: "0",
             Approved: "1",
@@ -22,6 +27,10 @@ app.component('sprints', {
         ctrl.loaded = false;
         ctrl.filter = {};
 
+        ctrl.openItem = (item) => {
+            $location.path(`/backlog/${item.$id}`);
+        }
+        
         ctrl.sumEffort = (items) => {
             var sum = 0;
             for (var i in items) {
@@ -64,6 +73,12 @@ app.component('sprints', {
             if (!ctrl.chart.sprint || !ctrl.backlog) {
                 ctrl.loaded = true;
             }
+            ctrl.viewMode = ctrl.settings.get('ViewMode', 0);
+        }
+
+        ctrl.setViewMode = (mode) => {
+            ctrl.viewMode = mode;
+            ctrl.settings.set('ViewMode', mode);
         }
 
         /// This method is responsible for building the graphdata by backlog items        

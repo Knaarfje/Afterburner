@@ -130,6 +130,9 @@
 }
 
 .backlog-form{
+    max-height: calc(90vh - 1em - 2em - 6em);
+    overflow-y: auto;
+
 	@include bp($screen-lg, max){
         @include abs();
         bottom: auto;
