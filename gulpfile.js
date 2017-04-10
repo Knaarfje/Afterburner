@@ -20,12 +20,13 @@ const vendorJs = [
     `${config.bower}/angular-touch/angular-touch.min.js`,
     `${config.bower}/angular-route/angular-route.js`,
     `${config.node}/sortablejs/Sortable.js`,
-    `${config.node}/sortablejs/ng-sortable.js`,
+    `${config.node}/angular-legacy-sortablejs/angular-legacy-sortable.js`,
+    `${config.node}/angular-ui-router/release/angular-ui-router.min.js`,
+    `${config.node}/angular-elastic/elastic.js`,
     `${config.node}/angular-filter/dist/angular-filter.min.js`
 ];
 
 const baseJs = [
-    `${config.src}/Js/particle.js`,
     `${config.src}/Js/app.js`,
     `${config.src}/Js/components/**/*.js`,
     `${config.src}/Js/services/**/*.js`

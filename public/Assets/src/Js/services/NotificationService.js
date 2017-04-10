@@ -15,7 +15,7 @@ app.factory('NotificationService', function ($rootScope, $firebaseArray, $fireba
                     resolve(false);
                     return;
                 }
-            });
+            }); 
 
             reg.pushManager.subscribe({ userVisibleOnly: true }).then(function (pushSubscription) {
                 var sub = pushSubscription;

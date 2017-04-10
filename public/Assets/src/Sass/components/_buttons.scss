@@ -31,7 +31,7 @@ $btn-sizes:
 $btn-types:
 //  Name       // Background      Text          Outline  
     primary    $brand-primary       white         true,
-    secondary  $brand-secondary     white         true,
+    secondary  white     grey         true,
     danger     $brand-secondary     white          false;
 
 .btn-block {
@@ -87,7 +87,7 @@ $btn-types:
     }
 }
 
-.btn-cirlce{
+.btn-circle{
     width: 2.5em;
     text-align: center;
     padding-left: 0;
