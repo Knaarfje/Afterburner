@@ -2,17 +2,17 @@ var reg;
 
 if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
-    navigator.serviceWorker.register('/serviceworker.js').then(function () {
+    navigator.serviceWorker.register('/serviceworker.js').then(function() {
         return navigator.serviceWorker.ready;
-    }).then(function (serviceWorkerRegistration) {
+    }).then(function(serviceWorkerRegistration) {
         console.log('Service Worker is ready :^)', reg);
         reg = serviceWorkerRegistration;
         // TODO
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log('Service Worker error :^(', error);
     });
 
-    
+
     navigator.serviceWorker.getRegistrations().then(a => {
         for (var i in a) {
             if (a[i].active.scriptURL.indexOf('/scripts/ser') >= 0) {
@@ -23,10 +23,10 @@ if ('serviceWorker' in navigator) {
 }
 
 
-const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable','ui.router','monospaced.elastic']);
+const app = angular.module("afterburnerApp", ["firebase", 'ngTouch', 'ngRoute', "angular.filter", 'ng-sortable', 'ui.router', 'monospaced.elastic']);
 const templatePath = './Assets/dist/Templates';
 
-app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $urlRouterProvider) {
+app.config(function($locationProvider, $firebaseRefProvider, $stateProvider, $urlRouterProvider) {
     const config = {
         apiKey: "AIzaSyCIzyCEYRjS4ufhedxwB4vCC9la52GsrXM",
         authDomain: "project-7784811851232431954.firebaseapp.com",
@@ -35,7 +35,7 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
         messagingSenderId: "767810429309"
     };
 
-    $locationProvider.html5Mode(true); 
+    $locationProvider.html5Mode(true);
     $firebaseRefProvider.registerUrl(config.databaseURL);
 
     firebase.initializeApp(config);
@@ -44,11 +44,11 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
     $stateProvider
         .state({
             name: 'signin',
-            url: '/signin', 
+            url: '/signin',
             template: '<signin></signin>'
-        }) 
-        .state('default',{
-            url:'/', 
+        })
+        .state('default', {
+            url: '/',
             resolve: {
                 chart(SprintService) {
                     return SprintService.getOverviewChart()
@@ -61,8 +61,8 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                              chart="$resolve.chart">
                     </sprints> 
                 </app>`,
-        })        
-        .state('current-sprint',{
+        })
+        .state('current-sprint', {
             url: '/current-sprint',
             resolve: {
                 chart(SprintService) {
@@ -78,7 +78,7 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                     </sprints>
                 </app>`,
         })
-        .state('sprint',{
+        .state('sprint', {
             url: '/sprint/:sprint',
             resolve: {
                 chart(SprintService, $stateParams) {
@@ -95,7 +95,7 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                     </sprints>
                 </app>`,
         })
-        .state("bigscreen",{
+        .state("bigscreen", {
             url: '/bigscreen',
             resolve: {
                 chart(SprintService) {
@@ -110,7 +110,7 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                     </sprints> 
                 </bigscreen>`,
         })
-        .state("bigscreen.current-sprint",{
+        .state("bigscreen.current-sprint", {
             url: '/bigscreen/current-sprint',
             resolve: {
                 chart(SprintService) {
@@ -126,8 +126,8 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                     </sprints>
                 </bigscreen>`,
         })
-        .state("bigscreen.sprint",{
-            url: '/bigscreen/sprint/:sprint', 
+        .state("bigscreen.sprint", {
+            url: '/bigscreen/sprint/:sprint',
             resolve: {
                 chart(SprintService, $route) {
                     let sprint = $stateParams.sprint;
@@ -143,15 +143,15 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                     </sprints>
                 </bigscreen>`,
         })
-        .state("backlog",{
-            url: '/backlog', 
+        .state("backlog", {
+            url: '/backlog',
             resolve: {
-                "firebaseUser": function ($firebaseAuthService) {
+                "firebaseUser": function($firebaseAuthService) {
                     return $firebaseAuthService.$waitForSignIn();
-                }, 
-                "backlog": function (BacklogService) {
+                },
+                "backlog": function(BacklogService) {
                     return BacklogService.getBacklog();
-                } 
+                }
             },
             template: `
                 <app>
@@ -159,12 +159,12 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
                              back-title="'Overview'"
                              bi-items="$resolve.backlog">
                     </backlog> 
-                </app>`, 
-        }) 
-        .state("backlog.item",{
-            url: '/:item', 
+                </app>`,
+        })
+        .state("backlog.item", {
+            url: '/:item',
             resolve: {
-                "firebaseUser": function ($firebaseAuthService) {
+                "firebaseUser": function($firebaseAuthService) {
                     return $firebaseAuthService.$waitForSignIn();
                 },
                 "key": ($stateParams) => {
@@ -185,21 +185,20 @@ app.config(function ($locationProvider,$firebaseRefProvider, $stateProvider, $ur
 				on-delete="$ctrl.deleteItem($ctrl.selectedItem)" 
 				on-save="$ctrl.saveItem($ctrl.selectedItem)">
 			</backlog-form>
-            </div>` 
+            </div>`
         })
         .state('retro', {
             url: '/retro',
             resolve: {
-                "firebaseUser": function ($firebaseAuthService) {
+                "firebaseUser": function($firebaseAuthService) {
                     return $firebaseAuthService.$waitForSignIn();
-                } 
+                }
             },
             template: `
                 <app>
                     <retro title="'Retro'"
                              back-title="'Afspraken'">
                     </retro>
-                </app>`, 
-        }) 
-        .otherwise('/'); 
-}); 
+                </app>`
+        });
+});

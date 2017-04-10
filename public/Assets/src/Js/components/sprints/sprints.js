@@ -6,15 +6,11 @@ app.component('sprints', {
         chart: '='
     },
 
-<<<<<<< HEAD
-    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout, $rootScope, RetroService) {
-=======
-    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout,$rootScope, $location, SettingService) {
->>>>>>> 7a66df816f5405b00ddba4e12f0c409e2816f439
+    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout, $rootScope, $location, SettingService, RetroService) {
         let ctrl = this;
         let auth = $firebaseAuth();
         ctrl.settings = SettingService;
-        
+
         ctrl.state = {
             New: "0",
             Approved: "1",
@@ -30,7 +26,7 @@ app.component('sprints', {
         ctrl.openItem = (item) => {
             $location.path(`/backlog/${item.$id}`);
         }
-        
+
         ctrl.sumEffort = (items) => {
             var sum = 0;
             for (var i in items) {
