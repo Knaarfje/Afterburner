@@ -28,7 +28,7 @@ app.component('backlog', {
             ctrl.sprints = sprints;
         })
 
-        $scope.customOrder = (key) => {
+        ctrl.customOrder = (key) => {
             if (!ctrl.sprints) {
                 return 0;
             }
@@ -107,8 +107,7 @@ app.component('backlog', {
                     NotificationService.notify('Smells like fire...', `Work on "${item.name}" has been completed!`);
                 }
                 item.resolvedOn = item.resolvedOn || Date.now();
-            }
-            else {
+            } else {
                 item.resolvedOn = null;
             }
 
@@ -118,9 +117,9 @@ app.component('backlog', {
         }
 
         ctrl.filterItems = x => {
-            x == ctrl.filter.state
-                ? ctrl.filter = { name: ctrl.filter.name }
-                : ctrl.filter.state = x;
+            x == ctrl.filter.state ?
+                ctrl.filter = { name: ctrl.filter.name } :
+                ctrl.filter.state = x;
         }
 
         ctrl.sortConfig = {

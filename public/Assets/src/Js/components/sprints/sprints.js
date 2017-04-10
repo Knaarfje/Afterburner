@@ -6,7 +6,7 @@ app.component('sprints', {
         chart: '='
     },
 
-    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout,$rootScope) {
+    controller($firebaseAuth, SprintService, BacklogService, $scope, $timeout, $rootScope, RetroService) {
         let ctrl = this;
         let auth = $firebaseAuth();
 
@@ -17,7 +17,7 @@ app.component('sprints', {
             Removed: "4"
         };
 
-        ctrl.stateLookup = ['New', 'Approved', '', 'Done', 'Removed'];     
+        ctrl.stateLookup = ['New', 'Approved', '', 'Done', 'Removed'];
 
         ctrl.loaded = false;
         ctrl.filter = {};
@@ -30,8 +30,9 @@ app.component('sprints', {
 
             return sum;
         };
-        
+
         if (ctrl.chart.sprint && ctrl.backlog) {
+
             BacklogService.getBacklog(ctrl.chart.sprint).then(data => {
                 ctrl.BiItems = data;
                 $timeout(() => ctrl.loaded = true);
@@ -46,12 +47,17 @@ app.component('sprints', {
                     }
                 })
             });
+
+            RetroService.getRetro(ctrl.chart.sprint).then(data => {
+                ctrl.RetroAgreements = data;
+            });
+
         }
 
         ctrl.filterItems = x => {
-            x == ctrl.filter.state
-                ? ctrl.filter = { name: ctrl.filter.name }
-                : ctrl.filter.state = x;
+            x == ctrl.filter.state ?
+                ctrl.filter = { name: ctrl.filter.name } :
+                ctrl.filter.state = x;
         }
 
         ctrl.$onInit = () => {
@@ -65,7 +71,7 @@ app.component('sprints', {
             start = new Date(start * 1000);
             let dates = [];
             let burndown = [];
-            let daysToAdd = 0;            
+            let daysToAdd = 0;
             let velocityRemaining = ctrl.chart.sprint.velocity;
             let graphableBurndown = [];
             let totalBurndown = 0;
@@ -89,7 +95,7 @@ app.component('sprints', {
             for (var i in dates) {
                 var d = dates[i];
                 var bdown = 0;
-                
+
                 for (var i2 in backlog) {
                     var bli = backlog[i2];
                     if (bli.state != "3") {
@@ -121,8 +127,7 @@ app.component('sprints', {
     templateUrl: `${templatePath}/sprints.html`
 });
 
-Date.prototype.addDays = function(days)
-{
+Date.prototype.addDays = function(days) {
     var dat = new Date(this.valueOf());
     dat.setDate(dat.getDate() + days);
     return dat;
