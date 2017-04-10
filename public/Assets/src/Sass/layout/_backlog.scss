@@ -2,6 +2,7 @@
 .backlog-toolbar{
     display: table;
     width: 100%;
+    border-bottom: 1px solid rgba(255,255,255, .15);
 
     &-inner{display: table-row}
 
@@ -12,16 +13,42 @@
         text-align: right;
         min-width: 75px;
     }
-} 
+
+    .tabs {
+        display: table-cell;
+        width: 100%;
+        vertical-align: top;
+
+        a {
+            opacity: .6;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: .8em;
+            &:not(:first-child) {
+                margin-left: 10px;
+            }
+            &:not(.active):hover {
+                color: white;
+            }
+            &:focus {
+                color: white;
+                text-decoration: none;
+            }
+        }
+        .active {
+            opacity: 1;
+            pointer-events: none;
+        } 
+    }
+}
 
 .backlog-search{
     display: table-cell;
     position: relative;
-    width: 100%;
+    min-width: 24px;
 
     .fa-search {
         position: absolute;
-        top: 4px;
         pointer-events: none;
     }
 
@@ -30,26 +57,40 @@
         text-indent: 30px;
         border: transparent;
         margin-bottom: 5px;
-        margin-top: -7px;
+        margin-top: -10px;
 
-        &:focus{border-bottom: 2px solid white;}
+        &:focus{
+            border-bottom: 2px solid white;
+        }
+    }
+}
+
+// search onfocus
+.search-active {
+    .tabs {
+        display: none;
+    }
+    .backlog-search {
+        width: 100%;
     }
 }
 
 .list-backlog{
-    max-height: calc(90vh - 1em - 2em - 40px - 6em);
-    max-height: calc(90vh - 1em - 2em - 6em);
+    // max-height: calc(90vh - 1em - 2em - 40px - 6em);
+    // max-height: calc(90vh - 1em - 2em - 6em);
+    height: calc(90vh - 36px - 75px - 10px);
+    margin-top: 10px;
     overflow-y: auto;
 
-    @include bp($bp-nav){
-        max-height: calc(90vh - 1em - 2em - 40px - 6em);
-    }
+    // @include bp($bp-nav){
+    //     max-height: calc(90vh - 1em - 2em - 40px - 6em);
+    // }
 
-    .backlog-side &{
-        @include bp($bp-nav){
-            max-height: calc(90vh - 1em - 2em - 40px - 11.5em);
-        }
-    }
+    // .backlog-side &{
+    //     @include bp($bp-nav){
+    //         max-height: calc(90vh - 1em - 2em - 40px - 11.5em);
+    //     }
+    // }
 
     .list-bi-sprint{
         padding: 1em 0 0.5em 0;

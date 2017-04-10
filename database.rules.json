@@ -1,4 +1,5 @@
 {
+"rules": {
   ".read": "auth != null",
   ".write": "auth != null",
   "sprints": {
@@ -10,4 +11,5 @@
   "attachments": {
     ".indexOn": ["backlogItem"]
   }
+}
 }

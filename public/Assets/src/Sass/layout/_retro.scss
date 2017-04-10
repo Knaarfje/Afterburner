@@ -1,0 +1,72 @@
+.list-retro {
+    height: calc(90vh - 36px - 75px - 10px);
+    margin-top: 10px;
+    overflow-y: auto;
+}
+
+.retro-body-container {
+    @include bp(768px, max) {
+        max-height: calc(90vh - 52px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.retro-inner-container {
+    column-width: auto;
+	column-gap: 15px;
+    column-count: 3;
+    width: 100%;
+    padding: 30px 15px;
+
+    @include bp(768px, max) {
+        column-count: 2;
+    }
+
+    @include bp($bp-xs, max) {
+        column-count: initial;
+    }
+}
+
+.sprint-container {
+    margin: 0 0 30px;
+    width: 100%;
+    display: inline-block;
+    -webkit-column-break-inside: avoid;
+    column-break-inside: avoid;
+}
+
+.sprint-title {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.retro-item {
+    background-color: white;
+    border-radius: 5px;
+    padding: 12px;
+    display: inline-block;
+    font-family: $font-body;
+    width: 100%;
+
+    &:first-child {
+        margin-top: 10px;
+    }
+}
+
+.author-name,
+.retro-message {
+    font-weight: 500;
+    text-transform: none;
+    margin-bottom: 0;
+}
+
+.author-name {
+    color: #7D7D7D;
+    font-size: 11px;
+}
+
+.retro-message {
+    color: black;
+    font-size: 15px;
+}
